@@ -14,28 +14,17 @@ interface HtmlFormInterface
     public function label();
 
     /**
-     * @param string $class
-     * @return $this
-     */
-    public function setClass($class);
-
-    /**
      * @return string
      */
-    public function toHtmlForm();
+    public function form();
 
     /**
-     * @return string
+     * @return self[]
      */
-    public function toAttribute();
+    public function choices();
 
     /**
      * @return string
      */
     public function __toString();
-
-    /**
-     * @return self[]
-     */
-    public function getOptions();
 }
