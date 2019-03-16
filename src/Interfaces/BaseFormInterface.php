@@ -30,7 +30,7 @@ interface BaseFormInterface
     public function setInputFilter(callable $filter): self;
 
     /**
-     * @param callable $validator
+     * @param callable|ValidatorInterface $validator
      * @return $this
      */
     public function setValidator(callable $validator): self;
