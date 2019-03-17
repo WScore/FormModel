@@ -5,17 +5,10 @@ interface FormTypeInterface extends BaseFormInterface, \IteratorAggregate
 {
     /**
      * @param string $name
-     * @param string $label
-     * @return $this
-     */
-    public static function create(string $name, string $label): self;
-
-    /**
-     * @param string $name
      * @param ElementInterface $element
      * @return $this
      */
-    public function add(string $name, ElementInterface $element): self;
+    public function add(string $name, ElementInterface $element): FormTypeInterface;
 
     /**
      * @param string $name
@@ -23,13 +16,13 @@ interface FormTypeInterface extends BaseFormInterface, \IteratorAggregate
      * @param int $repeat
      * @return $this
      */
-    public function addForm(string $name, FormTypeInterface $element, $repeat = 0): self;
+    public function addForm(string $name, FormTypeInterface $element, $repeat = 0): FormTypeInterface;
 
     /**
      * @param string $name
-     * @return BaseFormInterface
+     * @return BaseFormInterface|FormTypeInterface|ElementInterface
      */
-    public function get(string  $name);
+    public function get(string $name): ?BaseFormInterface;
 
     /**
      * @return bool
@@ -37,9 +30,9 @@ interface FormTypeInterface extends BaseFormInterface, \IteratorAggregate
     public function hasChildren(): bool;
 
     /**
-     * @return BaseFormInterface[]
+     * @return BaseFormInterface[]|FormTypeInterface[]|ElementInterface[]
      */
-    public function getChildren();
+    public function getChildren(): array;
 
     /**
      * @return \Traversable|BaseFormInterface[]
@@ -50,5 +43,5 @@ interface FormTypeInterface extends BaseFormInterface, \IteratorAggregate
      * @param string $prefix
      * @return FormTypeInterface
      */
-    public function setPrefixName(string $prefix): self;
+    public function setPrefixName(string $prefix): FormTypeInterface;
 }

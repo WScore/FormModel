@@ -40,10 +40,15 @@ interface ElementInterface extends BaseFormInterface
     public function setLabel($label): self;
 
     /**
-     * @param string $pattern
+     * @param array $validation
      * @return $this
      */
-    public function setPattern($pattern): self;
+    public function setValidations(array $validation): self;
+
+    /**
+     * @return array
+     */
+    public function getValidations(): array;
 
     /**
      * @param array $choices
@@ -56,4 +61,15 @@ interface ElementInterface extends BaseFormInterface
      * @return $this
      */
     public function setMultiple($multiple = true): self;
+
+    /**
+     * @param array $attributes
+     * @return ElementInterface
+     */
+    public function setAttributes(array $attributes): self;
+
+    /**
+     * @return array
+     */
+    public function getAttributes(): array;
 }

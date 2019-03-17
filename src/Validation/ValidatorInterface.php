@@ -1,6 +1,6 @@
 <?php
 
-namespace WScore\FormModel\Interfaces;
+namespace WScore\FormModel\Validation;
 
 /**
  * Interface FilterInterface
@@ -9,9 +9,9 @@ namespace WScore\FormModel\Interfaces;
 interface ValidatorInterface
 {
     /**
-     * @param ValidateResultInterface $result
+     * @param ValidationResultInterface $result
      * @param string $name
      * @return void
      */
-    public function __invoke(ValidateResultInterface $result, $name);
+    public function __invoke(ValidationResultInterface $result, $name);
 }

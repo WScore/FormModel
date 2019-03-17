@@ -2,7 +2,6 @@
 namespace WScore\FormModel\Form;
 
 use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\HtmlFormInterface;
 
 class FormBuilder
 {
