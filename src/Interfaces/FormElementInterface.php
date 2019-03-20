@@ -45,10 +45,4 @@ interface FormElementInterface extends BaseElementInterface, \IteratorAggregate
      * @return \Traversable|BaseElementInterface[]
      */
     public function getIterator();
-
-    /**
-     * @param array|string $inputs
-     * @return ValidationResultInterface[]
-     */
-    public function validate($inputs): array ;
 }

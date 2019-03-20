@@ -6,6 +6,7 @@ use WScore\FormModel\Form\HtmlFormInterface;
 use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\FormModel\Validation\Result;
 use WScore\FormModel\Validation\ValidationResultInterface;
 
 class FormType extends AbstractBase implements FormElementInterface
@@ -82,16 +83,16 @@ class FormType extends AbstractBase implements FormElementInterface
 
     /**
      * @param array|string $inputs
-     * @return ValidationResultInterface[]
+     * @return ValidationResultInterface
      */
-    public function validate($inputs): array
+    public function validate($inputs): ValidationResultInterface
     {
         $results = [];
         foreach($this->getChildren() as $name => $child) {
             $value = $inputs[$name] ?? null;
             $results[] = $child->validate($value);
         }
-        return $results;
+        return Result::aggregate($this, $results);
     }
 
     /**

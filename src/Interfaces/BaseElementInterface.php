@@ -68,6 +68,12 @@ interface BaseElementInterface
 
     /**
      * @param array|string $inputs
+     * @return ValidationResultInterface
+     */
+    public function validate($inputs): ValidationResultInterface;
+
+    /**
+     * @param array|string $inputs
      * @return HtmlFormInterface
      */
     public function viewHtml($inputs): HtmlFormInterface;

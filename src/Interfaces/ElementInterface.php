@@ -42,10 +42,4 @@ interface ElementInterface extends BaseElementInterface
      * @return $this
      */
     public function setMultiple($multiple = true): ElementInterface;
-
-    /**
-     * @param array|string $inputs
-     * @return ValidationResultInterface
-     */
-    public function validate($inputs): ValidationResultInterface;
 }
