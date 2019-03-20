@@ -13,7 +13,7 @@ class FormResult implements ValidationResultInterface
     /**
      * @var bool
      */
-    private $isValid = false;
+    private $isValid;
 
     /**
      * @var array
@@ -54,9 +54,9 @@ class FormResult implements ValidationResultInterface
             }
             $self->value[$name] = $result->value();
             $self->message[$name] = $result->getErrorMessage();
+            $self->children[$name] = $result;
         }
         $self->isValid = $isValid;
-        $self->children = $results;
 
         return $self;
     }
