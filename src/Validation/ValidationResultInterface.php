@@ -41,7 +41,7 @@ interface ValidationResultInterface extends \IteratorAggregate
     public function getErrorMessage();
 
     /**
-     * @return \self[]
+     * @return self[]
      */
     public function getIterator();
 

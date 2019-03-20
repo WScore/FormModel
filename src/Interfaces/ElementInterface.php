@@ -1,7 +1,9 @@
 <?php
 namespace WScore\FormModel\Interfaces;
 
-interface ElementInterface extends BaseFormInterface
+use WScore\FormModel\Validation\ValidationResultInterface;
+
+interface ElementInterface extends BaseElementInterface
 {
     /**
      * @return string
@@ -9,41 +11,21 @@ interface ElementInterface extends BaseFormInterface
     public function getValue(): string;
 
     /**
-     * @return array
-     */
-    public function getChoices(): array;
-
-    /**
      * @return bool
      */
     public function isRequired(): bool;
 
     /**
-     * @return bool
-     */
-    public function isMultiple(): bool;
-
-    /**
-     * @return bool
-     */
-    public function hasChoices(): bool;
-
-    /**
+     * @param bool $required
      * @return $this
      */
-    public function setRequired(): self;
-
-    /**
-     * @param string $label
-     * @return $this
-     */
-    public function setLabel($label): self;
+    public function setRequired($required = true): ElementInterface;
 
     /**
      * @param array $validation
      * @return $this
      */
-    public function setValidations(array $validation): self;
+    public function setValidations(array $validation): ElementInterface;
 
     /**
      * @return array
@@ -51,25 +33,19 @@ interface ElementInterface extends BaseFormInterface
     public function getValidations(): array;
 
     /**
-     * @param array $choices
-     * @return $this
+     * @return bool
      */
-    public function setChoices(array $choices): self;
+    public function isMultiple(): bool;
 
     /**
      * @param bool $multiple
      * @return $this
      */
-    public function setMultiple($multiple = true): self;
+    public function setMultiple($multiple = true): ElementInterface;
 
     /**
-     * @param array $attributes
-     * @return ElementInterface
+     * @param array|string $inputs
+     * @return ValidationResultInterface
      */
-    public function setAttributes(array $attributes): self;
-
-    /**
-     * @return array
-     */
-    public function getAttributes(): array;
+    public function validate($inputs): ValidationResultInterface;
 }

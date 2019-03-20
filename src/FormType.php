@@ -1,24 +1,19 @@
 <?php
 namespace WScore\FormModel;
 
+use WScore\FormModel\Element\AbstractBase;
 use WScore\FormModel\Form\HtmlFormInterface;
-use WScore\FormModel\Interfaces\BaseFormInterface;
+use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\FormTypeInterface;
-use WScore\FormModel\Validation\FilterInterface;
+use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\FormModel\Validation\ValidationResultInterface;
-use WScore\FormModel\Validation\ValidatorInterface;
 
-class FormType implements FormTypeInterface
+class FormType extends AbstractBase implements FormElementInterface
 {
     /**
-     * @var array
+     * @var BaseElementInterface[]
      */
-    private $elements = [];
-
-    private $name;
-
-    private $label;
+    private $children = [];
 
     /**
      * @param string $name
@@ -39,19 +34,28 @@ class FormType implements FormTypeInterface
      * @param ElementInterface $element
      * @return $this
      */
-    public function add(string $name, ElementInterface $element): FormTypeInterface
+    public function add(string $name, ElementInterface $element): FormElementInterface
     {
-        $this->elements[$name] = $element;
+        $this->addChild($name, $element);
         return $this;
     }
 
     /**
      * @param string $name
-     * @return BaseFormInterface
+     * @return BaseElementInterface|ElementInterface|FormElementInterface
      */
-    public function get(string $name): ?BaseFormInterface
+    public function get(string $name): ?BaseElementInterface
     {
-        return isset($this->elements[$name]) ? $this->elements[$name] : null;
+        return isset($this->children[$name]) ? $this->children[$name] : null;
+    }
+
+    private function addChild(string  $name, BaseElementInterface $child)
+    {
+        $fullName = $this->fullName
+            ? $this->fullName . "[{$name}]"
+            : $name;
+        $child->setFullName($fullName);
+        $this->children[$name] = $child;
     }
 
     /**
@@ -59,7 +63,7 @@ class FormType implements FormTypeInterface
      */
     public function getType(): string
     {
-        return BaseFormInterface::TYPE_FORM;
+        return BaseElementInterface::TYPE_FORM;
     }
 
     /**
@@ -71,57 +75,28 @@ class FormType implements FormTypeInterface
     }
 
     /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        // TODO: Implement getName() method.
-    }
-
-    /**
-     * @return string
-     */
-    public function getLabel(): string
-    {
-        // TODO: Implement getLabel() method.
-    }
-
-    /**
-     * @param callable|FilterInterface $filter
-     * @return $this
-     */
-    public function setInputFilter(callable $filter): FormTypeInterface
-    {
-        // TODO: Implement setInputFilter() method.
-    }
-
-    /**
-     * @param callable|ValidatorInterface $validator
-     * @return $this
-     */
-    public function setValidator(callable $validator): FormTypeInterface
-    {
-        // TODO: Implement setValidator() method.
-    }
-
-    /**
      * @param array|string $inputs
-     * @return ValidationResultInterface
+     * @return ValidationResultInterface[]
      */
-    public function validate($inputs): ValidationResultInterface
+    public function validate($inputs): array
     {
-        // TODO: Implement validate() method.
+        $results = [];
+        foreach($this->getChildren() as $name => $child) {
+            $value = $inputs[$name] ?? null;
+            $results[] = $child->validate($value);
+        }
+        return $results;
     }
 
     /**
      * @param string $name
-     * @param FormTypeInterface $element
-     * @param int $repeat
+     * @param FormElementInterface $element
      * @return $this
      */
-    public function addForm(string $name, FormTypeInterface $element, $repeat = 0): FormTypeInterface
+    public function addForm(string $name, FormElementInterface $element): FormElementInterface
     {
-        // TODO: Implement addForm() method.
+        $this->addChild($name, $element);
+        return $this;
     }
 
     /**
@@ -129,32 +104,39 @@ class FormType implements FormTypeInterface
      */
     public function hasChildren(): bool
     {
-        // TODO: Implement hasChildren() method.
+        return !empty($this->children);
     }
 
     /**
-     * @return BaseFormInterface[]
+     * @return BaseElementInterface[]
      */
     public function getChildren(): array
     {
-        // TODO: Implement getChildren() method.
+        return $this->children;
     }
 
     /**
-     * @return \Traversable|BaseFormInterface[]
+     * @return \Traversable|BaseElementInterface[]
      */
     public function getIterator()
     {
-        // TODO: Implement getIterator() method.
+        return new \ArrayIterator($this->children);
     }
 
     /**
-     * @param string $prefix
+     * @param string $name
+     * @param FormElementInterface $element
+     * @param int $repeat
      * @return $this
      */
-    public function setPrefixName(string $prefix): FormTypeInterface
+    public function addRepeatedForm(string $name, $repeat, FormElementInterface $element): FormElementInterface
     {
-        // TODO: Implement setPrefixName() method.
+        $form = FormType::create($name);
+        $this->addChild($name, $form);
+        for($idx = 0; $idx < $repeat; $idx ++) {
+            $form->addForm($idx, $element);
+        }
+        return $this;
     }
 
     /**

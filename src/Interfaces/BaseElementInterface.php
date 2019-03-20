@@ -6,9 +6,11 @@ use WScore\FormModel\Validation\FilterInterface;
 use WScore\FormModel\Validation\ValidationResultInterface;
 use WScore\FormModel\Validation\ValidatorInterface;
 
-interface BaseFormInterface
+interface BaseElementInterface
 {
     const TYPE_FORM = 'form-type';
+    const TYPE_TEXT = 'text-element';
+    const TYPE_CHOICE = 'choice-element';
 
     /**
      * @return string
@@ -31,22 +33,33 @@ interface BaseFormInterface
     public function getLabel(): string;
 
     /**
-     * @param callable|FilterInterface $filter
-     * @return $this
+     * @return array
      */
-    public function setInputFilter(callable $filter);
+    public function getAttributes(): array;
 
     /**
-     * @param callable|ValidatorInterface $validator
+     * @param string $fullName
      * @return $this
      */
-    public function setValidator(callable $validator);
+    public function setFullName(string $fullName): BaseElementInterface;
 
     /**
-     * @param array|string $inputs
-     * @return ValidationResultInterface
+     * @param array $attributes
+     * @return ElementInterface
      */
-    public function validate($inputs): ValidationResultInterface;
+    public function setAttributes(array $attributes): BaseElementInterface;
+
+    /**
+     * @param callable[]|FilterInterface[] $filters
+     * @return $this
+     */
+    public function setInputFilter(callable ...$filters);
+
+    /**
+     * @param callable[]|ValidatorInterface[] $validators
+     * @return $this
+     */
+    public function setValidator(callable ...$validators);
 
     /**
      * @param array|string $inputs

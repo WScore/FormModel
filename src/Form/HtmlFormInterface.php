@@ -16,6 +16,11 @@ interface HtmlFormInterface
     /**
      * @return string
      */
+    public function value();
+
+    /**
+     * @return string
+     */
     public function form();
 
     /**
