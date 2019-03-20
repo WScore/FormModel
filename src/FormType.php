@@ -58,9 +58,9 @@ class FormType extends AbstractBase implements FormElementInterface
         return $child;
     }
 
-    private function addChild(BaseElementInterface $child)
+    private function addChild(BaseElementInterface $child, $name = null)
     {
-        $name = $child->getName();
+        $name = $name ?? $child->getName();
         $this->children[$name] = $child;
     }
 
@@ -144,8 +144,8 @@ class FormType extends AbstractBase implements FormElementInterface
         $this->addChild($form);
         for($idx = 0; $idx < $repeat; $idx ++) {
             $cloned = clone $element;
-            $cloned->setName($idx);
-            $form->addChild($cloned);
+            $cloned->setName("{$name}[{$idx}]");
+            $form->addChild($cloned, $idx);
         }
         return $this;
     }

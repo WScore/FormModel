@@ -104,7 +104,7 @@ class FormTypeTest extends TestCase
         $this->assertEquals(FormType::class, get_class($addresses));
         $this->assertTrue($addresses->hasChildren());
         foreach ($addresses->getChildren() as $idx => $address) {
-            $this->assertEquals($idx, $address->getName());
+            $this->assertEquals("address[$idx]", $address->getName());
             $this->assertEquals("user[address][{$idx}]", $address->getFullName());
         }
     }
