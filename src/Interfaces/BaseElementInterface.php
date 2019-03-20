@@ -30,6 +30,11 @@ interface BaseElementInterface
     /**
      * @return string
      */
+    public function getFullName(): string;
+
+    /**
+     * @return string
+     */
     public function getLabel(): string;
 
     /**

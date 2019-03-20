@@ -45,6 +45,19 @@ abstract class AbstractBase implements BaseElementInterface
         return $this->name;
     }
 
+    protected function setName(string $name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return $this->fullName;
+    }
+
     /**
      * @return string
      */

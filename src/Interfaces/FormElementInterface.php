@@ -1,31 +1,29 @@
 <?php
 namespace WScore\FormModel\Interfaces;
 
+use WScore\FormModel\FormType;
 use WScore\FormModel\Validation\ValidationResultInterface;
 
 interface FormElementInterface extends BaseElementInterface, \IteratorAggregate
 {
     /**
-     * @param string $name
      * @param ElementInterface $element
      * @return $this
      */
-    public function add(string $name, ElementInterface $element): FormElementInterface;
+    public function add(ElementInterface $element): FormElementInterface;
 
     /**
-     * @param string $name
      * @param FormElementInterface $element
      * @return $this
      */
-    public function addForm(string $name, FormElementInterface $element): FormElementInterface;
+    public function addForm(FormElementInterface $element): FormElementInterface;
 
     /**
-     * @param string $name
-     * @param FormElementInterface $element
+     * @param FormType $element
      * @param int $repeat
      * @return $this
      */
-    public function addRepeatedForm(string $name, $repeat, FormElementInterface $element): FormElementInterface;
+    public function addRepeatedForm($repeat, FormType $element): FormElementInterface;
 
     /**
      * @param string $name

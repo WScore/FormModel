@@ -25,18 +25,18 @@ class FormType extends AbstractBase implements FormElementInterface
         $self = new static();
         $self->name = $name;
         $self->label = $label;
+        $self->fullName = $name;
 
         return $self;
     }
 
     /**
-     * @param string $name
      * @param ElementInterface $element
      * @return $this
      */
-    public function add(string $name, ElementInterface $element): FormElementInterface
+    public function add(ElementInterface $element): FormElementInterface
     {
-        $this->addChild($name, $element);
+        $this->addChild($element);
         return $this;
     }
 
@@ -46,15 +46,21 @@ class FormType extends AbstractBase implements FormElementInterface
      */
     public function get(string $name): ?BaseElementInterface
     {
-        return isset($this->children[$name]) ? $this->children[$name] : null;
-    }
-
-    private function addChild(string  $name, BaseElementInterface $child)
-    {
+        if (!isset($this->children[$name])) {
+            throw new \InvalidArgumentException('name not found: '.$name);
+        }
+        $child = $this->children[$name];
         $fullName = $this->fullName
             ? $this->fullName . "[{$name}]"
             : $name;
         $child->setFullName($fullName);
+
+        return $child;
+    }
+
+    private function addChild(BaseElementInterface $child)
+    {
+        $name = $child->getName();
         $this->children[$name] = $child;
     }
 
@@ -89,13 +95,12 @@ class FormType extends AbstractBase implements FormElementInterface
     }
 
     /**
-     * @param string $name
      * @param FormElementInterface $element
      * @return $this
      */
-    public function addForm(string $name, FormElementInterface $element): FormElementInterface
+    public function addForm(FormElementInterface $element): FormElementInterface
     {
-        $this->addChild($name, $element);
+        $this->addChild($element);
         return $this;
     }
 
@@ -112,7 +117,11 @@ class FormType extends AbstractBase implements FormElementInterface
      */
     public function getChildren(): array
     {
-        return $this->children;
+        $children = [];
+        foreach ($this->children as $name => $child) {
+            $children[$name] = $this->get($name);
+        }
+        return $children;
     }
 
     /**
@@ -120,21 +129,23 @@ class FormType extends AbstractBase implements FormElementInterface
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->children);
+        return new \ArrayIterator($this->getChildren());
     }
 
     /**
-     * @param string $name
-     * @param FormElementInterface $element
+     * @param FormType $element
      * @param int $repeat
      * @return $this
      */
-    public function addRepeatedForm(string $name, $repeat, FormElementInterface $element): FormElementInterface
+    public function addRepeatedForm($repeat, FormType $element): FormElementInterface
     {
+        $name = $element->getName();
         $form = FormType::create($name);
-        $this->addChild($name, $form);
+        $this->addChild($form);
         for($idx = 0; $idx < $repeat; $idx ++) {
-            $form->addForm($idx, $element);
+            $cloned = clone $element;
+            $cloned->setName($idx);
+            $form->addChild($cloned);
         }
         return $this;
     }
