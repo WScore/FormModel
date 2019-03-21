@@ -9,9 +9,9 @@ namespace WScore\FormModel\Validation;
 interface ValidatorInterface
 {
     /**
-     * @param ValidationResultInterface $result
-     * @param string $name
-     * @return void
+     * @param ResultInterface $result
+     * @param array $allInput
+     * @return Result|null
      */
-    public function __invoke(ValidationResultInterface $result, $name);
+    public function __invoke(ResultInterface $result, $allInput = []): ?Result;
 }

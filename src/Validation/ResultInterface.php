@@ -1,7 +1,7 @@
 <?php
 namespace WScore\FormModel\Validation;
 
-interface ValidationResultInterface extends \IteratorAggregate
+interface ResultInterface extends \IteratorAggregate
 {
     /**
      * @return string|string[]|mixed
@@ -36,9 +36,9 @@ interface ValidationResultInterface extends \IteratorAggregate
 
     /**
      * @param string $name
-     * @return ValidationResultInterface
+     * @return ResultInterface
      */
-    public function getChild(string $name): ?ValidationResultInterface;
+    public function getChild(string $name): ?ResultInterface;
 
     /**
      * @return self[]

@@ -4,7 +4,7 @@ namespace WScore\FormModel\Element;
 use WScore\FormModel\Form\HtmlFormInterface;
 use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Validation\ValidationResultInterface;
+use WScore\FormModel\Validation\ResultInterface;
 
 class TextType extends AbstractElement
 {
@@ -46,9 +46,9 @@ class TextType extends AbstractElement
 
     /**
      * @param array|string $inputs
-     * @return ValidationResultInterface
+     * @return ResultInterface
      */
-    public function validate($inputs): ValidationResultInterface
+    public function validate($inputs): ResultInterface
     {
         // TODO: Implement validate() method.
     }

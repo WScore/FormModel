@@ -3,7 +3,7 @@ namespace WScore\FormModel\Validation;
 
 use WScore\FormModel\Interfaces\BaseElementInterface;
 
-class Result implements ValidationResultInterface
+class Result implements ResultInterface
 {
     /**
      * @var null|mixed
@@ -33,9 +33,9 @@ class Result implements ValidationResultInterface
     /**
      * @param BaseElementInterface $element
      * @param mixed $value
-     * @return ValidationResultInterface
+     * @return ResultInterface
      */
-    public static function success(BaseElementInterface $element, $value): ValidationResultInterface
+    public static function success(BaseElementInterface $element, $value): ResultInterface
     {
         $self = new self();
         $self->fillResult($element);
@@ -49,9 +49,9 @@ class Result implements ValidationResultInterface
      * @param BaseElementInterface $element
      * @param mixed $value
      * @param string $message
-     * @return ValidationResultInterface
+     * @return ResultInterface
      */
-    public static function fail(?BaseElementInterface $element, $value, $message): ValidationResultInterface
+    public static function fail(?BaseElementInterface $element, $value, $message): ResultInterface
     {
         $self = new self();
         $self->fillResult($element);
@@ -85,6 +85,14 @@ class Result implements ValidationResultInterface
     }
 
     /**
+     * @param mixed $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
      * @return string
      */
     public function label(): string
@@ -111,9 +119,9 @@ class Result implements ValidationResultInterface
 
     /**
      * @param string $name
-     * @return ValidationResultInterface
+     * @return ResultInterface
      */
-    public function getChild(string $name): ?ValidationResultInterface
+    public function getChild(string $name): ?ResultInterface
     {
         return $this->children[$name] ?? null;
     }

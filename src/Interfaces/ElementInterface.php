@@ -1,7 +1,7 @@
 <?php
 namespace WScore\FormModel\Interfaces;
 
-use WScore\FormModel\Validation\ValidationResultInterface;
+use WScore\FormModel\Validation\ResultInterface;
 
 interface ElementInterface extends BaseElementInterface
 {

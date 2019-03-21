@@ -3,7 +3,7 @@ namespace WScore\FormModel\Validation;
 
 use WScore\FormModel\Interfaces\FormElementInterface;
 
-class FormResult implements ValidationResultInterface
+class ResultList implements ResultInterface
 {
     /**
      * @var null|array
@@ -37,10 +37,10 @@ class FormResult implements ValidationResultInterface
 
     /**
      * @param FormElementInterface $form
-     * @param ValidationResultInterface[] $results
-     * @return ValidationResultInterface
+     * @param ResultInterface[] $results
+     * @return ResultInterface
      */
-    public static function aggregate(FormElementInterface $form, array $results): ValidationResultInterface
+    public static function aggregate(FormElementInterface $form, array $results): ResultInterface
     {
         if (empty($results)) {
             throw new \InvalidArgumentException('empty results');
@@ -59,6 +59,17 @@ class FormResult implements ValidationResultInterface
         $self->isValid = $isValid;
 
         return $self;
+    }
+
+    public function addResult(ResultInterface $result, $name = null)
+    {
+        $name = $name ?? $result->name();
+        $this->value[$name] = $result->value();
+        $this->message[$name] = $result->getErrorMessage();
+        $this->children[$name] = $result;
+        if (!$result->isValid()) {
+            $this->isValid = false;
+        }
     }
 
     private function fillResult(FormElementInterface $element)
@@ -110,9 +121,9 @@ class FormResult implements ValidationResultInterface
 
     /**
      * @param string $name
-     * @return ValidationResultInterface
+     * @return ResultInterface
      */
-    public function getChild(string $name): ?ValidationResultInterface
+    public function getChild(string $name): ?ResultInterface
     {
         return $this->children[$name] ?? null;
     }
@@ -142,7 +153,7 @@ class FormResult implements ValidationResultInterface
     }
 
     /**
-     * @return ValidationResultInterface[]
+     * @return ResultInterface[]
      */
     public function getChildren()
     {

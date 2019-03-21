@@ -2,7 +2,7 @@
 namespace WScore\FormModel\Interfaces;
 
 use WScore\FormModel\FormType;
-use WScore\FormModel\Validation\ValidationResultInterface;
+use WScore\FormModel\Validation\ResultInterface;
 
 interface FormElementInterface extends BaseElementInterface, \IteratorAggregate
 {
