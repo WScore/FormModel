@@ -9,9 +9,9 @@ namespace WScore\FormModel\Validation;
 interface FilterInterface
 {
     /**
-     * @param string|string[]|array $input
-     * @param array $allInputs
-     * @return string|string[]|null
+     * @param ResultInterface $input
+     * @param ResultInterface $allInputs
+     * @return ResultInterface|null
      */
     public function __invoke($input, $allInputs);
 }

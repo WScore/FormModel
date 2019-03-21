@@ -4,6 +4,7 @@ namespace WScore\FormModel\Interfaces;
 use WScore\FormModel\Form\HtmlFormInterface;
 use WScore\FormModel\Validation\FilterInterface;
 use WScore\FormModel\Validation\ResultInterface;
+use WScore\FormModel\Validation\ValidationInterface;
 use WScore\FormModel\Validation\ValidatorInterface;
 
 interface BaseElementInterface
@@ -55,22 +56,9 @@ interface BaseElementInterface
     public function setAttributes(array $attributes): BaseElementInterface;
 
     /**
-     * @param callable[]|FilterInterface[] $filters
-     * @return $this
+     * @return ValidationInterface
      */
-    public function setInputFilter(callable ...$filters);
-
-    /**
-     * @param callable[]|ValidatorInterface[] $validators
-     * @return $this
-     */
-    public function setValidator(callable ...$validators);
-
-    /**
-     * @param array|string $inputs
-     * @return ResultInterface
-     */
-    public function validate($inputs): ResultInterface;
+    public function getValidation();
 
     /**
      * @param array|string $inputs

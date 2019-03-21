@@ -95,6 +95,14 @@ class ResultList implements ResultInterface
     }
 
     /**
+     * @param mixed $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
      * @return string
      */
     public function label(): string

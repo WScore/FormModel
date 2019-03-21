@@ -9,6 +9,8 @@ use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\FormModel\Validation\ResultList;
 use WScore\FormModel\Validation\Result;
 use WScore\FormModel\Validation\ResultInterface;
+use WScore\FormModel\Validation\ValidationInterface;
+use WScore\FormModel\Validation\ValidationList;
 
 class FormType extends AbstractBase implements FormElementInterface
 {
@@ -16,6 +18,11 @@ class FormType extends AbstractBase implements FormElementInterface
      * @var BaseElementInterface[]
      */
     private $children = [];
+
+    /**
+     * @var ValidationInterface
+     */
+    private $validation;
 
     /**
      * @param string $name
@@ -39,6 +46,34 @@ class FormType extends AbstractBase implements FormElementInterface
     public function add(ElementInterface $element): FormElementInterface
     {
         $this->addChild($element);
+        return $this;
+    }
+
+    /**
+     * @param FormElementInterface $element
+     * @return $this
+     */
+    public function addForm(FormElementInterface $element): FormElementInterface
+    {
+        $this->addChild($element);
+        return $this;
+    }
+
+    /**
+     * @param FormType $element
+     * @param int $repeat
+     * @return $this
+     */
+    public function addRepeatedForm($repeat, FormType $element): FormElementInterface
+    {
+        $name = $element->getName();
+        $form = FormType::create($name);
+        $this->addChild($form);
+        for($idx = 0; $idx < $repeat; $idx ++) {
+            $cloned = clone $element;
+            $cloned->setName("{$name}[{$idx}]");
+            $form->addChild($cloned, $idx);
+        }
         return $this;
     }
 
@@ -82,28 +117,25 @@ class FormType extends AbstractBase implements FormElementInterface
         return true;
     }
 
+    public function getValidation()
+    {
+        return $this->validation ?: $this->validation = new ValidationList();
+    }
+
     /**
      * @param array|string $inputs
      * @return ResultInterface
      */
     public function validate($inputs): ResultInterface
     {
-        $results = [];
+        // prepare result object.
         foreach($this->getChildren() as $name => $child) {
-            $value = $inputs[$name] ?? null;
-            $results[$name] = $child->validate($value);
+            $this->validation->addChild($name, $child->getValidation());
         }
-        return ResultList::aggregate($this, $results);
-    }
-
-    /**
-     * @param FormElementInterface $element
-     * @return $this
-     */
-    public function addForm(FormElementInterface $element): FormElementInterface
-    {
-        $this->addChild($element);
-        return $this;
+        $results = $this->validation->initialize($inputs);
+        // validate!
+        $validatedResults = $this->validation->validate($results);
+        return $validatedResults;
     }
 
     /**
@@ -132,24 +164,6 @@ class FormType extends AbstractBase implements FormElementInterface
     public function getIterator()
     {
         return new \ArrayIterator($this->getChildren());
-    }
-
-    /**
-     * @param FormType $element
-     * @param int $repeat
-     * @return $this
-     */
-    public function addRepeatedForm($repeat, FormType $element): FormElementInterface
-    {
-        $name = $element->getName();
-        $form = FormType::create($name);
-        $this->addChild($form);
-        for($idx = 0; $idx < $repeat; $idx ++) {
-            $cloned = clone $element;
-            $cloned->setName("{$name}[{$idx}]");
-            $form->addChild($cloned, $idx);
-        }
-        return $this;
     }
 
     /**

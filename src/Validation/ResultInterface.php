@@ -9,6 +9,11 @@ interface ResultInterface extends \IteratorAggregate
     public function value();
 
     /**
+     * @param mixed $value
+     */
+    public function setValue($value);
+
+    /**
      * @return string
      */
     public function name(): string ;
