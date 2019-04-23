@@ -14,8 +14,22 @@
             "WScore\\FormModel\\": "src/"
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "require": {
+        "wscore/validation": "dev-master",
+        "wscore/html": "dev-master"
+    },
     "require-dev": {
         "phpunit/phpunit": "^8.0"
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/asaokamei/WScore.Html"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/asaokamei/Validation"
+        }
+    ]
 }
