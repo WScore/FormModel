@@ -4,7 +4,7 @@ namespace WScore\FormModel;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
 
-class FormBuilder
+class FormModel
 {
     public static function create(string $locale = 'en'): self
     {

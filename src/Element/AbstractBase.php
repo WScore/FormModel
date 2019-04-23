@@ -1,7 +1,10 @@
 <?php
 namespace WScore\FormModel\Element;
 
+use WScore\FormModel\Html\Html;
+use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Interfaces\BaseElementInterface;
+use WScore\FormModel\Validation\Validator;
 
 abstract class AbstractBase implements BaseElementInterface
 {
@@ -121,5 +124,22 @@ abstract class AbstractBase implements BaseElementInterface
     {
         $this->fullName = $fullName;
         return $this;
+    }
+
+    /**
+     * @return Validator
+     */
+    public function createValidation(): Validator
+    {
+        return Validator::create($this);
+    }
+
+    /**
+     * @param array|string $inputs
+     * @return HtmlFormInterface
+     */
+    public function createHtml($inputs): HtmlFormInterface
+    {
+        return Html::create($this);
     }
 }

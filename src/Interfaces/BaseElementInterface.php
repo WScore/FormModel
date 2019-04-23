@@ -1,13 +1,14 @@
 <?php
 namespace WScore\FormModel\Interfaces;
 
-use WScore\FormModel\Form\HtmlFormInterface;
-use WScore\Validation\Interfaces\ValidationInterface;
+use WScore\FormModel\Html\HtmlFormInterface;
+use WScore\FormModel\Validation\Validator;
 
 interface BaseElementInterface
 {
     const TYPE_FORM = 'form-type';
     const TYPE_REPEATED = 'form-repeated';
+    const TYPE_CHOICE = 'type-choice';
 
     /**
      * @return string
@@ -46,9 +47,9 @@ interface BaseElementInterface
     public function setFullName(string $fullName): BaseElementInterface;
 
     /**
-     * @return ValidationInterface
+     * @return Validator
      */
-    public function createValidation(): ValidationInterface;
+    public function createValidation(): Validator;
 
     /**
      * @param array|string $inputs

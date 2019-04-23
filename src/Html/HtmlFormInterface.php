@@ -1,9 +1,11 @@
 <?php
-namespace WScore\FormModel\Form;
+
+namespace WScore\FormModel\Html;
 
 use ArrayAccess;
+use IteratorAggregate;
 
-interface HtmlFormInterface extends ArrayAccess
+interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
 {
     /**
      * @return string

@@ -2,7 +2,6 @@
 namespace WScore\FormModel\Interfaces;
 
 use IteratorAggregate;
-use Traversable;
 use WScore\FormModel\Element\FormType;
 
 interface FormElementInterface extends BaseElementInterface, IteratorAggregate
@@ -41,9 +40,4 @@ interface FormElementInterface extends BaseElementInterface, IteratorAggregate
      * @return BaseElementInterface[]|FormElementInterface[]|ElementInterface[]
      */
     public function getChildren(): array;
-
-    /**
-     * @return Traversable|BaseElementInterface[]
-     */
-    public function getIterator();
 }

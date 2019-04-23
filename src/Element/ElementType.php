@@ -1,9 +1,7 @@
 <?php
 namespace WScore\FormModel\Element;
 
-use WScore\FormModel\Form\HtmlFormInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\Validation\Interfaces\ValidationInterface;
 
 class ElementType extends AbstractBase implements ElementInterface
 {
@@ -51,23 +49,6 @@ class ElementType extends AbstractBase implements ElementInterface
     {
         $this->isMultiple = $multiple;
         return $this;
-    }
-
-    /**
-     * @return ValidationInterface
-     */
-    public function createValidation(): ValidationInterface
-    {
-        // TODO: Implement createValidation() method.
-    }
-
-    /**
-     * @param array|string $inputs
-     * @return HtmlFormInterface
-     */
-    public function createHtml($inputs): HtmlFormInterface
-    {
-        // TODO: Implement createHtml() method.
     }
 
     /**

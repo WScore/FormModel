@@ -4,10 +4,11 @@ namespace WScore\FormModel\Element;
 use ArrayIterator;
 use InvalidArgumentException;
 use Traversable;
-use WScore\FormModel\Form\HtmlFormInterface;
+use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\FormModel\Validation\Validator;
 use WScore\Validation\Interfaces\ValidationInterface;
 use WScore\Validation\ValidatorBuilder;
 
@@ -101,40 +102,6 @@ class FormType extends AbstractBase implements FormElementInterface
     }
 
     /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return BaseElementInterface::TYPE_FORM;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isFormType(): bool
-    {
-        return true;
-    }
-
-    public function isRepeatedForm(): bool
-    {
-        return false;
-    }
-
-    public function createValidation(): ValidationInterface
-    {
-        $form = $this->validationBuilder->form();
-        foreach ($this->children as $child) {
-            if ($child->isRepeatedForm()) {
-                $form->addRepeatedForm($child->getName(), $child->createValidation());
-            } else {
-                $form->add($child->getName(), $child->createValidation());
-            }
-        }
-        return $form;
-    }
-
-    /**
      * @return bool
      */
     public function hasChildren(): bool
@@ -160,14 +127,5 @@ class FormType extends AbstractBase implements FormElementInterface
     public function getIterator()
     {
         return new ArrayIterator($this->getChildren());
-    }
-
-    /**
-     * @param array|string $inputs
-     * @return HtmlFormInterface
-     */
-    public function createHtml($inputs): HtmlFormInterface
-    {
-        // TODO: Implement getView() method.
     }
 }

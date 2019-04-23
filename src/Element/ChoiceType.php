@@ -1,76 +1,48 @@
 <?php
 namespace WScore\FormModel\Element;
 
-use WScore\FormModel\Form\HtmlFormInterface;
 use WScore\FormModel\Interfaces\BaseElementInterface;
-use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Validation\ResultInterface;
 
-class ChoiceType extends AbstractElement
+class ChoiceType extends ElementType
 {
-    /**
-     * @param string $name
-     * @param string $label
-     */
+    private $expand = false;
+
+    private $choices = [];
+
+    private $replace = false;
+
     public function __construct($name, $label)
     {
-        $this->name = $name;
-        $this->label = $label;
+        $type = BaseElementInterface::TYPE_CHOICE;
+        parent::__construct($type, $name, $label);
     }
 
     /**
-     * @param string $name
-     * @param string $label
-     * @param array $choices
+     * @param bool $expand
      * @return ChoiceType
      */
-    public static function create($name, $label, $choices)
+    public function setExpand(bool $expand): ChoiceType
     {
-        $self = new self($name, $label);
-        $self->setChoices($choices);
-        return $self;
-    }
-
-    /**
-     * @return string
-     */
-    public function getType(): string
-    {
-        return BaseElementInterface::TYPE_TEXT;
+        $this->expand = $expand;
+        return $this;
     }
 
     /**
      * @return bool
      */
-    public function isFormType(): bool
+    public function isExpand(): bool
     {
-        return false;
+        return $this->expand;
     }
 
     /**
-     * @param array|string $inputs
-     * @return ResultInterface
+     * @param array $choices
+     * @return ChoiceType
      */
-    public function validate($inputs): ResultInterface
+    public function setChoices(array $choices): ChoiceType
     {
-        // TODO: Implement validate() method.
-    }
-
-    /**
-     * @param array|string $inputs
-     * @return HtmlFormInterface
-     */
-    public function createHtml($inputs): HtmlFormInterface
-    {
-        // TODO: Implement viewHtml() method.
-    }
-
-    /**
-     * @return string
-     */
-    public function getValue(): string
-    {
-        // TODO: Implement getValue() method.
+        $this->choices = $choices;
+        return $this;
     }
 
     /**
@@ -78,40 +50,24 @@ class ChoiceType extends AbstractElement
      */
     public function getChoices(): array
     {
-        // TODO: Implement getChoices() method.
+        return $this->choices;
+    }
+
+    /**
+     * @param bool $replace
+     * @return ChoiceType
+     */
+    public function setReplace(bool $replace): ChoiceType
+    {
+        $this->replace = $replace;
+        return $this;
     }
 
     /**
      * @return bool
      */
-    public function hasChoices(): bool
+    public function isReplace(): bool
     {
-        // TODO: Implement hasChoices() method.
-    }
-
-    /**
-     * @param array $validation
-     * @return $this
-     */
-    public function setValidations(array $validation): ElementInterface
-    {
-        // TODO: Implement setValidations() method.
-    }
-
-    /**
-     * @return array
-     */
-    public function getValidations(): array
-    {
-        // TODO: Implement getValidations() method.
-    }
-
-    /**
-     * @param array $choices
-     * @return $this
-     */
-    public function setChoices(array $choices): ElementInterface
-    {
-        // TODO: Implement setChoices() method.
+        return $this->replace;
     }
 }
