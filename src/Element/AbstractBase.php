@@ -2,11 +2,14 @@
 namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Interfaces\BaseElementInterface;
-use WScore\FormModel\Validation\ValidationChain;
-use WScore\FormModel\Validation\ValidationInterface;
 
 abstract class AbstractBase implements BaseElementInterface
 {
+    /**
+     * @var string
+     */
+    protected $type = '';
+
     /**
      * @var string
      */
@@ -26,6 +29,42 @@ abstract class AbstractBase implements BaseElementInterface
      * @var string
      */
     protected $fullName = '';
+
+    /**
+     * @param string $type
+     * @param string $name
+     * @param string $label
+     */
+    public function __construct($type, $name, $label)
+    {
+        $this->type = $type;
+        $this->name = $name;
+        $this->label = $label;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFormType(): bool
+    {
+        return $this->getType() === BaseElementInterface::TYPE_FORM;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRepeatedForm(): bool
+    {
+        return $this->getType() === BaseElementInterface::TYPE_REPEATED;
+    }
 
     /**
      * @return string

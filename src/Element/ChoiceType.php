@@ -60,7 +60,7 @@ class ChoiceType extends AbstractElement
      * @param array|string $inputs
      * @return HtmlFormInterface
      */
-    public function viewHtml($inputs): HtmlFormInterface
+    public function createHtml($inputs): HtmlFormInterface
     {
         // TODO: Implement viewHtml() method.
     }

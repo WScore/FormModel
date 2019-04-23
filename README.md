@@ -12,37 +12,38 @@ How To
 ### Set Up FormModel 
 
 ```php
-$builder = new FormBuilder('user');
-$builder->addText('name')->required();
-$builder->addRadioButtons('use')
-    ->addLabel('Using it is...')
-    ->addOption('difficult', 'DIFF')
-    ->addOption('simple', 'SIMP')
-    ->addOption('easy', 'EASE');
-$model = $builder->build();
+$fb = new FormBuilder();
+$form = $fb->form('user');
+$form->add($fb->text('name')->required());
+$form->add($fb->email('email')->required());
 ```
 
 ### Show HTML Form
 
 ```php
-<?php $form = $model->getForm('name') ?>
-<label><?= $form->label() ?></label>
-<?= $form->toHtmlForm(); ?>
+<?php
+$html = $form->createHtml();
+?>
+<html>
+<?= $form['name']; ?>
 
-<?php $form = $model->getForm('use') ?>
-<label><?= $form->lLabel() ?></label>
-<ul>
-<?php foreach($form->getOptions() as $option): ?>
-    <li><label><?= $option->toHtmlForm(); ?>:<?= $form->label(); ?></label></li>
-<?php endforeach; ?>
-</ul>
+<div class="form-label"><?= $form['name']->label() ?></div>
+<div class="form-value"><?= $form['name']->widget(); ?></div>
+</html>
 ```
 
 ### Validate Input
 
 ```php
-$model->validate($_POST);
-if ($model->isValid()) {
+$validator = $form->createValidation();
+$results = $validator->validate($_POST);
+if ($results->isValid()) {
     // do something
+} else {
+    foreach($results as $result) {
+        if (!$result->isValid()) {
+            $result->getErrorMessage();
+        }
+    }
 }
 ```

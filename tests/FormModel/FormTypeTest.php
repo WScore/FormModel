@@ -6,9 +6,9 @@
  * Time: 10:12
  */
 
-use WScore\FormModel\Element\TextType;
-use WScore\FormModel\FormType;
 use PHPUnit\Framework\TestCase;
+use WScore\FormModel\Element\FormType;
+use WScore\FormModel\Element\TextType;
 use WScore\FormModel\Interfaces\BaseElementInterface;
 
 class FormTypeTest extends TestCase

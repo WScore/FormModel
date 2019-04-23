@@ -1,7 +1,9 @@
 <?php
 namespace WScore\FormModel\Form;
 
-interface HtmlFormInterface
+use ArrayAccess;
+
+interface HtmlFormInterface extends ArrayAccess
 {
     /**
      * @return string

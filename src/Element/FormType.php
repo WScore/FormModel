@@ -1,16 +1,15 @@
 <?php
-namespace WScore\FormModel;
+namespace WScore\FormModel\Element;
 
-use WScore\FormModel\Element\AbstractBase;
+use ArrayIterator;
+use InvalidArgumentException;
+use Traversable;
 use WScore\FormModel\Form\HtmlFormInterface;
 use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
-use WScore\FormModel\Validation\ResultList;
-use WScore\FormModel\Validation\Result;
-use WScore\FormModel\Validation\ResultInterface;
-use WScore\FormModel\Validation\ValidationInterface;
-use WScore\FormModel\Validation\ValidationList;
+use WScore\Validation\Interfaces\ValidationInterface;
+use WScore\Validation\ValidatorBuilder;
 
 class FormType extends AbstractBase implements FormElementInterface
 {
@@ -20,9 +19,9 @@ class FormType extends AbstractBase implements FormElementInterface
     private $children = [];
 
     /**
-     * @var ValidationInterface
+     * @var ValidatorBuilder
      */
-    private $validation;
+    private $validationBuilder;
 
     /**
      * @param string $name
@@ -84,7 +83,7 @@ class FormType extends AbstractBase implements FormElementInterface
     public function get(string $name): ?BaseElementInterface
     {
         if (!isset($this->children[$name])) {
-            throw new \InvalidArgumentException('name not found: '.$name);
+            throw new InvalidArgumentException('name not found: '.$name);
         }
         $child = $this->children[$name];
         $fullName = $this->fullName
@@ -117,25 +116,22 @@ class FormType extends AbstractBase implements FormElementInterface
         return true;
     }
 
-    public function getValidation()
+    public function isRepeatedForm(): bool
     {
-        return $this->validation ?: $this->validation = new ValidationList();
+        return false;
     }
 
-    /**
-     * @param array|string $inputs
-     * @return ResultInterface
-     */
-    public function validate($inputs): ResultInterface
+    public function createValidation(): ValidationInterface
     {
-        // prepare result object.
-        foreach($this->getChildren() as $name => $child) {
-            $this->validation->addChild($name, $child->getValidation());
+        $form = $this->validationBuilder->form();
+        foreach ($this->children as $child) {
+            if ($child->isRepeatedForm()) {
+                $form->addRepeatedForm($child->getName(), $child->createValidation());
+            } else {
+                $form->add($child->getName(), $child->createValidation());
+            }
         }
-        $results = $this->validation->initialize($inputs);
-        // validate!
-        $validatedResults = $this->validation->validate($results);
-        return $validatedResults;
+        return $form;
     }
 
     /**
@@ -159,18 +155,18 @@ class FormType extends AbstractBase implements FormElementInterface
     }
 
     /**
-     * @return \Traversable|BaseElementInterface[]
+     * @return Traversable|BaseElementInterface[]
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->getChildren());
+        return new ArrayIterator($this->getChildren());
     }
 
     /**
      * @param array|string $inputs
      * @return HtmlFormInterface
      */
-    public function viewHtml($inputs): HtmlFormInterface
+    public function createHtml($inputs): HtmlFormInterface
     {
         // TODO: Implement getView() method.
     }

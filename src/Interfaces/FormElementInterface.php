@@ -1,10 +1,11 @@
 <?php
 namespace WScore\FormModel\Interfaces;
 
-use WScore\FormModel\FormType;
-use WScore\FormModel\Validation\ResultInterface;
+use IteratorAggregate;
+use Traversable;
+use WScore\FormModel\Element\FormType;
 
-interface FormElementInterface extends BaseElementInterface, \IteratorAggregate
+interface FormElementInterface extends BaseElementInterface, IteratorAggregate
 {
     /**
      * @param ElementInterface $element
@@ -42,7 +43,7 @@ interface FormElementInterface extends BaseElementInterface, \IteratorAggregate
     public function getChildren(): array;
 
     /**
-     * @return \Traversable|BaseElementInterface[]
+     * @return Traversable|BaseElementInterface[]
      */
     public function getIterator();
 }

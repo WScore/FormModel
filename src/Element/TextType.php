@@ -4,20 +4,9 @@ namespace WScore\FormModel\Element;
 use WScore\FormModel\Form\HtmlFormInterface;
 use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Validation\ResultInterface;
 
 class TextType extends AbstractElement
 {
-    /**
-     * @param string $name
-     * @param string $label
-     */
-    public function __construct($name, $label)
-    {
-        $this->name = $name;
-        $this->label = $label;
-    }
-
     /**
      * @param string $name
      * @param string $label
@@ -57,7 +46,7 @@ class TextType extends AbstractElement
      * @param array|string $inputs
      * @return HtmlFormInterface
      */
-    public function viewHtml($inputs): HtmlFormInterface
+    public function createHtml($inputs): HtmlFormInterface
     {
         // TODO: Implement viewHtml() method.
     }
@@ -94,5 +83,30 @@ class TextType extends AbstractElement
     public function getValidations(): array
     {
         // TODO: Implement getValidations() method.
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRepeatedForm(): bool
+    {
+        // TODO: Implement isRepeatedForm() method.
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilters(): array
+    {
+        // TODO: Implement getFilters() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return ElementInterface
+     */
+    public function setFilters(array $filters): ElementInterface
+    {
+        // TODO: Implement setFilters() method.
     }
 }

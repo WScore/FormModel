@@ -1,8 +1,6 @@
 <?php
 namespace WScore\FormModel\Interfaces;
 
-use WScore\FormModel\Validation\ResultInterface;
-
 interface ElementInterface extends BaseElementInterface
 {
     /**
@@ -22,17 +20,6 @@ interface ElementInterface extends BaseElementInterface
     public function setRequired($required = true): ElementInterface;
 
     /**
-     * @param array $validation
-     * @return $this
-     */
-    public function setValidations(array $validation): ElementInterface;
-
-    /**
-     * @return array
-     */
-    public function getValidations(): array;
-
-    /**
      * @return bool
      */
     public function isMultiple(): bool;
@@ -42,4 +29,26 @@ interface ElementInterface extends BaseElementInterface
      * @return $this
      */
     public function setMultiple($multiple = true): ElementInterface;
+
+    /**
+     * @return array
+     */
+    public function getAttributes(): array;
+
+    /**
+     * @param array $attributes
+     * @return ElementInterface
+     */
+    public function setAttributes(array $attributes): ElementInterface;
+
+    /**
+     * @return array
+     */
+    public function getFilters(): array;
+
+    /**
+     * @param array $filters
+     * @return ElementInterface
+     */
+    public function setFilters(array $filters): ElementInterface;
 }
