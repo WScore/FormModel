@@ -2,7 +2,6 @@
 namespace WScore\FormModel\Interfaces;
 
 use IteratorAggregate;
-use WScore\FormModel\Element\FormType;
 
 interface FormElementInterface extends ElementInterface, IteratorAggregate
 {

@@ -1,7 +1,7 @@
 <?php
 namespace WScore\FormModel\Element;
 
-use WScore\FormModel\Interfaces\ElementInterface;
+use WScore\Validation\ValidatorBuilder;
 
 class ChoiceType extends InputType
 {
@@ -11,10 +11,10 @@ class ChoiceType extends InputType
 
     private $replace = false;
 
-    public function __construct($name, $label)
+    public function __construct(ValidatorBuilder $builder, $name, $label)
     {
-        $type = ElementInterface::TYPE_CHOICE;
-        parent::__construct($type, $name, $label);
+        $type = ElementType::TYPE_CHOICE;
+        parent::__construct($builder, $type, $name, $label);
     }
 
     /**

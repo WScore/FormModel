@@ -71,7 +71,7 @@ abstract class AbstractElement implements ElementInterface
      */
     public function isFormType(): bool
     {
-        return $this->getType() === ElementInterface::TYPE_FORM;
+        return $this->getType() === ElementType::TYPE_FORM;
     }
 
     /**
@@ -79,7 +79,7 @@ abstract class AbstractElement implements ElementInterface
      */
     public function isRepeatedForm(): bool
     {
-        return $this->getType() === ElementInterface::TYPE_REPEATED;
+        return $this->getType() === ElementType::TYPE_REPEATED;
     }
 
     /**

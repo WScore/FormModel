@@ -8,17 +8,16 @@
 
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormModel;
-use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Validation\Validator;
 use WScore\Validation\Filters\StringCases;
 use WScore\Validation\Validators\Result;
 
 class FormTypeTest extends TestCase
 {
-    public function testFormModelElement()
+    public function testFormModelText()
     {
         $fm = FormModel::create();
-        $text = $fm->element(ElementInterface::TYPE_TEXT, 'name');
+        $text = $fm->text('name');
         $text->setAttributes([
             'class' => 'form-type',
             'style' => 'width:5em',
@@ -38,5 +37,9 @@ class FormTypeTest extends TestCase
         $result = $validator->verify('my name');
         $this->assertEquals(Result::class, get_class($result));
         $this->assertEquals('MY NAME', $result->value());
+
+        $result = $validator->verify(null);
+        $this->assertFalse($result->isValid());
+        $this->assertSame('', $result->value());
     }
 }

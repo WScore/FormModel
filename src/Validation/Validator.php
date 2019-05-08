@@ -3,6 +3,7 @@ namespace WScore\FormModel\Validation;
 
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ResultInterface;
 use WScore\Validation\Interfaces\ValidationInterface;
 use WScore\Validation\ValidatorBuilder;
@@ -31,15 +32,17 @@ class Validator
     private function build(ElementInterface $element): ValidationInterface
     {
         if ($element->isFormType() && $element instanceof FormElementInterface) {
-            $validation = $this->buildForm($element);
-        } else {
-            $filters = $element instanceof ElementInterface
-                ? $element->getFilters()
-                : [];
-            $filters['type'] = $element->getType();
-            $filters['multiple'] = $element->isMultiple();
-            $validation = $this->builder->chain($filters);
+            return $this->buildForm($element);
         }
+        $filters = $element instanceof ElementInterface
+            ? $element->getFilters()
+            : [];
+        $filters['type'] = $element->getType();
+        $filters['multiple'] = $element->isMultiple();
+        if ($element->isRequired()) {
+            $filters[Required::class] = [];
+        }
+        $validation = $this->builder->chain($filters);
         return $validation;
     }
 

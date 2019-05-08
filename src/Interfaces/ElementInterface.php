@@ -6,11 +6,6 @@ use WScore\FormModel\Validation\Validator;
 
 interface ElementInterface
 {
-    const TYPE_FORM = 'form-type';
-    const TYPE_REPEATED = 'form-repeated';
-    const TYPE_CHOICE = 'type-choice';
-    const TYPE_TEXT = 'text';
-
     /**
      * @return bool
      */

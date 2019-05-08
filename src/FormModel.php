@@ -1,6 +1,7 @@
 <?php
 namespace WScore\FormModel;
 
+use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\InputType;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
@@ -29,7 +30,7 @@ class FormModel
 
     public function form($name): FormElementInterface
     {
-
+        // todo: implement this method.
     }
 
     public function element($type, $name): ElementInterface
@@ -39,6 +40,6 @@ class FormModel
 
     public function text($name): ElementInterface
     {
-
+        return $this->element(ElementType::TYPE_TEXT, $name);
     }
 }
