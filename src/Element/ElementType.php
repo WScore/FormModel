@@ -50,29 +50,4 @@ class ElementType extends AbstractBase implements ElementInterface
         $this->isMultiple = $multiple;
         return $this;
     }
-
-    /**
-     * @return string
-     */
-    public function getValue(): string
-    {
-        // TODO: Implement getValue() method.
-    }
-
-    /**
-     * @return array
-     */
-    public function getFilters(): array
-    {
-        // TODO: Implement getFilters() method.
-    }
-
-    /**
-     * @param array $filters
-     * @return ElementInterface
-     */
-    public function setFilters(array $filters): ElementInterface
-    {
-        // TODO: Implement setFilters() method.
-    }
 }

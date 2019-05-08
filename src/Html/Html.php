@@ -6,6 +6,7 @@ use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Html\Form;
+use WScore\Html\Tags\Input;
 
 class Html extends AbstractHtml
 {
@@ -23,15 +24,14 @@ class Html extends AbstractHtml
     }
 
     /**
-     * @return string
+     * @return Input
      */
     public function form()
     {
         $type = $this->element->getType();
         $name = $this->element->getFullName();
-        $value = $this->element->getValue();
         $attributes = $this->element->getAttributes();
-        $form = Form::input($type, $name, $value)->setAttributes($attributes);
+        $form = Form::input($type, $name)->setAttributes($attributes);
 
         return $form;
     }

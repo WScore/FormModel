@@ -4,6 +4,7 @@ namespace WScore\FormModel\Html;
 
 use ArrayAccess;
 use IteratorAggregate;
+use WScore\Html\Tags\Input;
 
 interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
 {
@@ -23,7 +24,7 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     public function value();
 
     /**
-     * @return string
+     * @return Input
      */
     public function form();
 

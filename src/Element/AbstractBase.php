@@ -5,6 +5,7 @@ use WScore\FormModel\Html\Html;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Validation\Validator;
+use WScore\Validation\ValidatorBuilder;
 
 abstract class AbstractBase implements BaseElementInterface
 {
@@ -34,15 +35,22 @@ abstract class AbstractBase implements BaseElementInterface
     protected $fullName = '';
 
     /**
+     * @var ValidatorBuilder
+     */
+    private $builder;
+
+    /**
+     * @param ValidatorBuilder $builder
      * @param string $type
      * @param string $name
      * @param string $label
      */
-    public function __construct($type, $name, $label)
+    public function __construct(ValidatorBuilder $builder, $type, $name, $label = '')
     {
         $this->type = $type;
         $this->name = $name;
         $this->label = $label;
+        $this->builder = $builder;
     }
 
     /**
@@ -131,7 +139,7 @@ abstract class AbstractBase implements BaseElementInterface
      */
     public function createValidation(): Validator
     {
-        return Validator::create($this);
+        return Validator::create($this->builder, $this);
     }
 
     /**
@@ -141,5 +149,23 @@ abstract class AbstractBase implements BaseElementInterface
     public function createHtml($inputs): HtmlFormInterface
     {
         return Html::create($this);
+    }
+
+    /**
+     * @return array
+     */
+    public function getFilters(): array
+    {
+        // TODO: Implement getFilters() method.
+    }
+
+    /**
+     * @param array $filters
+     * @return $this
+     */
+    public function setFilters(array $filters): BaseElementInterface
+    {
+        return $this;
+        // TODO: Implement setFilters() method.
     }
 }
