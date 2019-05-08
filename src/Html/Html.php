@@ -1,7 +1,6 @@
 <?php
 namespace WScore\FormModel\Html;
 
-use Traversable;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Html\Form;
@@ -31,6 +30,7 @@ class Html extends AbstractHtml
         $name = $this->element->getFullName();
         $attributes = $this->element->getAttributes();
         $form = Form::input($type, $name)->setAttributes($attributes);
+        $form->required($this->element->isRequired());
 
         return $form;
     }

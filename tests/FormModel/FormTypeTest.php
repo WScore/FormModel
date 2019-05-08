@@ -26,8 +26,12 @@ class FormTypeTest extends TestCase
         $text->setFilters([
             StringCases::class => [StringCases::TO_UPPER],
         ]);
+        $text->isRequired();
         $html = $text->createHtml('test-me');
-        $this->assertEquals('<input type="text" class="form-type" style="width:5em">', $html->form()->toString());
+        $this->assertEquals(
+            '<input type="text" class="form-type" style="width:5em" required="required">',
+            $html->form()->toString()
+        );
 
         $validator = $text->createValidation();
         $this->assertEquals(Validator::class, get_class($validator));
