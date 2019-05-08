@@ -7,26 +7,32 @@
  */
 
 use PHPUnit\Framework\TestCase;
-use WScore\FormModel\Element\FormType;
-use WScore\FormModel\Element\TextType;
 use WScore\FormModel\FormModel;
-use WScore\FormModel\Interfaces\BaseElementInterface;
-use WScore\Validation\Filters\Required;
+use WScore\FormModel\Interfaces\ElementInterface;
+use WScore\FormModel\Validation\Validator;
+use WScore\Validation\Filters\StringCases;
+use WScore\Validation\Validators\Result;
 
 class FormTypeTest extends TestCase
 {
     public function testFormModelElement()
     {
         $fm = FormModel::create();
-        $text = $fm->element(BaseElementInterface::TYPE_TEXT, 'name');
+        $text = $fm->element(ElementInterface::TYPE_TEXT, 'name');
         $text->setAttributes([
             'class' => 'form-type',
             'style' => 'width:5em',
         ]);
         $text->setFilters([
-            Required::class,
+            StringCases::class => [StringCases::TO_UPPER],
         ]);
         $html = $text->createHtml('test-me');
-        $this->assertEquals('', $html->form()->toString());
+        $this->assertEquals('<input type="text" class="form-type" style="width:5em">', $html->form()->toString());
+
+        $validator = $text->createValidation();
+        $this->assertEquals(Validator::class, get_class($validator));
+        $result = $validator->verify('my name');
+        $this->assertEquals(Result::class, get_class($result));
+        $this->assertEquals('MY NAME', $result->value());
     }
 }

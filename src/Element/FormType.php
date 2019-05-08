@@ -2,41 +2,28 @@
 namespace WScore\FormModel\Element;
 
 use ArrayIterator;
+use BadMethodCallException;
 use InvalidArgumentException;
 use Traversable;
-use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
-use WScore\FormModel\Validation\Validator;
-use WScore\Validation\Interfaces\ValidationInterface;
 use WScore\Validation\ValidatorBuilder;
 
-class FormType extends AbstractBase implements FormElementInterface
+class FormType extends AbstractElement implements FormElementInterface
 {
     /**
-     * @var BaseElementInterface[]
+     * @var ElementInterface[]
      */
     private $children = [];
 
     /**
-     * @var ValidatorBuilder
+     * @var bool
      */
-    private $validationBuilder;
+    private $isMultiple = false;
 
-    /**
-     * @param string $name
-     * @param string $label
-     * @return $this
-     */
-    public static function create(string $name, string $label = null)
+    public function __construct(ValidatorBuilder $builder, $name, $label = '')
     {
-        $self = new static();
-        $self->name = $name;
-        $self->label = $label;
-        $self->fullName = $name;
-
-        return $self;
+        parent::__construct($builder, ElementInterface::TYPE_FORM, $name, $label);
     }
 
     /**
@@ -60,28 +47,22 @@ class FormType extends AbstractBase implements FormElementInterface
     }
 
     /**
-     * @param FormType $element
+     * @param FormElementInterface $element
      * @param int $repeat
      * @return $this
      */
-    public function addRepeatedForm($repeat, FormType $element): FormElementInterface
+    public function addRepeatedForm($repeat, FormElementInterface $element): FormElementInterface
     {
-        $name = $element->getName();
-        $form = FormType::create($name);
-        $this->addChild($form);
-        for($idx = 0; $idx < $repeat; $idx ++) {
-            $cloned = clone $element;
-            $cloned->setName("{$name}[{$idx}]");
-            $form->addChild($cloned, $idx);
-        }
+        $element->setMultiple();
+        $this->addChild($element);
         return $this;
     }
 
     /**
      * @param string $name
-     * @return BaseElementInterface|ElementInterface|FormElementInterface
+     * @return ElementInterface|ElementInterface|FormElementInterface
      */
-    public function get(string $name): ?BaseElementInterface
+    public function get(string $name): ?ElementInterface
     {
         if (!isset($this->children[$name])) {
             throw new InvalidArgumentException('name not found: '.$name);
@@ -95,7 +76,7 @@ class FormType extends AbstractBase implements FormElementInterface
         return $child;
     }
 
-    private function addChild(BaseElementInterface $child, $name = null)
+    private function addChild(ElementInterface $child, $name = null)
     {
         $name = $name ?? $child->getName();
         $this->children[$name] = $child;
@@ -110,7 +91,7 @@ class FormType extends AbstractBase implements FormElementInterface
     }
 
     /**
-     * @return BaseElementInterface[]
+     * @return ElementInterface[]
      */
     public function getChildren(): array
     {
@@ -122,10 +103,45 @@ class FormType extends AbstractBase implements FormElementInterface
     }
 
     /**
-     * @return Traversable|BaseElementInterface[]
+     * @return Traversable|ElementInterface[]
      */
     public function getIterator()
     {
         return new ArrayIterator($this->getChildren());
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRequired(): bool
+    {
+        throw new BadMethodCallException();
+    }
+
+    /**
+     * @param bool $required
+     * @return $this
+     */
+    public function setRequired($required = true): ElementInterface
+    {
+        throw new BadMethodCallException();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultiple(): bool
+    {
+        return $this->isMultiple;
+    }
+
+    /**
+     * @param bool $multiple
+     * @return $this
+     */
+    public function setMultiple($multiple = true): ElementInterface
+    {
+        $this->isMultiple = $multiple;
+        return $this;
     }
 }

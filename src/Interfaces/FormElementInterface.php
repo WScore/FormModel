@@ -4,7 +4,7 @@ namespace WScore\FormModel\Interfaces;
 use IteratorAggregate;
 use WScore\FormModel\Element\FormType;
 
-interface FormElementInterface extends BaseElementInterface, IteratorAggregate
+interface FormElementInterface extends ElementInterface, IteratorAggregate
 {
     /**
      * @param ElementInterface $element
@@ -19,17 +19,17 @@ interface FormElementInterface extends BaseElementInterface, IteratorAggregate
     public function addForm(FormElementInterface $element): FormElementInterface;
 
     /**
-     * @param FormType $element
+     * @param FormElementInterface $element
      * @param int $repeat
      * @return $this
      */
-    public function addRepeatedForm($repeat, FormType $element): FormElementInterface;
+    public function addRepeatedForm($repeat, FormElementInterface $element): FormElementInterface;
 
     /**
      * @param string $name
-     * @return BaseElementInterface|FormElementInterface|ElementInterface
+     * @return ElementInterface|FormElementInterface|ElementInterface
      */
-    public function get(string $name): ?BaseElementInterface;
+    public function get(string $name): ?ElementInterface;
 
     /**
      * @return bool
@@ -37,7 +37,7 @@ interface FormElementInterface extends BaseElementInterface, IteratorAggregate
     public function hasChildren(): bool;
 
     /**
-     * @return BaseElementInterface[]|FormElementInterface[]|ElementInterface[]
+     * @return ElementInterface[]|FormElementInterface[]|ElementInterface[]
      */
     public function getChildren(): array;
 }

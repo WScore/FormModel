@@ -3,7 +3,7 @@ namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Interfaces\ElementInterface;
 
-class ElementType extends AbstractBase implements ElementInterface
+class InputType extends AbstractElement implements ElementInterface
 {
     /**
      * @var bool

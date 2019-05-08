@@ -1,9 +1,9 @@
 <?php
 namespace WScore\FormModel\Element;
 
-use WScore\FormModel\Interfaces\BaseElementInterface;
+use WScore\FormModel\Interfaces\ElementInterface;
 
-class ChoiceType extends ElementType
+class ChoiceType extends InputType
 {
     private $expand = false;
 
@@ -13,7 +13,7 @@ class ChoiceType extends ElementType
 
     public function __construct($name, $label)
     {
-        $type = BaseElementInterface::TYPE_CHOICE;
+        $type = ElementInterface::TYPE_CHOICE;
         parent::__construct($type, $name, $label);
     }
 

@@ -1,13 +1,9 @@
 <?php
 namespace WScore\FormModel\Html;
 
-use BadMethodCallException;
+use ArrayIterator;
 use InvalidArgumentException;
 use Traversable;
-use WScore\FormModel\Interfaces\BaseElementInterface;
-use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\FormElementInterface;
-use WScore\Html\Form;
 
 abstract class AbstractHtml implements HtmlFormInterface
 {
@@ -130,6 +126,6 @@ abstract class AbstractHtml implements HtmlFormInterface
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->children);
+        return new ArrayIterator($this->children);
     }
 }

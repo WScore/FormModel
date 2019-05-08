@@ -1,7 +1,6 @@
 <?php
 namespace WScore\FormModel\Validation;
 
-use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Validation\Interfaces\ResultInterface;
@@ -21,7 +20,7 @@ class Validator
         $this->builder = $builder;
     }
 
-    public static function create(ValidatorBuilder $builder, BaseElementInterface $element): Validator
+    public static function create(ValidatorBuilder $builder, ElementInterface $element): Validator
     {
         $self = new self($builder);
         $self->validation = $self->build($element);
@@ -29,7 +28,7 @@ class Validator
         return $self;
     }
 
-    private function build(BaseElementInterface $element): ValidationInterface
+    private function build(ElementInterface $element): ValidationInterface
     {
         if ($element->isFormType() && $element instanceof FormElementInterface) {
             $validation = $this->buildForm($element);

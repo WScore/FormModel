@@ -3,11 +3,11 @@ namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\Html;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Interfaces\BaseElementInterface;
+use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Validation\Validator;
 use WScore\Validation\ValidatorBuilder;
 
-abstract class AbstractBase implements BaseElementInterface
+abstract class AbstractElement implements ElementInterface
 {
     /**
      * @var string
@@ -37,7 +37,12 @@ abstract class AbstractBase implements BaseElementInterface
     /**
      * @var ValidatorBuilder
      */
-    private $builder;
+    protected $validationBuilder;
+
+    /**
+     * @var array
+     */
+    private $filters = [];
 
     /**
      * @param ValidatorBuilder $builder
@@ -50,7 +55,7 @@ abstract class AbstractBase implements BaseElementInterface
         $this->type = $type;
         $this->name = $name;
         $this->label = $label;
-        $this->builder = $builder;
+        $this->validationBuilder = $builder;
     }
 
     /**
@@ -66,7 +71,7 @@ abstract class AbstractBase implements BaseElementInterface
      */
     public function isFormType(): bool
     {
-        return $this->getType() === BaseElementInterface::TYPE_FORM;
+        return $this->getType() === ElementInterface::TYPE_FORM;
     }
 
     /**
@@ -74,7 +79,7 @@ abstract class AbstractBase implements BaseElementInterface
      */
     public function isRepeatedForm(): bool
     {
-        return $this->getType() === BaseElementInterface::TYPE_REPEATED;
+        return $this->getType() === ElementInterface::TYPE_REPEATED;
     }
 
     /**
@@ -118,7 +123,7 @@ abstract class AbstractBase implements BaseElementInterface
      * @param array $attributes
      * @return $this
      */
-    public function setAttributes(array $attributes): BaseElementInterface
+    public function setAttributes(array $attributes): ElementInterface
     {
         $this->attributes = $attributes;
         return $this;
@@ -128,7 +133,7 @@ abstract class AbstractBase implements BaseElementInterface
      * @param string $fullName
      * @return $this
      */
-    public function setFullName(string $fullName): BaseElementInterface
+    public function setFullName(string $fullName): ElementInterface
     {
         $this->fullName = $fullName;
         return $this;
@@ -139,7 +144,7 @@ abstract class AbstractBase implements BaseElementInterface
      */
     public function createValidation(): Validator
     {
-        return Validator::create($this->builder, $this);
+        return Validator::create($this->validationBuilder, $this);
     }
 
     /**
@@ -156,16 +161,16 @@ abstract class AbstractBase implements BaseElementInterface
      */
     public function getFilters(): array
     {
-        // TODO: Implement getFilters() method.
+        return $this->filters;
     }
 
     /**
      * @param array $filters
      * @return $this
      */
-    public function setFilters(array $filters): BaseElementInterface
+    public function setFilters(array $filters): ElementInterface
     {
+        $this->filters = $filters;
         return $this;
-        // TODO: Implement setFilters() method.
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace WScore\FormModel;
 
-use WScore\FormModel\Element\ElementType;
+use WScore\FormModel\Element\InputType;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Validation\ValidatorBuilder;
@@ -34,7 +34,7 @@ class FormModel
 
     public function element($type, $name): ElementInterface
     {
-        return new ElementType($this->builder, $type, $name);
+        return new InputType($this->builder, $type, $name);
     }
 
     public function text($name): ElementInterface

@@ -2,7 +2,6 @@
 namespace WScore\FormModel\Html;
 
 use Traversable;
-use WScore\FormModel\Interfaces\BaseElementInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Html\Form;
@@ -11,11 +10,11 @@ use WScore\Html\Tags\Input;
 class Html extends AbstractHtml
 {
     /**
-     * @var BaseElementInterface|ElementInterface|FormElementInterface
+     * @var ElementInterface|ElementInterface|FormElementInterface
      */
     private $element;
 
-    public static function create(BaseElementInterface $element): HtmlFormInterface
+    public static function create(ElementInterface $element): HtmlFormInterface
     {
         $self = new self();
         $self->element = $element;
