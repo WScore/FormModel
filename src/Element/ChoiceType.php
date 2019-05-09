@@ -11,7 +11,7 @@ class ChoiceType extends InputType
 
     private $replace = false;
 
-    public function __construct(ValidatorBuilder $builder, $name, $label)
+    public function __construct(ValidatorBuilder $builder, $name, $label = '')
     {
         $type = ElementType::TYPE_CHOICE;
         parent::__construct($builder, $type, $name, $label);

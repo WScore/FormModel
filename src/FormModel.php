@@ -1,6 +1,7 @@
 <?php
 namespace WScore\FormModel;
 
+use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\InputType;
 use WScore\FormModel\Interfaces\ElementInterface;
@@ -41,5 +42,10 @@ class FormModel
     public function text($name): ElementInterface
     {
         return $this->element(ElementType::TYPE_TEXT, $name);
+    }
+
+    public function choices($name): ChoiceType
+    {
+        return new ChoiceType($this->builder, $name);
     }
 }

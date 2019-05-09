@@ -1,6 +1,8 @@
 <?php
 namespace WScore\FormModel\Html;
 
+use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Html\Form;
@@ -15,6 +17,9 @@ class Html extends AbstractHtml
 
     public static function create(ElementInterface $element): HtmlFormInterface
     {
+        if ($element->getType() === ElementType::TYPE_CHOICE && $element instanceof ChoiceType) {
+            return new HtmlChoices($element);
+        }
         $self = new self();
         $self->element = $element;
 

@@ -4,6 +4,7 @@ namespace WScore\FormModel\Html;
 use ArrayIterator;
 use InvalidArgumentException;
 use Traversable;
+use WScore\Html\Tags\Input;
 
 abstract class AbstractHtml implements HtmlFormInterface
 {
@@ -49,19 +50,11 @@ abstract class AbstractHtml implements HtmlFormInterface
     }
 
     /**
-     * @return self[]
+     * @return Input[]
      */
     public function choices()
     {
-        /** @var array $choices */
-        $choices = $this->get('choices', []);
-        if (empty($choices)) {
-            return [];
-        }
-        foreach ($choices as $key => $choice) {
-
-        }
-        return $choices;
+        return [];
     }
 
     /**

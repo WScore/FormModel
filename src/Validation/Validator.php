@@ -1,8 +1,12 @@
 <?php
 namespace WScore\FormModel\Validation;
 
+use InvalidArgumentException;
+use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\Validation\Filters\InArray;
 use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ResultInterface;
 use WScore\Validation\Interfaces\ValidationInterface;
@@ -34,9 +38,18 @@ class Validator
         if ($element->isFormType() && $element instanceof FormElementInterface) {
             return $this->buildForm($element);
         }
-        $filters = $element instanceof ElementInterface
-            ? $element->getFilters()
-            : [];
+        if ($element->getType() === ElementType::TYPE_CHOICE && $element instanceof ChoiceType) {
+            return $this->buildChoices($element);
+        }
+        if ($element instanceof ElementInterface) {
+            return $this->buildInput($element);
+        }
+        throw new InvalidArgumentException('cannot build validator');
+    }
+
+    private function buildInput(ElementInterface $element): ValidationInterface
+    {
+        $filters = $element->getFilters();
         $filters['type'] = $element->getType();
         $filters['multiple'] = $element->isMultiple();
         if ($element->isRequired()) {
@@ -67,5 +80,22 @@ class Validator
     public function getValidation(): ValidationInterface
     {
         return $this->validation;
+    }
+
+    private function buildChoices(ChoiceType $element)
+    {
+        $filters = $element->getFilters();
+        $filters['type'] = 'text';
+        $filters['multiple'] = $element->isMultiple();
+        if ($element->isRequired()) {
+            $filters[Required::class] = [];
+        }
+        $choices = array_keys($element->getChoices());
+        $filters[InArray::class] = $element->isReplace()
+            ? [InArray::REPLACE => $choices]
+            : [InArray::CHOICES => $choices];
+        $validation = $this->builder->chain($filters);
+        return $validation;
+
     }
 }
