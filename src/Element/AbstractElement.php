@@ -32,7 +32,7 @@ abstract class AbstractElement implements ElementInterface
     /**
      * @var string
      */
-    protected $fullName = '';
+    protected $fullName = null;
 
     /**
      * @var ValidatorBuilder
@@ -100,7 +100,7 @@ abstract class AbstractElement implements ElementInterface
      */
     public function getFullName(): string
     {
-        return $this->fullName;
+        return $this->fullName ?? $this->name;
     }
 
     /**
