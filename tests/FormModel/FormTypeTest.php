@@ -29,7 +29,7 @@ class FormTypeTest extends TestCase
         $text->isRequired();
         $html = $text->createHtml('test-me');
         $this->assertEquals(
-            '<input type="text" class="form-type" style="width:5em" required="required">',
+            '<input type="text" name="name" id="name" class="form-type" style="width:5em" required="required">',
             $html->form()->toString()
         );
 
@@ -63,8 +63,8 @@ class FormTypeTest extends TestCase
         $html = $choices->createHtml('bbb');
         $this->assertEquals(
             '<div>
-<input type="radio" value="aaa" class="form-choices" required="required" aria-label="A-aa">
-<input type="radio" value="bbb" class="form-choices" required="required" aria-label="B-bb">
+<input type="radio" name="many" id="many" value="aaa" class="form-choices" required="required" aria-label="A-aa">
+<input type="radio" name="many" id="many" value="bbb" class="form-choices" required="required" aria-label="B-bb">
 </div>',
             $html->form()->toString()
         );
@@ -73,7 +73,44 @@ class FormTypeTest extends TestCase
         $result = $validator->verify('aaa');
         $this->assertEquals('aaa', $result->value());
         $this->assertTrue($result->isValid());
+
         $result = $validator->verify('');
+        $this->assertFalse($result->isValid());
+    }
+
+
+    public function testChoiceTypeForCheckbox()
+    {
+        $fm = FormModel::create();
+        $choices = $fm->choices('many');
+        $choices->setChoices([
+            'aaa' => 'A-aa',
+            'bbb' => 'B-bb',
+        ]);
+        $choices->setExpand(true);
+        $choices->setMultiple(true);
+        $choices->setAttributes([
+            'class' => 'form-choices'
+        ]);
+        $choices->setFilters([
+            Required::class,
+        ]);
+
+        $html = $choices->createHtml('bbb');
+        $this->assertEquals(
+            '<div>
+<input type="checkbox" name="many" id="many" value="aaa" class="form-choices" required="required" aria-label="A-aa">
+<input type="checkbox" name="many" id="many" value="bbb" class="form-choices" required="required" aria-label="B-bb">
+</div>',
+            $html->form()->toString()
+        );
+
+        $validator = $choices->createValidation();
+        $result = $validator->verify(['aaa']);
+        $this->assertEquals(['aaa'], $result->value());
+        $this->assertTrue($result->isValid());
+
+        $result = $validator->verify([]);
         $this->assertFalse($result->isValid());
     }
 }
