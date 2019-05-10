@@ -62,10 +62,9 @@ class FormTypeTest extends TestCase
 
         $html = $choices->createHtml('bbb');
         $this->assertEquals(
-            '<div>
-<input type="radio" name="many" id="many" value="aaa" class="form-choices" required="required" aria-label="A-aa">
-<input type="radio" name="many" id="many" value="bbb" class="form-choices" required="required" aria-label="B-bb">
-</div>',
+            '<label><input type="radio" name="many" id="many_0" class="form-choices" required="required" value="aaa"> A-aa</label>
+<label><input type="radio" name="many" id="many_1" class="form-choices" required="required" value="bbb"> B-bb</label>
+',
             $html->form()->toString()
         );
 
@@ -98,10 +97,9 @@ class FormTypeTest extends TestCase
 
         $html = $choices->createHtml('bbb');
         $this->assertEquals(
-            '<div>
-<input type="checkbox" name="many" id="many" value="aaa" class="form-choices" required="required" aria-label="A-aa">
-<input type="checkbox" name="many" id="many" value="bbb" class="form-choices" required="required" aria-label="B-bb">
-</div>',
+            '<label><input type="checkbox" name="many[0]" id="many_0_" class="form-choices" required="required" value="aaa"> A-aa</label>
+<label><input type="checkbox" name="many[1]" id="many_1_" class="form-choices" required="required" value="bbb"> B-bb</label>
+',
             $html->form()->toString()
         );
 
@@ -111,6 +109,40 @@ class FormTypeTest extends TestCase
         $this->assertTrue($result->isValid());
 
         $result = $validator->verify([]);
+        $this->assertFalse($result->isValid());
+    }
+
+    public function testSelect()
+    {
+        $fm = FormModel::create();
+        $choices = $fm->choices('many');
+        $choices->setChoices([
+            'aaa' => 'A-aa',
+            'bbb' => 'B-bb',
+        ]);
+        $choices->setExpand(false);
+        $choices->setAttributes([
+            'class' => 'form-choices'
+        ]);
+        $choices->setFilters([
+            Required::class,
+        ]);
+
+        $html = $choices->createHtml('bbb');
+        $this->assertEquals(
+            '<select name="many" id="many" class="form-choices" required="required">
+<option value="aaa">A-aa</option>
+<option value="bbb">B-bb</option>
+</select>',
+            $html->form()->toString()
+        );
+
+        $validator = $choices->createValidation();
+        $result = $validator->verify('aaa');
+        $this->assertEquals('aaa', $result->value());
+        $this->assertTrue($result->isValid());
+
+        $result = $validator->verify('');
         $this->assertFalse($result->isValid());
     }
 }

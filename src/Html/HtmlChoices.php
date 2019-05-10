@@ -3,6 +3,7 @@ namespace WScore\FormModel\Html;
 
 use WScore\FormModel\Element\ChoiceType;
 use WScore\Html\Form;
+use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
 
@@ -19,18 +20,17 @@ class HtmlChoices extends AbstractHtml
     }
 
     /**
-     * @return Input|Tag
+     * @return Choices
      */
     public function form()
     {
-        if (!$this->element->isExpand()) {
-            return $this->formSelect();
-        }
-        $tag = Tag::create('div');
-        foreach ($this->choices() as $choice) {
-            $tag->setContents($choice);
-        }
-        return $tag;
+        $name = $this->element->getFullName();
+        $form = Form::choices($name, $this->element->getChoices())
+            ->setAttributes($this->element->getAttributes());
+        $form->required($this->element->isRequired());
+        $form->expand($this->element->isExpand());
+        $form->multiple($this->element->isMultiple());
+        return $form;
     }
 
     /**
@@ -38,30 +38,8 @@ class HtmlChoices extends AbstractHtml
      */
     public function choices()
     {
-        if (!$this->element->isExpand()) {
-            return [];
-        }
-        $name = $this->element->getFullName();
-        $type = $this->element->isMultiple()
-            ? 'checkbox'
-            : 'radio';
-        $attributes = $this->element->getAttributes();
-        $form = Form::input($type, $name)->setAttributes($attributes);
-        $form->required($this->element->isRequired());
-
-        $inputs = [];
-        foreach ($this->element->getChoices() as $val => $label) {
-            $f = clone $form;
-            $f->value($val);
-            $f->set('aria-label', $label);
-            $inputs[$val] = $f;
-        }
-        return $inputs;
-    }
-
-    private function formSelect()
-    {
-
+        $form = $this->form();
+        return $form->getChoices();
     }
 
     /**
