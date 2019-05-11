@@ -100,7 +100,11 @@ abstract class AbstractElement implements ElementInterface
      */
     public function getFullName(): string
     {
-        return $this->fullName ?? $this->name;
+        if (!$this->fullName) {
+            return $this->name;
+        }
+        $name = $this->fullName . "[{$this->name}]";
+        return $name;
     }
 
     /**
@@ -148,10 +152,10 @@ abstract class AbstractElement implements ElementInterface
     }
 
     /**
-     * @param array|string $inputs
+     * @param null|array|string $inputs
      * @return HtmlFormInterface
      */
-    public function createHtml($inputs): HtmlFormInterface
+    public function createHtml($inputs = null): HtmlFormInterface
     {
         return Html::create($this);
     }

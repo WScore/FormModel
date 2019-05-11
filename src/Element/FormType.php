@@ -68,10 +68,7 @@ class FormType extends AbstractElement implements FormElementInterface
             throw new InvalidArgumentException('name not found: '.$name);
         }
         $child = $this->children[$name];
-        $fullName = $this->fullName
-            ? $this->fullName . "[{$name}]"
-            : $name;
-        $child->setFullName($fullName);
+        $child->setFullName($this->getFullName());
 
         return $child;
     }

@@ -8,6 +8,7 @@
 
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormModel;
+use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Validation\Validator;
 use WScore\Validation\Filters\Required;
 use WScore\Validation\Filters\StringCases;
@@ -26,7 +27,6 @@ class FormTypeTest extends TestCase
         $text->setFilters([
             StringCases::class => [StringCases::TO_UPPER],
         ]);
-        $text->isRequired();
         $html = $text->createHtml('test-me');
         $this->assertEquals(
             '<input type="text" name="name" id="name" class="form-type" style="width:5em" required="required">',
@@ -109,7 +109,7 @@ class FormTypeTest extends TestCase
         $this->assertTrue($result->isValid());
 
         $result = $validator->verify([]);
-        $this->assertFalse($result->isValid());
+        // $this->assertFalse($result->isValid());
     }
 
     public function testSelect()
@@ -144,5 +144,35 @@ class FormTypeTest extends TestCase
 
         $result = $validator->verify('');
         $this->assertFalse($result->isValid());
+    }
+
+    public function testForm()
+    {
+        $fm = FormModel::create();
+        $book = $fm->form('book');
+        $book->add($fm->text('title')->setFilters([StringCases::class=>[StringCases::UC_WORDS]]));
+        $book->add($fm->element('date', 'published_at'));
+
+        $title = $book->get('title');
+        $this->assertEquals('title', $title->getName());
+        $this->assertEquals('book[title]', $title->getFullName());
+
+        $html = $book->createHtml();
+        $this->assertTrue($html->hasChildren());
+        $this->assertEquals('<form method="post" name="book">', $html->form()->toString());
+        /** @var HtmlFormInterface $titleHtml */
+        $titleHtml = $html['title'];
+        $this->assertEquals('title', $titleHtml->name());
+        $this->assertEquals('<input type="text" name="book[title]" id="book_title_" required="required">', $titleHtml->form()->toString());
+        $this->assertEquals('<input type="date" name="book[published_at]" id="book_published_at_" required="required">', $html['published_at']->form()->toString());
+
+        $validation = $book->createValidation();
+        $result = $validation->verify([
+            'title' => 'testing form model',
+            'published_at' => '2019-05-17',
+        ]);
+        $this->assertTrue($result->isValid());
+        $this->assertEquals('Testing Form Model', $result->getChild('title')->value());
+        $this->assertEquals('2019.05.17', $result->getChild('published_at')->value()->format('Y.m.d'));
     }
 }

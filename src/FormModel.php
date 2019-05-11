@@ -3,6 +3,7 @@ namespace WScore\FormModel;
 
 use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementType;
+use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
@@ -31,7 +32,8 @@ class FormModel
 
     public function form($name): FormElementInterface
     {
-        // todo: implement this method.
+        $form = new FormType($this->builder, $name);
+        return $form;
     }
 
     public function element($type, $name): ElementInterface

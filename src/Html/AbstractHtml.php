@@ -4,11 +4,23 @@ namespace WScore\FormModel\Html;
 use ArrayIterator;
 use InvalidArgumentException;
 use Traversable;
+use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\Html\Tags\Input;
 
 abstract class AbstractHtml implements HtmlFormInterface
 {
+    /**
+     * @var ChoiceType
+     */
+    protected $element;
+
     private $info = [];
+
+    public function __construct(ElementInterface $element)
+    {
+        $this->element = $element;
+    }
 
     /**
      * @var HtmlFormInterface[]
@@ -30,7 +42,7 @@ abstract class AbstractHtml implements HtmlFormInterface
      */
     public function name()
     {
-        return $this->get('name');
+        return $this->element->getName();
     }
 
     /**
@@ -38,7 +50,7 @@ abstract class AbstractHtml implements HtmlFormInterface
      */
     public function label()
     {
-        return $this->get('label');
+        return $this->element->getLabel();
     }
 
     /**

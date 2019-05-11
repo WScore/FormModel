@@ -10,16 +10,6 @@ use WScore\Html\Tags\Tag;
 class HtmlChoices extends AbstractHtml
 {
     /**
-     * @var ChoiceType
-     */
-    private $element;
-
-    public function __construct(ChoiceType $element)
-    {
-        $this->element = $element;
-    }
-
-    /**
      * @return Choices
      */
     public function form()

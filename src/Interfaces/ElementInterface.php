@@ -70,10 +70,10 @@ interface ElementInterface
     public function createValidation(): Validator;
 
     /**
-     * @param array|string $inputs
+     * @param null|array|string $inputs
      * @return HtmlFormInterface
      */
-    public function createHtml($inputs): HtmlFormInterface;
+    public function createHtml($inputs = null): HtmlFormInterface;
 
     /**
      * @return array
