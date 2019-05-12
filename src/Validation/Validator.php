@@ -14,7 +14,11 @@ use WScore\Validation\ValidatorBuilder;
 
 class Validator
 {
+    /**
+     * @var ValidatorBuilder
+     */
     private $builder;
+
     /**
      * @var ValidationInterface
      */

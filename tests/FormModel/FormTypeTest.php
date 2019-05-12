@@ -91,9 +91,7 @@ class FormTypeTest extends TestCase
         $choices->setAttributes([
             'class' => 'form-choices'
         ]);
-        $choices->setFilters([
-            Required::class,
-        ]);
+        $choices->setRequired();
 
         $html = $choices->createHtml('bbb');
         $this->assertEquals(
@@ -109,7 +107,7 @@ class FormTypeTest extends TestCase
         $this->assertTrue($result->isValid());
 
         $result = $validator->verify([]);
-        // $this->assertFalse($result->isValid());
+        $this->assertFalse($result->isValid());
     }
 
     public function testSelect()
