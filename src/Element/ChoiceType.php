@@ -5,11 +5,25 @@ use WScore\Validation\ValidatorBuilder;
 
 class ChoiceType extends InputType
 {
+    /**
+     * @var bool
+     */
     private $expand = false;
 
+    /**
+     * @var array
+     */
     private $choices = [];
 
+    /**
+     * @var bool
+     */
     private $replace = false;
+
+    /**
+     * @var bool
+     */
+    private $isMultiple = false;
 
     public function __construct(ValidatorBuilder $builder, $name, $label = '')
     {
@@ -69,5 +83,23 @@ class ChoiceType extends InputType
     public function isReplace(): bool
     {
         return $this->replace;
+    }
+
+    /**
+     * @return bool|array
+     */
+    public function isMultiple()
+    {
+        return $this->isMultiple;
+    }
+
+    /**
+     * @param bool|array $multiple
+     * @return $this
+     */
+    public function setMultiple($multiple = true): ChoiceType
+    {
+        $this->isMultiple = $multiple;
+        return $this;
     }
 }

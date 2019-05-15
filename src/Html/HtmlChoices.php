@@ -1,11 +1,9 @@
 <?php
 namespace WScore\FormModel\Html;
 
-use WScore\FormModel\Element\ChoiceType;
 use WScore\Html\Form;
 use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
-use WScore\Html\Tags\Tag;
 
 class HtmlChoices extends AbstractHtml
 {

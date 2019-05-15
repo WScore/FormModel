@@ -55,7 +55,6 @@ class Validator
     {
         $filters = $element->getFilters();
         $filters['type'] = $element->getType();
-        $filters['multiple'] = $element->isMultiple();
         if ($element->isRequired()) {
             $filters[Required::class] = [];
         }

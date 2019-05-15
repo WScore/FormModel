@@ -11,11 +11,6 @@ class InputType extends AbstractElement implements ElementInterface
     private $isRequired = true;
 
     /**
-     * @var bool
-     */
-    private $isMultiple = false;
-
-    /**
      * @return bool
      */
     public function isRequired(): bool
@@ -30,24 +25,6 @@ class InputType extends AbstractElement implements ElementInterface
     public function setRequired($required = true): ElementInterface
     {
         $this->isRequired = $required;
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isMultiple(): bool
-    {
-        return $this->isMultiple;
-    }
-
-    /**
-     * @param bool $multiple
-     * @return $this
-     */
-    public function setMultiple($multiple = true): ElementInterface
-    {
-        $this->isMultiple = $multiple;
         return $this;
     }
 }

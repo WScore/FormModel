@@ -16,11 +16,6 @@ class FormType extends AbstractElement implements FormElementInterface
      */
     private $children = [];
 
-    /**
-     * @var bool
-     */
-    private $isMultiple = false;
-
     public function __construct(ValidatorBuilder $builder, $name, $label = '')
     {
         parent::__construct($builder, ElementType::TYPE_FORM, $name, $label);
@@ -53,7 +48,6 @@ class FormType extends AbstractElement implements FormElementInterface
      */
     public function addRepeatedForm($repeat, FormElementInterface $element): FormElementInterface
     {
-        $element->setMultiple();
         $this->addChild($element);
         return $this;
     }
@@ -122,23 +116,5 @@ class FormType extends AbstractElement implements FormElementInterface
     public function setRequired($required = true): ElementInterface
     {
         throw new BadMethodCallException();
-    }
-
-    /**
-     * @return bool
-     */
-    public function isMultiple(): bool
-    {
-        return $this->isMultiple;
-    }
-
-    /**
-     * @param bool $multiple
-     * @return $this
-     */
-    public function setMultiple($multiple = true): ElementInterface
-    {
-        $this->isMultiple = $multiple;
-        return $this;
     }
 }

@@ -24,16 +24,6 @@ class Html extends AbstractHtml
         return $self;
     }
 
-    private static function createForm(FormElementInterface $element)
-    {
-        $form = new self($element);
-        foreach ($element->getChildren() as $child) {
-            $name = $child->getName();
-            $form[$name] = self::create($child);
-        }
-        return $form;
-    }
-
     /**
      * @return Input
      */

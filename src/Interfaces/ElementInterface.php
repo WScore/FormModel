@@ -18,17 +18,6 @@ interface ElementInterface
     public function setRequired($required = true): ElementInterface;
 
     /**
-     * @return bool
-     */
-    public function isMultiple(): bool;
-
-    /**
-     * @param bool $multiple
-     * @return $this
-     */
-    public function setMultiple($multiple = true): ElementInterface;
-
-    /**
      * @return string
      */
     public function getType(): string;
