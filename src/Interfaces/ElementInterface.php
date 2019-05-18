@@ -1,75 +1,79 @@
 <?php
 namespace WScore\FormModel\Interfaces;
 
-interface ElementInterface extends BaseFormInterface
+use WScore\FormModel\Html\HtmlFormInterface;
+use WScore\FormModel\Validation\Validator;
+
+interface ElementInterface
 {
-    /**
-     * @return string
-     */
-    public function getValue(): string;
-
-    /**
-     * @return array
-     */
-    public function getChoices(): array;
-
     /**
      * @return bool
      */
     public function isRequired(): bool;
 
     /**
+     * @param bool $required
+     * @return $this
+     */
+    public function setRequired($required = true): ElementInterface;
+
+    /**
+     * @return string
+     */
+    public function getType(): string;
+
+    /**
      * @return bool
      */
-    public function isMultiple(): bool;
+    public function isFormType(): bool;
 
     /**
      * @return bool
      */
-    public function hasChoices(): bool;
+    public function isRepeatedForm(): bool;
 
     /**
-     * @return $this
+     * @return string
      */
-    public function setRequired(): self;
+    public function getName(): string;
 
     /**
-     * @param string $label
-     * @return $this
+     * @return string
      */
-    public function setLabel($label): self;
+    public function getLabel(): string;
 
     /**
-     * @param array $validation
-     * @return $this
+     * @return Validator
      */
-    public function setValidations(array $validation): self;
+    public function createValidation(): Validator;
 
     /**
-     * @return array
+     * TODO: $inputs not used, yet!
+     *
+     * @param null|array|string $inputs
+     * @return HtmlFormInterface
      */
-    public function getValidations(): array;
-
-    /**
-     * @param array $choices
-     * @return $this
-     */
-    public function setChoices(array $choices): self;
-
-    /**
-     * @param bool $multiple
-     * @return $this
-     */
-    public function setMultiple($multiple = true): self;
-
-    /**
-     * @param array $attributes
-     * @return ElementInterface
-     */
-    public function setAttributes(array $attributes): self;
+    public function createHtml($inputs = null): HtmlFormInterface;
 
     /**
      * @return array
      */
     public function getAttributes(): array;
+
+    /**
+     * @param array $attributes
+     * @return ElementInterface
+     */
+    public function setAttributes(array $attributes): ElementInterface;
+
+    /**
+     * @return array
+     */
+    public function getFilters(): array;
+
+    /**
+     * @param array $filters
+     * @return $this
+     */
+    public function setFilters(array $filters): ElementInterface;
 }

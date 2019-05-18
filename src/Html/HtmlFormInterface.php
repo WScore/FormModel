@@ -1,7 +1,14 @@
 <?php
-namespace WScore\FormModel\Form;
 
-interface HtmlFormInterface
+namespace WScore\FormModel\Html;
+
+use ArrayAccess;
+use IteratorAggregate;
+use WScore\Html\Tags\Choices;
+use WScore\Html\Tags\Input;
+use WScore\Html\Tags\Tag;
+
+interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
 {
     /**
      * @return string
@@ -11,15 +18,25 @@ interface HtmlFormInterface
     /**
      * @return string
      */
+    public function fullName();
+
+    /**
+     * @return string
+     */
     public function label();
 
     /**
      * @return string
      */
+    public function value();
+
+    /**
+     * @return Input|Tag|Choices
+     */
     public function form();
 
     /**
-     * @return self[]
+     * @return Input[]
      */
     public function choices();
 
