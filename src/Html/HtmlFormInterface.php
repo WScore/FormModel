@@ -18,6 +18,11 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     /**
      * @return string
      */
+    public function fullName();
+
+    /**
+     * @return string
+     */
     public function label();
 
     /**

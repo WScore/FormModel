@@ -12,7 +12,7 @@ class HtmlChoices extends AbstractHtml
      */
     public function form()
     {
-        $name = $this->element->getFullName();
+        $name = $this->fullName();
         $form = Form::choices($name, $this->element->getChoices())
             ->setAttributes($this->element->getAttributes());
         $form->required($this->element->isRequired());

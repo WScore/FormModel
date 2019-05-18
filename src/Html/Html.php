@@ -5,21 +5,25 @@ use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Html\Form;
 use WScore\Html\Tags\Input;
 
 class Html extends AbstractHtml
 {
-    public static function create(ElementInterface $element): HtmlFormInterface
+    /**
+     * @param ElementInterface $element
+     * @param HtmlFormInterface|null $parent
+     * @return HtmlFormInterface
+     */
+    public static function create(ElementInterface $element, HtmlFormInterface $parent=null): HtmlFormInterface
     {
         if ($element->getType() === ElementType::TYPE_CHOICE && $element instanceof ChoiceType) {
-            return new HtmlChoices($element);
+            return new HtmlChoices($element, $parent);
         }
         if ($element->isFormType() && $element instanceof FormType) {
-            return new HtmlForm($element);
+            return new HtmlForm($element, $parent);
         }
-        $self = new self($element);
+        $self = new self($element, $parent);
 
         return $self;
     }
@@ -30,7 +34,7 @@ class Html extends AbstractHtml
     public function form()
     {
         $type = $this->element->getType();
-        $name = $this->element->getFullName();
+        $name = $this->fullName();
         $attributes = $this->element->getAttributes();
         $form = Form::input($type, $name)->setAttributes($attributes);
         $form->required($this->element->isRequired());

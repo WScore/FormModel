@@ -43,7 +43,6 @@ class NestedFormTest extends TestCase
 
         $title = $book->get('title');
         $this->assertEquals('title', $title->getName());
-        $this->assertEquals('book[title]', $title->getFullName());
     }
 
     public function testNestedForm()
@@ -52,7 +51,6 @@ class NestedFormTest extends TestCase
         $publisher = $book->get('publisher');
         $name = $publisher->get('name');
         $this->assertEquals('name', $name->getName());
-        $this->assertEquals('book[publisher][name]', $name->getFullName());
     }
 
     public function testNestedHtml()

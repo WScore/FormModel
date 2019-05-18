@@ -40,18 +40,7 @@ interface ElementInterface
     /**
      * @return string
      */
-    public function getFullName(): string;
-
-    /**
-     * @return string
-     */
     public function getLabel(): string;
-
-    /**
-     * @param string $fullName
-     * @return $this
-     */
-    public function setFullName(string $fullName): ElementInterface;
 
     /**
      * @return Validator

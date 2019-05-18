@@ -8,11 +8,7 @@
 
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormModel;
-use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Validation\Validator;
 use WScore\Validation\Filters\Required;
-use WScore\Validation\Filters\StringCases;
-use WScore\Validation\Validators\Result;
 
 class ElementChoicesTest extends TestCase
 {

@@ -30,11 +30,6 @@ abstract class AbstractElement implements ElementInterface
     protected $attributes = [];
 
     /**
-     * @var string
-     */
-    protected $fullName = null;
-
-    /**
      * @var ValidatorBuilder
      */
     protected $validationBuilder;
@@ -98,18 +93,6 @@ abstract class AbstractElement implements ElementInterface
     /**
      * @return string
      */
-    public function getFullName(): string
-    {
-        if (!$this->fullName) {
-            return $this->name;
-        }
-        $name = $this->fullName . "[{$this->name}]";
-        return $name;
-    }
-
-    /**
-     * @return string
-     */
     public function getLabel(): string
     {
         return $this->label;
@@ -130,16 +113,6 @@ abstract class AbstractElement implements ElementInterface
     public function setAttributes(array $attributes): ElementInterface
     {
         $this->attributes = $attributes;
-        return $this;
-    }
-
-    /**
-     * @param string $fullName
-     * @return $this
-     */
-    public function setFullName(string $fullName): ElementInterface
-    {
-        $this->fullName = $fullName;
         return $this;
     }
 
