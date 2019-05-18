@@ -14,7 +14,8 @@ class HtmlChoices extends AbstractHtml
     {
         $name = $this->fullName();
         $form = Form::choices($name, $this->element->getChoices())
-            ->setAttributes($this->element->getAttributes());
+            ->setAttributes($this->element->getAttributes())
+        ->setInitValue($this->value());
         $form->required($this->element->isRequired());
         $form->expand($this->element->isExpand());
         $form->multiple($this->element->isMultiple());

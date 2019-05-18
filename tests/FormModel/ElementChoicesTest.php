@@ -31,7 +31,7 @@ class ElementChoicesTest extends TestCase
         $html = $choices->createHtml('bbb');
         $this->assertEquals(
             '<label><input type="radio" name="many" id="many_0" class="form-choices" required="required" value="aaa"> A-aa</label>
-<label><input type="radio" name="many" id="many_1" class="form-choices" required="required" value="bbb"> B-bb</label>
+<label><input type="radio" name="many" id="many_1" class="form-choices" required="required" value="bbb" checked="checked"> B-bb</label>
 ',
             $html->form()->toString()
         );
@@ -53,6 +53,7 @@ class ElementChoicesTest extends TestCase
         $choices->setChoices([
             'aaa' => 'A-aa',
             'bbb' => 'B-bb',
+            'ccc' => 'C-cc',
         ]);
         $choices->setExpand(true);
         $choices->setMultiple(true);
@@ -61,10 +62,11 @@ class ElementChoicesTest extends TestCase
         ]);
         $choices->setRequired();
 
-        $html = $choices->createHtml('bbb');
+        $html = $choices->createHtml(['aaa', 'ccc']);
         $this->assertEquals(
-            '<label><input type="checkbox" name="many[0]" id="many_0_" class="form-choices" required="required" value="aaa"> A-aa</label>
+            '<label><input type="checkbox" name="many[0]" id="many_0_" class="form-choices" required="required" value="aaa" checked="checked"> A-aa</label>
 <label><input type="checkbox" name="many[1]" id="many_1_" class="form-choices" required="required" value="bbb"> B-bb</label>
+<label><input type="checkbox" name="many[2]" id="many_2_" class="form-choices" required="required" value="ccc" checked="checked"> C-cc</label>
 ',
             $html->form()->toString()
         );
@@ -98,7 +100,7 @@ class ElementChoicesTest extends TestCase
         $this->assertEquals(
             '<select name="many" id="many" class="form-choices" required="required">
 <option value="aaa">A-aa</option>
-<option value="bbb">B-bb</option>
+<option value="bbb" selected>B-bb</option>
 </select>',
             $html->form()->toString()
         );
