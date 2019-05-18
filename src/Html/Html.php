@@ -13,17 +13,18 @@ class Html extends AbstractHtml
     /**
      * @param ElementInterface $element
      * @param HtmlFormInterface|null $parent
+     * @param null $value
      * @return HtmlFormInterface
      */
-    public static function create(ElementInterface $element, HtmlFormInterface $parent=null): HtmlFormInterface
+    public static function create(ElementInterface $element, HtmlFormInterface $parent=null, $value = null): HtmlFormInterface
     {
         if ($element->getType() === ElementType::TYPE_CHOICE && $element instanceof ChoiceType) {
-            return new HtmlChoices($element, $parent);
+            return new HtmlChoices($element, $parent, $value);
         }
         if ($element->isFormType() && $element instanceof FormType) {
-            return new HtmlForm($element, $parent);
+            return new HtmlForm($element, $parent, $value);
         }
-        $self = new self($element, $parent);
+        $self = new self($element, $parent, $value);
 
         return $self;
     }
@@ -36,6 +37,9 @@ class Html extends AbstractHtml
         $type = $this->element->getType();
         $name = $this->fullName();
         $attributes = $this->element->getAttributes();
+        if (is_string($this->value())) {
+            $attributes['value'] = $this->value();
+        }
         $form = Form::input($type, $name)->setAttributes($attributes);
         $form->required($this->element->isRequired());
 

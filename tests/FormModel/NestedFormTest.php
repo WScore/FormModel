@@ -9,6 +9,9 @@
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormModel;
 use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\Html\Tags\Choices;
+use WScore\Html\Tags\Input;
+use WScore\Html\Tags\Tag;
 use WScore\Validation\Filters\StringCases;
 
 class NestedFormTest extends TestCase
@@ -55,9 +58,27 @@ class NestedFormTest extends TestCase
 
     public function testNestedHtml()
     {
-        $html = $this->book->createHtml();
-        $this->assertEquals('<input type="text" name="book[title]" id="book_title_" required="required">', $html['title']->form()->toString());
-        $this->assertEquals('<input type="text" name="book[publisher][name]" id="book_publisher__name_" required="required">', $html['publisher']['name']->form()->toString());
+        $html = $this->book->createHtml([
+            'book' => [
+                'title' => 'test-me',
+                'publisher' => [
+                    'name' => 'pub-test',
+                ]
+            ]
+        ]);
+        /** @var Input $form */
+        $form = $html['title']->form();
+        $this->assertEquals('book[title]', $form->get('name'));
+        $this->assertEquals('book_title_', $form->get('id'));
+        $this->assertEquals('test-me', $form->get('value'));
+        $this->assertEquals('required', $form->get('required'));
+
+        /** @var Input $form */
+        $form = $html['publisher']['name']->form();
+        $this->assertEquals('book[publisher][name]', $form->get('name'));
+        $this->assertEquals('book_publisher__name_', $form->get('id'));
+        $this->assertEquals('pub-test', $form->get('value'));
+        $this->assertEquals('required', $form->get('required'));
     }
 
 

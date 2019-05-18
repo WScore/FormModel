@@ -130,7 +130,10 @@ abstract class AbstractElement implements ElementInterface
      */
     public function createHtml($inputs = null): HtmlFormInterface
     {
-        return Html::create($this);
+        if ($this instanceof FormType && is_array($inputs)) {
+            $inputs = $inputs[$this->name] ?? null;
+        }
+        return Html::create($this, null, $inputs);
     }
 
     /**

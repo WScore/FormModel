@@ -48,8 +48,6 @@ interface ElementInterface
     public function createValidation(): Validator;
 
     /**
-     * TODO: $inputs not used, yet!
-     *
      * @param null|array|string $inputs
      * @return HtmlFormInterface
      */
