@@ -9,7 +9,7 @@ use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Validation\ValidatorBuilder;
 
-class FormModel
+class FormBuilder
 {
     /**
      * @var ValidatorBuilder

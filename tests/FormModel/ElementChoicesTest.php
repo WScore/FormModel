@@ -7,14 +7,14 @@
  */
 
 use PHPUnit\Framework\TestCase;
-use WScore\FormModel\FormModel;
+use WScore\FormModel\FormBuilder;
 use WScore\Validation\Filters\Required;
 
 class ElementChoicesTest extends TestCase
 {
     public function testChoiceTypeForRadio()
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $choices = $fm->choices('many');
         $choices->setChoices([
             'aaa' => 'A-aa',
@@ -48,7 +48,7 @@ class ElementChoicesTest extends TestCase
 
     public function testChoiceTypeForCheckbox()
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $choices = $fm->choices('many');
         $choices->setChoices([
             'aaa' => 'A-aa',
@@ -82,7 +82,7 @@ class ElementChoicesTest extends TestCase
 
     public function testSelect()
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $choices = $fm->choices('many');
         $choices->setChoices([
             'aaa' => 'A-aa',
@@ -116,7 +116,7 @@ class ElementChoicesTest extends TestCase
 
     public function testChoicesMultipleFilter()
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $choices = $fm->choices('many');
         $choices->setChoices([
             'aaa' => 'A-aa',

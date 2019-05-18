@@ -7,7 +7,7 @@
  */
 
 use PHPUnit\Framework\TestCase;
-use WScore\FormModel\FormModel;
+use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Validation\Validator;
 use WScore\Validation\Filters\StringCases;
@@ -17,7 +17,7 @@ class FormTypeTest extends TestCase
 {
     public function testFormModelText()
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $text = $fm->text('name');
         $text->setAttributes([
             'class' => 'form-type',
@@ -45,7 +45,7 @@ class FormTypeTest extends TestCase
 
     public function testForm()
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $book = $fm->form('book');
         $book->add($fm->text('title')->setFilters([StringCases::class=>[StringCases::UC_WORDS]]));
         $book->add($fm->element('date', 'published_at'));
