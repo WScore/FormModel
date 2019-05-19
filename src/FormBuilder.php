@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WScore\FormModel;
 
 use WScore\FormModel\Element\ChoiceType;
@@ -57,7 +59,7 @@ class FormBuilder
         return new InputType($this->builder, $type, $name);
     }
 
-    public function choices($name): ChoiceType
+    public function choices(string $name): ChoiceType
     {
         return new ChoiceType($this->builder, $name);
     }

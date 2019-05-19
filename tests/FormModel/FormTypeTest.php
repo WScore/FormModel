@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: asao
- * Date: 2019-03-20
- * Time: 10:12
- */
+declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormBuilder;
