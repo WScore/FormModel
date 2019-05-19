@@ -13,7 +13,7 @@ class FormTypeTest extends TestCase
     public function testFormModelText()
     {
         $fm = FormBuilder::create();
-        $text = $fm->text('name');
+        $text = $fm->text('name', 'User Name');
         $text->setAttributes([
             'class' => 'form-type',
             'style' => 'width:5em',
@@ -26,6 +26,7 @@ class FormTypeTest extends TestCase
             '<input type="text" name="name" id="name" value="test-me" class="form-type" style="width:5em" required="required">',
             $html->form()->toString()
         );
+        $this->assertEquals('User Name', $html->label());
 
         $validator = $text->createValidation();
         $this->assertEquals(Validator::class, get_class($validator));
@@ -41,7 +42,7 @@ class FormTypeTest extends TestCase
     public function testForm()
     {
         $fm = FormBuilder::create();
-        $book = $fm->form('book');
+        $book = $fm->form('book', 'Book List');
         $book->add($fm->text('title')->setFilters([StringCases::class=>[StringCases::UC_WORDS]]));
         $book->add($fm->element('date', 'published_at'));
 
@@ -54,6 +55,7 @@ class FormTypeTest extends TestCase
                 'published_at' => '2019-05-05',
             ]
         ]);
+        $this->assertEquals('Book List', $html->label());
         $this->assertTrue($html->hasChildren());
         $this->assertEquals('<form method="post" name="book">', $html->form()->toString());
         /** @var HtmlFormInterface $titleHtml */

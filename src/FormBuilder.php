@@ -13,7 +13,7 @@ use WScore\Validation\ValidatorBuilder;
 /**
  * builds various elements for form models.
  *
- * @method ElementInterface text(string $name)
+ * @method ElementInterface text(string $name, string $label = '')
  */
 class FormBuilder
 {
@@ -45,22 +45,23 @@ class FormBuilder
     {
         $type = $name;
         $name = $arguments[0] ?? '';
-        return $this->element($type, $name);
+        $label = $arguments[1] ?? '';
+        return $this->element($type, $name, $label);
     }
 
-    public function form(string $name): FormElementInterface
+    public function form(string $name, string $label = ''): FormElementInterface
     {
-        $form = new FormType($this->builder, $name);
+        $form = new FormType($this->builder, $name, $label);
         return $form;
     }
 
-    public function element(string $type, string $name): ElementInterface
+    public function element(string $type, string $name, string $label = ''): ElementInterface
     {
-        return new InputType($this->builder, $type, $name);
+        return new InputType($this->builder, $type, $name, $label);
     }
 
-    public function choices(string $name): ChoiceType
+    public function choices(string $name, string $label = ''): ChoiceType
     {
-        return new ChoiceType($this->builder, $name);
+        return new ChoiceType($this->builder, $name, $label);
     }
 }

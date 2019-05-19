@@ -10,7 +10,7 @@ class ElementChoicesTest extends TestCase
     public function testChoiceTypeForRadio()
     {
         $fm = FormBuilder::create();
-        $choices = $fm->choices('many');
+        $choices = $fm->choices('many', 'Various Selections');
         $choices->setChoices([
             'aaa' => 'A-aa',
             'bbb' => 'B-bb',
@@ -24,6 +24,7 @@ class ElementChoicesTest extends TestCase
         ]);
 
         $html = $choices->createHtml('bbb');
+        $this->assertEquals('Various Selections', $html->label());
         $this->assertEquals(
             '<label><input type="radio" name="many" id="many_0" class="form-choices" required="required" value="aaa"> A-aa</label>
 <label><input type="radio" name="many" id="many_1" class="form-choices" required="required" value="bbb" checked="checked"> B-bb</label>
