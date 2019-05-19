@@ -2,13 +2,17 @@
 namespace WScore\FormModel;
 
 use WScore\FormModel\Element\ChoiceType;
-use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Validation\ValidatorBuilder;
 
+/**
+ * builds various elements for form models.
+ *
+ * @method ElementInterface text(string $name)
+ */
 class FormBuilder
 {
     /**
@@ -30,6 +34,18 @@ class FormBuilder
         return $self;
     }
 
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return ElementInterface
+     */
+    public function __call($name, $arguments)
+    {
+        $type = $name;
+        $name = $arguments[0] ?? '';
+        return $this->element($type, $name);
+    }
+
     public function form($name): FormElementInterface
     {
         $form = new FormType($this->builder, $name);
@@ -39,11 +55,6 @@ class FormBuilder
     public function element($type, $name): ElementInterface
     {
         return new InputType($this->builder, $type, $name);
-    }
-
-    public function text($name): ElementInterface
-    {
-        return $this->element(ElementType::TYPE_TEXT, $name);
     }
 
     public function choices($name): ChoiceType
