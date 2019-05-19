@@ -47,7 +47,7 @@ abstract class AbstractElement implements ElementInterface
      * @param string $name
      * @param string $label
      */
-    public function __construct(ValidatorBuilder $builder, $type, $name, $label = '')
+    public function __construct(ValidatorBuilder $builder, string $type, string $name, string $label = '')
     {
         $this->type = $type;
         $this->name = $name;

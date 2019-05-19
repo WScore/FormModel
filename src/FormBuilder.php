@@ -41,20 +41,20 @@ class FormBuilder
      * @param array $arguments
      * @return ElementInterface
      */
-    public function __call($name, $arguments)
+    public function __call(string $name, array $arguments)
     {
         $type = $name;
         $name = $arguments[0] ?? '';
         return $this->element($type, $name);
     }
 
-    public function form($name): FormElementInterface
+    public function form(string $name): FormElementInterface
     {
         $form = new FormType($this->builder, $name);
         return $form;
     }
 
-    public function element($type, $name): ElementInterface
+    public function element(string $type, string $name): ElementInterface
     {
         return new InputType($this->builder, $type, $name);
     }

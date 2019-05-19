@@ -114,7 +114,7 @@ class FormType extends AbstractElement implements FormElementInterface
      * @param bool $required
      * @return $this
      */
-    public function setRequired($required = true): ElementInterface
+    public function setRequired(bool $required = true): ElementInterface
     {
         throw new BadMethodCallException();
     }
