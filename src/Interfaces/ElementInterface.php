@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WScore\FormModel\Interfaces;
 
 use WScore\FormModel\Html\HtmlFormInterface;
@@ -15,7 +17,7 @@ interface ElementInterface
      * @param bool $required
      * @return $this
      */
-    public function setRequired($required = true): ElementInterface;
+    public function setRequired(bool $required = true): ElementInterface;
 
     /**
      * @return string
@@ -48,8 +50,6 @@ interface ElementInterface
     public function createValidation(): Validator;
 
     /**
-     * TODO: $inputs not used, yet!
-     *
      * @param null|array|string $inputs
      * @return HtmlFormInterface
      */

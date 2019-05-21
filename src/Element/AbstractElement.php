@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\Html;
@@ -45,7 +47,7 @@ abstract class AbstractElement implements ElementInterface
      * @param string $name
      * @param string $label
      */
-    public function __construct(ValidatorBuilder $builder, $type, $name, $label = '')
+    public function __construct(ValidatorBuilder $builder, string $type, string $name, string $label = '')
     {
         $this->type = $type;
         $this->name = $name;
@@ -130,7 +132,10 @@ abstract class AbstractElement implements ElementInterface
      */
     public function createHtml($inputs = null): HtmlFormInterface
     {
-        return Html::create($this);
+        if ($this instanceof FormType && is_array($inputs)) {
+            $inputs = $inputs[$this->name] ?? null;
+        }
+        return Html::create($this, null, $inputs);
     }
 
     /**

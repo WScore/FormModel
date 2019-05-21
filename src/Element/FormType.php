@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace WScore\FormModel\Element;
 
 use ArrayIterator;
@@ -112,7 +114,7 @@ class FormType extends AbstractElement implements FormElementInterface
      * @param bool $required
      * @return $this
      */
-    public function setRequired($required = true): ElementInterface
+    public function setRequired(bool $required = true): ElementInterface
     {
         throw new BadMethodCallException();
     }

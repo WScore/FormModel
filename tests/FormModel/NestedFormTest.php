@@ -1,13 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: asao
- * Date: 2019-03-20
- * Time: 10:12
- */
+declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use WScore\FormModel\FormModel;
+use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Validation\Filters\StringCases;
 
@@ -20,7 +15,7 @@ class NestedFormTest extends TestCase
 
     public function setUp(): void
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $book = $fm->form('book');
         $book->add(
             $fm->text('title')
@@ -37,7 +32,7 @@ class NestedFormTest extends TestCase
 
     public function testTitle()
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $book = $fm->form('book');
         $book->add($fm->text('title')->setFilters([StringCases::class => [StringCases::UC_WORDS]]));
 
@@ -55,9 +50,25 @@ class NestedFormTest extends TestCase
 
     public function testNestedHtml()
     {
-        $html = $this->book->createHtml();
-        $this->assertEquals('<input type="text" name="book[title]" id="book_title_" required="required">', $html['title']->form()->toString());
-        $this->assertEquals('<input type="text" name="book[publisher][name]" id="book_publisher__name_" required="required">', $html['publisher']['name']->form()->toString());
+        $html = $this->book->createHtml([
+            'book' => [
+                'title' => 'test-me',
+                'publisher' => [
+                    'name' => 'pub-test',
+                ]
+            ]
+        ]);
+        $form = $html['title']->form();
+        $this->assertEquals('book[title]', $form->get('name'));
+        $this->assertEquals('book_title_', $form->get('id'));
+        $this->assertEquals('test-me', $form->get('value'));
+        $this->assertEquals('required', $form->get('required'));
+
+        $form = $html['publisher']['name']->form();
+        $this->assertEquals('book[publisher][name]', $form->get('name'));
+        $this->assertEquals('book_publisher__name_', $form->get('id'));
+        $this->assertEquals('pub-test', $form->get('value'));
+        $this->assertEquals('required', $form->get('required'));
     }
 
 

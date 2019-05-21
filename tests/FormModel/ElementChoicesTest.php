@@ -1,21 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: asao
- * Date: 2019-03-20
- * Time: 10:12
- */
+declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use WScore\FormModel\FormModel;
+use WScore\FormModel\FormBuilder;
 use WScore\Validation\Filters\Required;
 
 class ElementChoicesTest extends TestCase
 {
     public function testChoiceTypeForRadio()
     {
-        $fm = FormModel::create();
-        $choices = $fm->choices('many');
+        $fm = FormBuilder::create();
+        $choices = $fm->choices('many', 'Various Selections');
         $choices->setChoices([
             'aaa' => 'A-aa',
             'bbb' => 'B-bb',
@@ -29,9 +24,10 @@ class ElementChoicesTest extends TestCase
         ]);
 
         $html = $choices->createHtml('bbb');
+        $this->assertEquals('Various Selections', $html->label());
         $this->assertEquals(
             '<label><input type="radio" name="many" id="many_0" class="form-choices" required="required" value="aaa"> A-aa</label>
-<label><input type="radio" name="many" id="many_1" class="form-choices" required="required" value="bbb"> B-bb</label>
+<label><input type="radio" name="many" id="many_1" class="form-choices" required="required" value="bbb" checked="checked"> B-bb</label>
 ',
             $html->form()->toString()
         );
@@ -48,11 +44,12 @@ class ElementChoicesTest extends TestCase
 
     public function testChoiceTypeForCheckbox()
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $choices = $fm->choices('many');
         $choices->setChoices([
             'aaa' => 'A-aa',
             'bbb' => 'B-bb',
+            'ccc' => 'C-cc',
         ]);
         $choices->setExpand(true);
         $choices->setMultiple(true);
@@ -61,10 +58,11 @@ class ElementChoicesTest extends TestCase
         ]);
         $choices->setRequired();
 
-        $html = $choices->createHtml('bbb');
+        $html = $choices->createHtml(['aaa', 'ccc']);
         $this->assertEquals(
-            '<label><input type="checkbox" name="many[0]" id="many_0_" class="form-choices" required="required" value="aaa"> A-aa</label>
+            '<label><input type="checkbox" name="many[0]" id="many_0_" class="form-choices" required="required" value="aaa" checked="checked"> A-aa</label>
 <label><input type="checkbox" name="many[1]" id="many_1_" class="form-choices" required="required" value="bbb"> B-bb</label>
+<label><input type="checkbox" name="many[2]" id="many_2_" class="form-choices" required="required" value="ccc" checked="checked"> C-cc</label>
 ',
             $html->form()->toString()
         );
@@ -80,7 +78,7 @@ class ElementChoicesTest extends TestCase
 
     public function testSelect()
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $choices = $fm->choices('many');
         $choices->setChoices([
             'aaa' => 'A-aa',
@@ -98,7 +96,7 @@ class ElementChoicesTest extends TestCase
         $this->assertEquals(
             '<select name="many" id="many" class="form-choices" required="required">
 <option value="aaa">A-aa</option>
-<option value="bbb">B-bb</option>
+<option value="bbb" selected>B-bb</option>
 </select>',
             $html->form()->toString()
         );
@@ -114,7 +112,7 @@ class ElementChoicesTest extends TestCase
 
     public function testChoicesMultipleFilter()
     {
-        $fm = FormModel::create();
+        $fm = FormBuilder::create();
         $choices = $fm->choices('many');
         $choices->setChoices([
             'aaa' => 'A-aa',

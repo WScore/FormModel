@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace WScore\FormModel\Html;
 
@@ -54,4 +55,10 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
      * @return HtmlFormInterface[]
      */
     public function getChildren(): array;
+
+    /**
+     * @param mixed $offset
+     * @return $this|HtmlFormInterface
+     */
+    public function offsetGet($offset);
 }
