@@ -18,7 +18,18 @@ class FormType extends AbstractElement implements FormElementInterface
      */
     private $children = [];
 
-    public function __construct(ValidatorBuilder $builder, $name, $label = '')
+    /**
+     * @var int    set integer for repeated form, set null for normal form.
+     */
+    private $numRepeats = null;
+
+    /**
+     * FormType constructor.
+     * @param ValidatorBuilder $builder
+     * @param string $name
+     * @param string $label
+     */
+    public function __construct(ValidatorBuilder $builder, string $name, string $label = '')
     {
         parent::__construct($builder, ElementType::TYPE_FORM, $name, $label);
     }
@@ -48,8 +59,9 @@ class FormType extends AbstractElement implements FormElementInterface
      * @param int $repeat
      * @return $this
      */
-    public function addRepeatedForm($repeat, FormElementInterface $element): FormElementInterface
+    public function addRepeatedForm(int $repeat, FormElementInterface $element): FormElementInterface
     {
+        $element->setRepeats($repeat);
         $this->addChild($element);
         return $this;
     }
@@ -117,5 +129,29 @@ class FormType extends AbstractElement implements FormElementInterface
     public function setRequired(bool $required = true): ElementInterface
     {
         throw new BadMethodCallException();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRepeatedForm(): bool
+    {
+        return is_int($this->numRepeats);
+    }
+
+    /**
+     * @return int
+     */
+    public function getRepeats(): int
+    {
+        return $this->numRepeats;
+    }
+
+    /**
+     * @param int $num
+     */
+    public function setRepeats(int $num)
+    {
+        $this->numRepeats = $num;
     }
 }

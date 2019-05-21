@@ -24,6 +24,9 @@ class Html extends AbstractHtml
             return new HtmlChoices($element, $parent, $value);
         }
         if ($element->isFormType() && $element instanceof FormType) {
+            if ($element->isRepeatedForm()) {
+                return new HtmlRepeatedForm($element, $parent, $value);
+            }
             return new HtmlForm($element, $parent, $value);
         }
         $self = new self($element, $parent, $value);

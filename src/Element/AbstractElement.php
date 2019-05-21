@@ -76,7 +76,7 @@ abstract class AbstractElement implements ElementInterface
      */
     public function isRepeatedForm(): bool
     {
-        return $this->getType() === ElementType::TYPE_REPEATED;
+        return false;
     }
 
     /**

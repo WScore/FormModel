@@ -26,7 +26,17 @@ interface FormElementInterface extends ElementInterface, IteratorAggregate
      * @param int $repeat
      * @return $this
      */
-    public function addRepeatedForm($repeat, FormElementInterface $element): FormElementInterface;
+    public function addRepeatedForm(int $repeat, FormElementInterface $element): FormElementInterface;
+
+    /**
+     * @return int
+     */
+    public function getRepeats(): int;
+
+    /**
+     * @param int $num
+     */
+    public function setRepeats(int $num);
 
     /**
      * @param string $name
