@@ -13,7 +13,7 @@ use WScore\Html\Tags\Input;
 abstract class AbstractHtml implements HtmlFormInterface
 {
     /**
-     * @var ChoiceType
+     * @var ChoiceType|ElementInterface
      */
     protected $element;
 
