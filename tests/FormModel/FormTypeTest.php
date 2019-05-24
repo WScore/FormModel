@@ -4,6 +4,7 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Html\HtmlFormInterface;
+use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\FormModel\Validation\Validator;
 use WScore\Validation\Filters\StringCases;
 use WScore\Validation\Validators\Result;
@@ -37,6 +38,16 @@ class FormTypeTest extends TestCase
         $result = $validator->verify(null);
         $this->assertFalse($result->isValid());
         $this->assertSame('', $result->value());
+    }
+
+    public function testToString()
+    {
+        $fm = FormBuilder::create();
+        $text = $fm->text('name', 'User Name');
+        $html = $text->createHtml();
+        $toString = $html->toString();
+
+        $this->assertTrue($toString instanceof ToStringInterface);
     }
 
     public function testForm()

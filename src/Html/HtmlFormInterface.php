@@ -67,4 +67,9 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
      * @param ToStringInterface $toString
      */
     public function setToString(ToStringInterface $toString): void;
+
+    /**
+     * @return ToStringInterface|null
+     */
+    public function toString(): ?ToStringInterface;
 }

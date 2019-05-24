@@ -182,4 +182,12 @@ abstract class AbstractHtml implements HtmlFormInterface
     {
         return $this->toString;
     }
+
+    public function toString(): ?ToStringInterface
+    {
+        if ($this->toString) {
+            return $this->toString->create($this, $this->element);
+        }
+        return null;
+    }
 }
