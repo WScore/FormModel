@@ -22,6 +22,9 @@ class HtmlForm extends AbstractHtml
         foreach ($element->getChildren() as $child) {
             $name = $child->getName();
             $this[$name] = Html::create($child, $this, $this->getChildValue($name));
+            if ($this->getToString()) {
+                $this[$name]->setToString($this->getToString());
+            }
         }
     }
 

@@ -5,6 +5,7 @@ namespace WScore\FormModel\Html;
 
 use ArrayAccess;
 use IteratorAggregate;
+use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
@@ -61,4 +62,9 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
      * @return $this|HtmlFormInterface
      */
     public function offsetGet($offset);
+
+    /**
+     * @param ToStringInterface $toString
+     */
+    public function setToString(ToStringInterface $toString): void;
 }

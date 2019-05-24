@@ -8,6 +8,8 @@ use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\FormModel\Interfaces\ToStringInterface;
+use WScore\FormModel\ToString\Bootstrap4;
 use WScore\Validation\ValidatorBuilder;
 
 /**
@@ -23,6 +25,11 @@ class FormBuilder
     private $builder;
 
     /**
+     * @var ToStringInterface
+     */
+    private $toString;
+
+    /**
      * @param ValidatorBuilder $builder
      */
     public function __construct(ValidatorBuilder $builder)
@@ -30,10 +37,23 @@ class FormBuilder
         $this->builder = $builder;
     }
 
-    public static function create(string $locale = 'en'): self
+    public static function create(string $locale = 'en', ToStringInterface $toString = null): self
     {
+        $toString = $toString ?? new Bootstrap4();
         $self = new self(new ValidatorBuilder($locale));
+        if ($toString) {
+            $self->setToString($toString);
+        }
+
         return $self;
+    }
+
+    /**
+     * @param ToStringInterface $toString
+     */
+    public function setToString(ToStringInterface $toString): void
+    {
+        $this->toString = $toString;
     }
 
     /**
@@ -52,16 +72,27 @@ class FormBuilder
     public function form(string $name, string $label = ''): FormElementInterface
     {
         $form = new FormType($this->builder, $name, $label);
+        if ($this->toString) {
+            $form->setToString($this->toString);
+}
         return $form;
     }
 
     public function element(string $type, string $name, string $label = ''): ElementInterface
     {
-        return new InputType($this->builder, $type, $name, $label);
+        $form = new InputType($this->builder, $type, $name, $label);
+        if ($this->toString) {
+            $form->setToString($this->toString);
+        }
+        return $form;
     }
 
     public function choices(string $name, string $label = ''): ChoiceType
     {
-        return new ChoiceType($this->builder, $name, $label);
+        $form = new ChoiceType($this->builder, $name, $label);
+        if ($this->toString) {
+            $form->setToString($this->toString);
+        }
+        return $form;
     }
 }

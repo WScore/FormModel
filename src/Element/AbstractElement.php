@@ -6,6 +6,7 @@ namespace WScore\FormModel\Element;
 use WScore\FormModel\Html\Html;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Interfaces\ElementInterface;
+use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\FormModel\Validation\Validator;
 use WScore\Validation\ValidatorBuilder;
 
@@ -42,6 +43,11 @@ abstract class AbstractElement implements ElementInterface
     private $filters = [];
 
     /**
+     * @var ToStringInterface
+     */
+    private $toString;
+
+    /**
      * @param ValidatorBuilder $builder
      * @param string $type
      * @param string $name
@@ -53,6 +59,11 @@ abstract class AbstractElement implements ElementInterface
         $this->name = $name;
         $this->label = $label;
         $this->validationBuilder = $builder;
+    }
+
+    public function setToString(ToStringInterface $toString): void
+    {
+        $this->toString = $toString;
     }
 
     /**
@@ -135,7 +146,11 @@ abstract class AbstractElement implements ElementInterface
         if ($this instanceof FormType && is_array($inputs)) {
             $inputs = $inputs[$this->name] ?? null;
         }
-        return Html::create($this, null, $inputs);
+        $html = Html::create($this, null, $inputs);
+        if ($this->toString) {
+            $html->setToString($this->toString);
+        }
+        return $html;
     }
 
     /**
