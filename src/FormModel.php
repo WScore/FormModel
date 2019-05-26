@@ -39,6 +39,12 @@ class FormModel
             $this->form->addRepeatedForm($repeat, $form);
             return $this;
         }
+        if ($type === ElementType::TYPE_CHOICE) {
+            $form = $this->builder->choices($name);
+            $this->builder->apply($form, $options);
+            $this->form->add($form);
+            return $this;
+        }
         $element = $this->builder->$type($name);
         $this->builder->apply($element, $options);
         $this->form->add($element);
@@ -52,5 +58,14 @@ class FormModel
     public function get(string $name)
     {
         return $this->form->get($name);
+    }
+
+    /**
+     * @param array $inputs
+     * @return Html\HtmlFormInterface
+     */
+    public function createHtml($inputs = [])
+    {
+        return $this->form->createHtml($inputs);
     }
 }

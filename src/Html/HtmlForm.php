@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WScore\FormModel\Html;
 
 use WScore\FormModel\Element\FormType;
+use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
@@ -25,6 +26,16 @@ class HtmlForm extends AbstractHtml
             if ($this->getToString()) {
                 $this[$name]->setToString($this->getToString());
             }
+        }
+    }
+
+    /**
+     * @param ToStringInterface $toString
+     */
+    public function setToString(ToStringInterface $toString): void
+    {
+        foreach ($this->getChildren() as $child) {
+            $child->setToString($toString);
         }
     }
 
