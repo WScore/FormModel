@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WScore\FormModel;
 
+use InvalidArgumentException;
 use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
@@ -94,5 +95,20 @@ class FormBuilder
             $form->setToString($this->toString);
         }
         return $form;
+    }
+
+    public function apply(ElementInterface $element, array $options): ElementInterface
+    {
+        foreach ($options as $key => $value) {
+            $method = 'set'.ucwords($key);
+            if(method_exists($element, $method)) {
+                $element->$method($value);
+            } elseif (method_exists($element, $key)) {
+                $element->$key($value);
+            } else {
+                throw new InvalidArgumentException('Cannot handle key: ' . $key);
+            }
+        }
+        return $element;
     }
 }

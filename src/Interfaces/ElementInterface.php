@@ -45,6 +45,12 @@ interface ElementInterface
     public function getLabel(): string;
 
     /**
+     * @param string $label
+     * @return ElementInterface
+     */
+    public function setLabel(string $label): ElementInterface;
+
+    /**
      * @return Validator
      */
     public function createValidation(): Validator;

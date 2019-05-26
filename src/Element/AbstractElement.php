@@ -112,6 +112,16 @@ abstract class AbstractElement implements ElementInterface
     }
 
     /**
+     * @param string $label
+     * @return ElementInterface|$this
+     */
+    public function setLabel(string $label): ElementInterface
+    {
+        $this->label = $label;
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getAttributes(): array
