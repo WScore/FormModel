@@ -63,14 +63,17 @@ class Bootstrap4 implements ToStringInterface
         }
         $div = Tag::create('div');
         if ($this->isExpanded()) {
-            $div->class('form-check');
+            $div->class('form-group')
+                ->setContents(
+                    $this->label(),
+                    $this->widget());
         } else {
-            $div->class('form-group');
+            $div->class('form-group')
+                ->setContents(
+                $this->label(),
+                $this->widget()
+            );
         }
-        $div->setContents(
-            $this->label(),
-            $this->widget()
-        );
 
         return $div->toString();
     }
@@ -128,10 +131,13 @@ class Bootstrap4 implements ToStringInterface
         foreach ($this->form->getChoices() as $choice) {
             $choice->class('form-check-input');
             $label = Tag::create('label')
+                ->setContents($choice->getLabel())
                 ->class('form-check-label')
                 ->set('for', $choice->get('id'));
-            $html .= $choice->toString() . "\n";
-            $html .= $label->toString() . "\n";
+            $div = Tag::create('div')
+                ->class('form-check')
+                ->setContents($choice, $label);
+            $html .= $div->toString();
         }
 
         return $html;

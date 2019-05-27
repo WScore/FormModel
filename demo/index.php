@@ -20,9 +20,32 @@ $html = $book->createHtml();
 
     <h1>FormModel samples</h1>
 
-    <?= $html['title']->toString()->row(); ?>
-    <?= $html['published_at']->toString()->row(); ?>
-    <?= $html['type']->toString()->row(); ?>
+    <form action="">
+
+        <?= $html['title']->toString()->row(); ?>
+        <div class="row">
+            <div class="col-sm">
+                <?= $html['published_at']->toString()->row(); ?>
+            </div>
+            <div class="col-sm">
+                <?= $html['language']->toString()->row(); ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <?= $html['format']->toString()->row(); ?>
+            </div>
+            <div class="col-sm">
+                <?= $html['type']->toString()->row(); ?>
+            </div>
+        </div>
+
+        <h2>Publisher Information</h2>
+
+        <h2>Authors Information</h2>
+
+        <input type="submit" value="validate input!" class="btn btn-primary">
+    </form>
 
 </div>
 </body>
