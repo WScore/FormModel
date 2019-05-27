@@ -8,12 +8,13 @@ use InvalidArgumentException;
 use Traversable;
 use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Interfaces\ElementInterface;
+use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Tags\Input;
 
 abstract class AbstractHtml implements HtmlFormInterface
 {
     /**
-     * @var ChoiceType
+     * @var ChoiceType|ElementInterface
      */
     protected $element;
 
@@ -28,16 +29,28 @@ abstract class AbstractHtml implements HtmlFormInterface
     private $value;
 
     /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var ToStringInterface
+     */
+    private $toString;
+
+    /**
      * AbstractHtml constructor.
      * @param ElementInterface $element
      * @param HtmlFormInterface|null $parent
      * @param null $value
+     * @param null|string $name
      */
-    public function __construct(ElementInterface $element, HtmlFormInterface $parent = null, $value = null)
+    public function __construct(ElementInterface $element, HtmlFormInterface $parent = null, $value = null, $name = null)
     {
         $this->element = $element;
         $this->parent = $parent;
         $this->value = $value;
+        $this->name = $name ?? $element->getName();
     }
 
     /**
@@ -50,7 +63,7 @@ abstract class AbstractHtml implements HtmlFormInterface
      */
     public function name()
     {
-        return $this->element->getName();
+        return $this->name;
     }
 
     /**
@@ -152,5 +165,29 @@ abstract class AbstractHtml implements HtmlFormInterface
     public function getIterator()
     {
         return new ArrayIterator($this->children);
+    }
+
+    /**
+     * @param ToStringInterface $toString
+     */
+    public function setToString(ToStringInterface $toString): void
+    {
+        $this->toString = $toString;
+    }
+
+    /**
+     * @return ToStringInterface|null
+     */
+    protected function getToString(): ?ToStringInterface
+    {
+        return $this->toString;
+    }
+
+    public function toString(): ?ToStringInterface
+    {
+        if ($this->toString) {
+            return $this->toString->create($this, $this->element);
+        }
+        return null;
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WScore\FormModel\Html;
 
 use WScore\FormModel\Element\FormType;
+use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
@@ -14,13 +15,27 @@ class HtmlForm extends AbstractHtml
      * @param FormType $element
      * @param HtmlFormInterface|null $parent
      * @param null $value
+     * @param null|string $name
      */
-    public function __construct(FormType $element, HtmlFormInterface $parent=null, $value = null)
+    public function __construct(FormType $element, HtmlFormInterface $parent=null, $value = null, $name = null)
     {
-        parent::__construct($element, $parent, $value);
+        parent::__construct($element, $parent, $value, $name);
         foreach ($element->getChildren() as $child) {
             $name = $child->getName();
             $this[$name] = Html::create($child, $this, $this->getChildValue($name));
+            if ($this->getToString()) {
+                $this[$name]->setToString($this->getToString());
+            }
+        }
+    }
+
+    /**
+     * @param ToStringInterface $toString
+     */
+    public function setToString(ToStringInterface $toString): void
+    {
+        foreach ($this->getChildren() as $child) {
+            $child->setToString($toString);
         }
     }
 
