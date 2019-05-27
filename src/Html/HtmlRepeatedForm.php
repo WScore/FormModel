@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WScore\FormModel\Html;
 
 use WScore\FormModel\Element\FormType;
+use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
@@ -19,12 +20,25 @@ class HtmlRepeatedForm extends AbstractHtml
     {
         parent::__construct($element, $parent, $value);
         $index = 0;
-        foreach ($value as $index => $val) {
-            $this[$index] = new HtmlForm($element, $this, $val, $index);
+        if (is_array($value)) {
+            foreach ($value as $index => $val) {
+                $this[$index] = new HtmlForm($element, $this, $val, $index);
+            }
         }
         for ($extra = 0; $extra < $element->getRepeats(); $extra++) {
             $index += 1;
             $this[$index] = new HtmlForm($element, $this, [], $index);
+        }
+    }
+
+    /**
+     * @param ToStringInterface $toString
+     */
+    public function setToString(ToStringInterface $toString): void
+    {
+        parent::setToString($toString);
+        foreach ($this->getChildren() as $child) {
+            $child->setToString($toString);
         }
     }
 

@@ -50,6 +50,8 @@ function buildForm()
             'expand' => true,
             'multiple' => true,
         ])
+        ->addForm(buildPublisher())
+        ->addRepeatedForm(buildAuthor(), 3)
     ;
 
     return $book;
@@ -60,15 +62,36 @@ function buildForm()
  */
 function buildPublisher()
 {
-    $publisher = new FormModel(FormBuilder::create(), 'book');
+    $publisher = new FormModel(FormBuilder::create(), 'publisher');
     $publisher
         ->add('name', ElementType::TYPE_TEXT, [
             'label' => 'publisher name',
         ])
-        ->add('editor', "URL", [
+        ->add('url', "URL", [
             'label' => 'Corporate URL',
             'required' => false,
         ]);
 
     return $publisher;
+}
+
+/**
+ * @return FormModel
+ */
+function buildAuthor()
+{
+    $author = new FormModel(FormBuilder::create(), 'author');
+    $author
+        ->add('name', ElementType::TYPE_TEXT, [
+            'label' => 'author name',
+        ])
+        ->add('type', ElementType::TYPE_CHOICE, [
+            'label' => 'type',
+            'choices' => [
+                'AUTHOR' => 'Author',
+                'STORY' => 'Story',
+                'ILLUSTRATION' => 'Illustration',
+            ],
+        ]);
+    return $author;
 }

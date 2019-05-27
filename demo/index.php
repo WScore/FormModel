@@ -41,8 +41,34 @@ $html = $book->createHtml();
         </div>
 
         <h2>Publisher Information</h2>
+        <?php
+        $publisher = $html['publisher'];
+        ?>
+        <?= $publisher['name']->toString()->row(); ?>
+        <?= $publisher['url']->toString()->row(); ?>
 
         <h2>Authors Information</h2>
+
+        <?php
+        $authors = $html['author'];
+        ?>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Author's Name</th>
+                <th>Type</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($authors as $author): ?>
+            <tr>
+                <td><?= $author['name']->toString()->widget() ?></td>
+                <td><?= $author['type']->toString()->widget() ?></td>
+            </tr>
+            <?php endforeach;?>
+            </tbody>
+        </table>
+
 
         <input type="submit" value="validate input!" class="btn btn-primary">
     </form>
