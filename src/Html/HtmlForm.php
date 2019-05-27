@@ -34,6 +34,7 @@ class HtmlForm extends AbstractHtml
      */
     public function setToString(ToStringInterface $toString): void
     {
+        parent::setToString($toString);
         foreach ($this->getChildren() as $child) {
             $child->setToString($toString);
         }
