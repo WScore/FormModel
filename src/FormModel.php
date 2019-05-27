@@ -26,6 +26,9 @@ class FormModel
 
     public function add(string $name, string $type, array $options = [])
     {
+        if (!isset($options['label'])) {
+            $options['label'] = $name;
+        }
         if ($type === ElementType::TYPE_FORM) {
             $form = $this->builder->form($name);
             $this->builder->apply($form, $options);
