@@ -50,8 +50,10 @@ function buildForm()
             'expand' => true,
             'multiple' => true,
         ])
-        ->addForm(buildPublisher())
-        ->addRepeatedForm(buildAuthor(), 3)
+        ->add('publisher', buildPublisher())
+        ->add('author', buildAuthor(), [
+            'repeat' => 3
+        ])
     ;
 
     return $book;

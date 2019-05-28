@@ -43,12 +43,15 @@ class FormModelTest extends TestCase
         $html = $form->createHtml();
         $typeHtml = $html['type'];
         $this->assertTrue($typeHtml instanceof HtmlFormInterface);
-        $this->assertEquals('<input type="radio" name="book[type]" id="book[type]_0" required="required" value="fiction" class="form-check-input">
-<label class="form-check-label" for="book[type]_0"></label>
+        $this->assertEquals('<div class="form-check">
+<input type="radio" name="book[type]" id="book[type]_0" required="required" value="fiction" class="form-check-input">
+<label class="form-check-label" for="book[type]_0">Fiction</label>
+</div><div class="form-check">
 <input type="radio" name="book[type]" id="book[type]_1" required="required" value="non-fiction" class="form-check-input">
-<label class="form-check-label" for="book[type]_1"></label>
+<label class="form-check-label" for="book[type]_1">Non Fiction</label>
+</div><div class="form-check">
 <input type="radio" name="book[type]" id="book[type]_2" required="required" value="manga" class="form-check-input">
-<label class="form-check-label" for="book[type]_2"></label>
-', $typeHtml->toString()->widget());
+<label class="form-check-label" for="book[type]_2">Manga</label>
+</div>', $typeHtml->toString()->widget());
     }
 }
