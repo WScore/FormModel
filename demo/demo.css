@@ -1,0 +1,24 @@
+body {
+    color: #333333;
+    background-color: #fcfcfc;
+}
+h1, h2 {
+    color: #374454;
+}
+label.form-label {
+    font-weight: bold;
+    color: #4e5866;
+}
+label.required::after {
+    content: '＊';
+    font-size: .5em;
+    vertical-align: top;
+    top: -.1em;
+    background-color: #b9b7b6;
+    border: 1px solid #7d6870;
+    border-radius: .4em;
+    padding: .1em .3em;
+    margin: .1em .5em;
+    font-weight:normal;
+    color: #ffffff;
+}
