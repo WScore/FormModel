@@ -28,10 +28,13 @@ $html = $book->createHtml();
                 <?= $html['published_at']->toString()->row(); ?>
             </div>
             <div class="col-sm">
-                <?= $html['language']->toString()->row(); ?>
+                <?= $html['isbn_code']->toString()->row(); ?>
             </div>
         </div>
         <div class="row">
+            <div class="col-sm">
+                <?= $html['language']->toString()->row(); ?>
+            </div>
             <div class="col-sm">
                 <?= $html['format']->toString()->row(); ?>
             </div>

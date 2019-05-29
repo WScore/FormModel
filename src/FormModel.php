@@ -32,15 +32,8 @@ class FormModel
      * @param array $options
      * @return $this
      */
-    public function add(string $name, $type, $options = [])
+    public function add(string $name, string $type, $options = [])
     {
-        if ($type instanceof ElementInterface) {
-            return $this->addElement($name, $type, $options);
-        }
-        if ($type instanceof FormModel) {
-            $element = $type->form;
-            return $this->addElement($name, $element, $options);
-        }
         if (in_array($type, [ElementType::TYPE_FORM, ElementType::TYPE_REPEATED], true) ) {
             throw new InvalidArgumentException('Cannot instantiate forms. ');
         }
@@ -51,7 +44,37 @@ class FormModel
             return $this->addChoices($name, $options);
         }
         $element = $this->builder->$type($name);
-        return $this->addElement($name, $element, $options);
+        $this->builder->apply($element, $options);
+        $this->form->add($element);
+        return $this;
+    }
+
+    public function addForm(string $name, FormModel $form, array $options = []): FormModel
+    {
+        $element = $form->form;
+        if ($name !== $element->getName()) {
+            throw new InvalidArgumentException('name must be the same');
+        }
+        $repeat = (int) ($options['repeat'] ?? 0);
+        if ($repeat) {
+            $this->form->addRepeatedForm($repeat, $element);
+        }
+        $this->form->addForm($element);
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     * @param array $options
+     * @return $this
+     */
+    private function addChoices(string $name, array $options): FormModel
+    {
+        $form = $this->builder->choices($name);
+        $this->builder->apply($form, $options);
+        $this->form->add($form);
+        return $this;
     }
 
     /**
@@ -70,76 +93,5 @@ class FormModel
     public function createHtml($inputs = [])
     {
         return $this->form->createHtml($inputs);
-    }
-
-    /**
-     * @param FormElementInterface|FormModel $form
-     * @return $this
-     */
-    public function addForm($form): FormModel
-    {
-        if ($form instanceof FormElementInterface) {
-            $element = $form;
-        } elseif ($form instanceof FormModel) {
-            $element = $form->form;
-        } else {
-            throw new InvalidArgumentException('specify a FormModel or FormElement');
-        }
-        $this->form->addForm($element);
-        return $this;
-    }
-
-    /**
-     * @param FormElementInterface|FormModel $form
-     * @param int $repeat
-     * @return $this
-     */
-    public function addRepeatedForm($form, $repeat = 1): FormModel
-    {
-        if ($form instanceof FormElementInterface) {
-            $element = $form;
-        } elseif ($form instanceof FormModel) {
-            $element = $form->form;
-        } else {
-            throw new InvalidArgumentException('specify a FormModel or FormElement');
-        }
-        $this->form->addRepeatedForm($repeat, $element);
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param ElementInterface $element
-     * @param array $options
-     * @return $this|FormModel
-     */
-    public function addElement(string $name, ElementInterface $element, array $options): FormModel
-    {
-        if ($name !== $element->getName()) {
-            throw new InvalidArgumentException('name must be the same');
-        }
-        if ($element instanceof FormElementInterface) {
-            $repeat = (int) ($options['repeat'] ?? 0);
-            if ($repeat) {
-                return $this->addRepeatedForm($element, $repeat);
-            }
-            return $this->addForm($element);
-        }
-        $this->builder->apply($element, $options);
-        $this->form->add($element);
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param array $options
-     * @return $this
-     */
-    protected function addChoices(string $name, array $options): FormModel
-    {
-        $form = $this->builder->choices($name);
-        $this->builder->apply($form, $options);
-        $this->form->add($form);
-        return $this;
     }
 }

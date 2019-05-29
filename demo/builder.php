@@ -22,6 +22,12 @@ function buildForm()
                 'style' => 'width: 12em;'
             ]
         ])
+        ->add('isbn_code', ElementType::TYPE_TEXT, [
+            'label' => 'ISBN Code',
+            'attributes' => [
+                'style' => 'width: 16em;'
+            ]
+        ])
         ->add('language', ElementType::TYPE_CHOICE, [
             'label' => 'Written Language',
             'choices' => [
@@ -50,8 +56,8 @@ function buildForm()
             'expand' => true,
             'multiple' => true,
         ])
-        ->add('publisher', buildPublisher())
-        ->add('author', buildAuthor(), [
+        ->addForm('publisher', buildPublisher())
+        ->addForm('author', buildAuthor(), [
             'repeat' => 3
         ])
     ;
