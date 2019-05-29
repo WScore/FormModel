@@ -22,7 +22,16 @@ $html = $book->createHtml();
 
     <h1>FormModel samples</h1>
 
-    <form action="">
+    <p class="text-muted">This sample form uses Bootstrap 4 and jQuery. <br>
+        <label><input type="checkbox" onclick="toggleValidation(this);"> turn off html validation.</label></p>
+    <script>
+        function toggleValidation(check) {
+            var form = document.getElementById('sample-form');
+            form.noValidate = $(check).is(':checked');
+        }
+    </script>
+    
+    <form id="sample-form" action="">
 
         <?= $html['title']->toString()->row(); ?>
         <div class="row">
@@ -79,6 +88,8 @@ $html = $book->createHtml();
 
         <input type="submit" value="validate input!" class="btn btn-primary">
     </form>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
 
 </div>
 </body>
