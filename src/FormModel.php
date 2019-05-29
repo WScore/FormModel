@@ -52,9 +52,7 @@ class FormModel
     public function addForm(string $name, FormModel $form, array $options = []): FormModel
     {
         $element = $form->form;
-        if ($name !== $element->getName()) {
-            throw new InvalidArgumentException('name must be the same');
-        }
+        $element->setName($name);
         $repeat = (int) ($options['repeat'] ?? 0);
         if ($repeat) {
             $this->form->addRepeatedForm($repeat, $element);

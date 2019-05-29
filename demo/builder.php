@@ -57,7 +57,7 @@ function buildForm()
             'multiple' => true,
         ])
         ->addForm('publisher', buildPublisher())
-        ->addForm('author', buildAuthor(), [
+        ->addForm('authors', buildAuthor(), [
             'repeat' => 3
         ])
     ;

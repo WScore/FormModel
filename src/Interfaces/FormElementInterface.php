@@ -8,6 +8,12 @@ use IteratorAggregate;
 interface FormElementInterface extends ElementInterface, IteratorAggregate
 {
     /**
+     * @param string $name
+     * @return FormElementInterface
+     */
+    public function setName(string $name): FormElementInterface;
+
+    /**
      * @param ElementInterface $element
      * @return $this
      */

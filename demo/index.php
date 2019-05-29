@@ -55,7 +55,7 @@ $html = $book->createHtml();
         <h2>Authors Information</h2>
 
         <?php
-        $authors = $html['author'];
+        $authors = $html['authors'];
         ?>
         <div class="table-responsive">
             <table class="table table-hover table-striped">
