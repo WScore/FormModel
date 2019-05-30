@@ -92,4 +92,12 @@ class FormModel
     {
         return $this->form->createHtml($inputs);
     }
+
+    /**
+     * @return Validation\Validator
+     */
+    public function createValidation()
+    {
+        return $this->form->createValidation();
+    }
 }

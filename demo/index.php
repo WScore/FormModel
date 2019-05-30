@@ -2,8 +2,18 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/builder.php';
 
-$book = buildForm();
-$html = $book->createHtml();
+if ($_SERVER['REQUEST_METHOD'] === 'get') {
+    $book = buildForm();
+    $html = $book->createHtml();
+} else {
+    $book = buildForm();
+    $result = $book->createValidation()->verify($_POST);
+    $err_msg = $result->isValid()
+        ? 'Verified!'
+        : 'Please check the input values!!!';
+    $html = $book->createHtml($_POST);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
