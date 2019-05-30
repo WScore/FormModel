@@ -13,6 +13,12 @@ use WScore\Html\Tags\Tag;
 interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
 {
     /**
+     * @param null|string|array|ArrayAccess $inputs
+     * @param null|string|array|ArrayAccess $errors
+     */
+    public function setInputs($inputs, $errors = null);
+
+    /**
      * @return string
      */
     public function name();
@@ -62,11 +68,6 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
      * @return $this|HtmlFormInterface
      */
     public function offsetGet($offset);
-
-    /**
-     * @param ToStringInterface $toString
-     */
-    public function setToString(ToStringInterface $toString): void;
 
     /**
      * @return ToStringInterface|null

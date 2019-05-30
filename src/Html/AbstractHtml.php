@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Html;
 
+use ArrayAccess;
 use ArrayIterator;
 use InvalidArgumentException;
 use Traversable;
 use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Tags\Input;
@@ -14,7 +16,7 @@ use WScore\Html\Tags\Input;
 abstract class AbstractHtml implements HtmlFormInterface
 {
     /**
-     * @var ChoiceType|ElementInterface
+     * @var ChoiceType|FormType|ElementInterface
      */
     protected $element;
 
@@ -24,9 +26,14 @@ abstract class AbstractHtml implements HtmlFormInterface
     private $parent;
 
     /**
-     * @var array|object|string
+     * @var array|object|string|ArrayAccess
      */
     private $value;
+
+    /**
+     * @var array|object|string|ArrayAccess
+     */
+    private $errors;
 
     /**
      * @var string
@@ -40,17 +47,27 @@ abstract class AbstractHtml implements HtmlFormInterface
 
     /**
      * AbstractHtml constructor.
+     * @param ToStringInterface $toString
      * @param ElementInterface $element
      * @param HtmlFormInterface|null $parent
-     * @param null $value
      * @param null|string $name
      */
-    public function __construct(ElementInterface $element, HtmlFormInterface $parent = null, $value = null, $name = null)
+    public function __construct(ToStringInterface $toString, ElementInterface $element, HtmlFormInterface $parent = null, $name = null)
     {
+        $this->toString = $toString;
         $this->element = $element;
         $this->parent = $parent;
-        $this->value = $value;
         $this->name = $name ?? $element->getName();
+    }
+
+    /**
+     * @param null|string|array|ArrayAccess $inputs
+     * @param null|string|array|ArrayAccess $errors
+     */
+    public function setInputs($inputs, $errors = null)
+    {
+        $this->value = $inputs;
+        $this->errors = $errors;
     }
 
     /**
@@ -165,14 +182,6 @@ abstract class AbstractHtml implements HtmlFormInterface
     public function getIterator()
     {
         return new ArrayIterator($this->children);
-    }
-
-    /**
-     * @param ToStringInterface $toString
-     */
-    public function setToString(ToStringInterface $toString): void
-    {
-        $this->toString = $toString;
     }
 
     /**

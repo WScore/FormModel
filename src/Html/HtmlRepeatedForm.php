@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Html;
 
+use ArrayAccess;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Form;
@@ -12,33 +13,33 @@ class HtmlRepeatedForm extends AbstractHtml
 {
     /**
      * HtmlForm constructor.
+     * @param ToStringInterface $toString
      * @param FormType $element
      * @param HtmlFormInterface|null $parent
-     * @param null $value
      */
-    public function __construct(FormType $element, HtmlFormInterface $parent=null, $value = null)
+    public function __construct(ToStringInterface $toString, FormType $element, HtmlFormInterface $parent=null)
     {
-        parent::__construct($element, $parent, $value);
-        $index = 0;
-        if (is_array($value)) {
-            foreach ($value as $index => $val) {
-                $this[$index] = new HtmlForm($element, $this, $val, $index);
-            }
-        }
-        for ($extra = 0; $extra < $element->getRepeats(); $extra++) {
-            $index += 1;
-            $this[$index] = new HtmlForm($element, $this, [], $index);
-        }
+        parent::__construct($toString, $element, $parent);
     }
 
     /**
-     * @param ToStringInterface $toString
+     * @param null|string|array|ArrayAccess $inputs
+     * @param null|string|array|ArrayAccess $errors
      */
-    public function setToString(ToStringInterface $toString): void
+    public function setInputs($inputs, $errors = null)
     {
-        parent::setToString($toString);
-        foreach ($this->getChildren() as $child) {
-            $child->setToString($toString);
+        parent::setInputs($inputs, $errors);
+        $index = 0;
+        if (is_array($inputs)) {
+            foreach ($inputs as $index => $val) {
+                $this[$index] = new HtmlForm($this->toString(), $this->element, $this, $index);
+                $this[$index]->setInputs($val, $errors[$index]??null);
+            }
+        }
+        for ($extra = 0; $extra < $this->element->getRepeats(); $extra++) {
+            $index += 1;
+            $this[$index] = new HtmlForm($this->toString(), $this->element, $this, $index);
+            $this[$index]->setInputs([], $errors[$index]??null);
         }
     }
 
