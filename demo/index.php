@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'get') {
 
 <div class="container">
 
-    <form id="sample-form" action="" method="post">
+    <form id="sample-form" action="" method="post" novalidate="">
 
         <h2>Book Information</h2>
         <?= $html['title']->toString()->row(); ?>
@@ -92,11 +92,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'get') {
             </table>
         </div>
 
-        <p class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn off html validation.</label></p>
+        <p class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn on html validation.</label></p>
         <script>
             function toggleValidation(check) {
                 let form = document.getElementById('sample-form');
-                form.noValidate = $(check).is(':checked');
+                form.noValidate = !$(check).is(':checked');
             }
         </script>
 
