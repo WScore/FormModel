@@ -8,9 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'get') {
 } else {
     $book = buildForm();
     $result = $book->createValidation()->verify($_POST);
-    $err_msg = $result->isValid()
-        ? 'Verified!'
-        : 'Please check the input values!!!';
     $html = $book->createHtml($_POST);
 }
 
@@ -36,6 +33,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'get') {
 </div>
 
 <div class="container">
+
+    <?php if (isset($result)) : ?>
+        <?php
+            if ($result->isValid()) {
+                echo '<div class="alert alert-success">Verified!</div>';
+            } else {
+                echo '<div class="alert alert-danger">Please check the input values!!!</div>';
+            }
+        ?>
+    <?php endif; ?>
 
     <form id="sample-form" action="" method="post" novalidate="">
 
