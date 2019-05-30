@@ -38,11 +38,3 @@ label.required::after {
     font-weight:bold;
     color: #761418;
 }
-p.error {
-    color: #c9696f;
-    background-color: #fbe5e9;
-    border: 1px solid #d4b9bc;
-    padding: .2rem;
-    margin: .5rem;
-    border-radius: .2rem;
-}

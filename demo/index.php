@@ -7,7 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'get') {
     $html = $book->createHtml();
 } else {
     $book = buildForm();
-    $result = $book->createValidation()->verify($_POST);
+    // todo: use formElement's name when verify.
+    $result = $book->createValidation()->verify($_POST['book']??[]);
     $html = $book->createHtml($_POST, $result);
 }
 
@@ -91,8 +92,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'get') {
                 <tbody>
                 <?php foreach ($authors as $author): ?>
                     <tr>
-                        <td><?= $author['name']->toString()->widget() ?></td>
-                        <td><?= $author['type']->toString()->widget() ?></td>
+                        <td><?= $author['name']->toString()->widget() ?>
+                            <?= $author['name']->toString()->error() ?></td>
+                        <td><?= $author['type']->toString()->widget() ?>
+                            <?= $author['type']->toString()->error() ?></td>
                     </tr>
                 <?php endforeach;?>
                 </tbody>

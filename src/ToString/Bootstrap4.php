@@ -118,13 +118,17 @@ class Bootstrap4 implements ToStringInterface
             return $this->widgetExpanded();
         }
         $this->form->class('form-control');
+        if ($error = $this->getError()) {
+            $this->form->class('is-invalid');
+        }
 
         return $this->form->toString();
     }
 
-    public function error(): string
+    private function getError(): string
     {
         $error = $this->html->error();
+        if (!$error) return '';
         if ($error instanceof ResultInterface) {
             if ($error->isValid()) {
                 return '';
@@ -134,7 +138,14 @@ class Bootstrap4 implements ToStringInterface
         if (is_array($error)) {
             $error = implode("\n", $error);
         }
-        $error = "<p class='error'>{$error}</p>";
+        return $error;
+    }
+
+    public function error(): string
+    {
+        $error = $this->getError();
+        if (!$error) return '';
+        $error = "<div class='invalid-feedback'>{$error}</div>";
         return $error;
     }
 
