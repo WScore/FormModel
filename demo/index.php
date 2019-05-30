@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'get') {
 } else {
     $book = buildForm();
     $result = $book->createValidation()->verify($_POST);
-    $html = $book->createHtml($_POST);
+    $html = $book->createHtml($_POST, $result);
 }
 
 ?>

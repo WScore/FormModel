@@ -10,6 +10,7 @@ use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
+use WScore\Validation\Interfaces\ResultInterface;
 
 class Bootstrap4 implements ToStringInterface
 {
@@ -70,8 +71,9 @@ class Bootstrap4 implements ToStringInterface
         } else {
             $div->class('form-group')
                 ->setContents(
-                $this->label(),
-                $this->widget()
+                    $this->label(),
+                    $this->widget(),
+                    $this->error()
             );
         }
 
@@ -122,7 +124,18 @@ class Bootstrap4 implements ToStringInterface
 
     public function error(): string
     {
-        // TODO: Implement error() method.
+        $error = $this->html->error();
+        if ($error instanceof ResultInterface) {
+            if ($error->isValid()) {
+                return '';
+            }
+            $error = $error->getErrorMessage();
+        }
+        if (is_array($error)) {
+            $error = implode("\n", $error);
+        }
+        $error = "<p class='error'>{$error}</p>";
+        return $error;
     }
 
     private function widgetExpanded(): string

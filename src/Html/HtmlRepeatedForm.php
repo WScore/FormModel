@@ -33,13 +33,13 @@ class HtmlRepeatedForm extends AbstractHtml
         if (is_array($inputs)) {
             foreach ($inputs as $index => $val) {
                 $this[$index] = new HtmlForm($this->toString(), $this->element, $this, $index);
-                $this[$index]->setInputs($val, $errors[$index]??null);
+                $this[$index]->setInputs($val, ValueAccess::get($errors, $index));
             }
         }
         for ($extra = 0; $extra < $this->element->getRepeats(); $extra++) {
             $index += 1;
             $this[$index] = new HtmlForm($this->toString(), $this->element, $this, $index);
-            $this[$index]->setInputs([], $errors[$index]??null);
+            $this[$index]->setInputs([], ValueAccess::get($errors, $index));
         }
     }
 

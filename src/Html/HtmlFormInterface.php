@@ -34,9 +34,14 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     public function label();
 
     /**
-     * @return string
+     * @return string|array|mixed
      */
     public function value();
+
+    /**
+     * @return string|array|mixed
+     */
+    public function error();
 
     /**
      * @return Input|Tag|Choices

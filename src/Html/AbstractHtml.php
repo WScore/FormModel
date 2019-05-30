@@ -112,6 +112,14 @@ abstract class AbstractHtml implements HtmlFormInterface
     }
 
     /**
+     * @return string|array|mixed
+     */
+    public function error()
+    {
+        return $this->errors;
+    }
+
+    /**
      * @return Input[]
      */
     public function choices()

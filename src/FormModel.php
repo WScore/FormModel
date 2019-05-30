@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WScore\FormModel;
 
+use ArrayAccess;
 use InvalidArgumentException;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Interfaces\ElementInterface;
@@ -85,12 +86,13 @@ class FormModel
     }
 
     /**
-     * @param array $inputs
+     * @param null|string|array|ArrayAccess $inputs
+     * @param null|string|array|ArrayAccess $errors
      * @return Html\HtmlFormInterface
      */
-    public function createHtml($inputs = [])
+    public function createHtml($inputs = [], $errors = null)
     {
-        return $this->form->createHtml($inputs);
+        return $this->form->createHtml($inputs, $errors);
     }
 
     /**

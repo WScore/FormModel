@@ -36,37 +36,8 @@ class HtmlForm extends AbstractHtml
         parent::setInputs($inputs, $errors);
         foreach ($this->element->getChildren() as $child) {
             $name = $child->getName();
-            $this[$name]->setInputs($this->getChildValue($name), $errors[$name]??null);
+            $this[$name]->setInputs(ValueAccess::get($inputs, $name), ValueAccess::get($errors, $name));
         }
-    }
-
-    /**
-     * @param string $name
-     * @return array|object|string|null
-     */
-    private function getChildValue(string $name)
-    {
-        $value = $this->value();
-        if (is_null($value)) {
-            return $value;
-        }
-        if (is_array($value)) {
-            return $value[$name] ?? null;
-        }
-        if (is_object($value)) {
-            $method = 'get' . ucwords($name);
-            if (method_exists($value, $method)) {
-                return $value->$method();
-            }
-            $method = $name;
-            if (method_exists($value, $method)) {
-                return $value->$method();
-            }
-            if (property_exists ($value, $name)) {
-                return $value->$name;
-            }
-        }
-        return $value;
     }
 
     /**
