@@ -49,8 +49,8 @@ function buildForm()
         ->add('type', ElementType::TYPE_CHOICE, [
             'label' => 'Book Category',
             'choices' => [
-                'FICTION' => 'Fiction',
-                'NON_FICTION' => 'Non Fiction',
+                'TEXT_BOOK' => 'Book',
+                'MAGAZINE' => 'Magazine',
                 'MANGA' => 'Manga',
             ],
             'expand' => true,

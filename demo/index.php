@@ -18,21 +18,18 @@ $html = $book->createHtml();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="header">
+    <div class="container">
+        <h1>Sample Form</h1>
+        <p class="text-muted">This sample uses Bootstrap 4 and jQuery. </p>
+    </div>
+</div>
+
 <div class="container">
 
-    <h1>FormModel samples</h1>
+    <form id="sample-form" action="" method="post">
 
-    <p class="text-muted">This sample form uses Bootstrap 4 and jQuery. <br>
-        <label><input type="checkbox" onclick="toggleValidation(this);"> turn off html validation.</label></p>
-    <script>
-        function toggleValidation(check) {
-            var form = document.getElementById('sample-form');
-            form.noValidate = $(check).is(':checked');
-        }
-    </script>
-    
-    <form id="sample-form" action="">
-
+        <h2>Book Information</h2>
         <?= $html['title']->toString()->row(); ?>
         <div class="row">
             <div class="col-sm">
@@ -85,6 +82,13 @@ $html = $book->createHtml();
             </table>
         </div>
 
+        <p class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn off html validation.</label></p>
+        <script>
+            function toggleValidation(check) {
+                let form = document.getElementById('sample-form');
+                form.noValidate = $(check).is(':checked');
+            }
+        </script>
 
         <input type="submit" value="validate input!" class="btn btn-primary">
     </form>
