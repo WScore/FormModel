@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/builder.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'get') {
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $book = buildForm();
     $html = $book->createHtml();
 } else {
