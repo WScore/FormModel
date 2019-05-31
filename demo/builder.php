@@ -30,6 +30,7 @@ function buildForm()
         ])
         ->add('language', ElementType::TYPE_CHOICE, [
             'label' => 'Written Language',
+            'placeholder' => 'select a language',
             'choices' => [
                 'zh' => 'Chinese',
                 'en' => 'English',
@@ -40,6 +41,7 @@ function buildForm()
             ])
         ->add('format', ElementType::TYPE_CHOICE, [
             'label' => 'Format Type',
+            'placeholder' => 'select a type',
             'choices' => [
                 'HARDCOVER' => 'Hard Cover',
                 'PAPERBACK' => 'Paperback',
@@ -95,6 +97,7 @@ function buildAuthor()
         ])
         ->add('type', ElementType::TYPE_CHOICE, [
             'label' => 'type',
+            'placeholder' => 'select a type',
             'choices' => [
                 'AUTHOR' => 'Author',
                 'STORY' => 'Story',

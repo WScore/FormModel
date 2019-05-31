@@ -27,6 +27,11 @@ class ChoiceType extends InputType
      */
     private $isMultiple = false;
 
+    /**
+     * @var string
+     */
+    private $placeholder;
+
     public function __construct(ValidatorBuilder $builder, $name, $label = '')
     {
         $type = ElementType::TYPE_CHOICE;
@@ -103,5 +108,23 @@ class ChoiceType extends InputType
     {
         $this->isMultiple = $multiple;
         return $this;
+    }
+
+    /**
+     * @param string $holder
+     * @return ChoiceType
+     */
+    public function setPlaceholder($holder): ChoiceType
+    {
+        $this->placeholder = $holder;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPlaceholder(): ?string
+    {
+        return $this->placeholder;
     }
 }
