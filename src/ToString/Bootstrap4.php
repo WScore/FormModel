@@ -52,9 +52,11 @@ class Bootstrap4 implements ToStringInterface
         if (!$this->element->isFormType()) {
             return $this->row();
         }
+        $html = '';
         foreach ($this->html as $item) {
+            $html .= $item->toString()->show();
         }
-
+        return $html;
     }
 
     public function row(): string

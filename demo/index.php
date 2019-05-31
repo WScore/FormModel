@@ -72,11 +72,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         <?php
         $publisher = $html['publisher'];
         ?>
-        <?= $publisher['name']->toString()->row(); ?>
-        <?= $publisher['url']->toString()->row(); ?>
+        <div class="row">
+            <div class="col-sm">
+                <?= $publisher['name']->toString()->row(); ?>
+            </div>
+            <div class="col-sm">
+                <?= $publisher['url']->toString()->row(); ?>
+            </div>
+        </div>
 
         <h2>Authors Information</h2>
 
+        <p class="text-muted">enter at least one author.</p>
         <?php
         $authors = $html['authors'];
         ?>
@@ -84,8 +91,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <table class="table table-hover table-striped">
                 <thead>
                 <tr>
-                    <th><label class="form-label required">Author's Name</label></th>
-                    <th><label class="form-label required">Type</label></th>
+                    <th><label class="form-label">Author's Name</label></th>
+                    <th><label class="form-label">Type</label></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -101,18 +108,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             </table>
         </div>
 
-        <p class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn on html validation.</label></p>
+        <p>&nbsp;</p>
+        <span class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn on html validation.</label></span>
+        <br>
         <script>
             function toggleValidation(check) {
                 let form = document.getElementById('sample-form');
                 form.noValidate = !$(check).is(':checked');
             }
         </script>
-
         <input type="submit" value="validate input!" class="btn btn-primary">
     </form>
     <p>&nbsp;</p>
+    <hr>
     <p>&nbsp;</p>
+    <p><a href="show.php">a simple html generation using show(). </a></p>
 
 </div>
 </body>
