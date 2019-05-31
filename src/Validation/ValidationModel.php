@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Validation;
 
+use BadMethodCallException;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Validation\Interfaces\ResultInterface;
@@ -37,11 +38,11 @@ class ValidationModel
      * @param array $inputs
      * @return $this
      */
-    public function verify(array $inputs = []): self
+    public function verify(array $inputs): self
     {
-        $this->inputs = $inputs;
+        $this->inputs = $this->cleanUp($inputs);
         $validation = $this->form->createValidation();
-        $inputs = $inputs[$this->form->getName()] ?? [];
+        $inputs = $this->inputs[$this->form->getName()] ?? [];
         $this->results = $validation->verify($inputs);
 
         return $this;
@@ -53,7 +54,7 @@ class ValidationModel
     public function isValid(): bool
     {
         if (!$this->results) {
-            throw new \BadMethodCallException('no results from validation, yet');
+            throw new BadMethodCallException('no results from validation, yet');
         }
         return $this->results->isValid();
     }
@@ -74,4 +75,18 @@ class ValidationModel
         return $this->form->createHtml($this->inputs, $this->results);
     }
 
+    private function cleanUp(array $values)
+    {
+        foreach ($values as $key => $value) {
+            if (is_array($value)) {
+                $value = $this->cleanUp($value);
+            }
+            if (is_null($value) || empty($value) || $value === '') {
+                unset($values[$key]);
+            } else {
+                $values[$key] = $value;
+            }
+        }
+        return $values;
+    }
 }
