@@ -66,7 +66,8 @@ class Validator
 
     private function buildForm(FormElementInterface $element): ValidationInterface
     {
-        $validation = $this->builder->form();
+        $filters = $element->getFilters();
+        $validation = $this->builder->form($filters);
         foreach ($element->getChildren() as $child) {
             if ($child->isRepeatedForm()) {
                 $validation->addRepeatedForm($child->getName(), $this->build($child));

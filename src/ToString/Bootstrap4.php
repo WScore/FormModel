@@ -10,6 +10,7 @@ use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
+use WScore\Validation\Interfaces\ResultInterface;
 
 class Bootstrap4 implements ToStringInterface
 {
@@ -40,7 +41,7 @@ class Bootstrap4 implements ToStringInterface
     {
         $self = clone($this);
         $self->html = $html;
-        $self->element = $element;
+        $self->element = $html->getElement();
         $self->form = $html->form();
 
         return $self;
@@ -51,9 +52,11 @@ class Bootstrap4 implements ToStringInterface
         if (!$this->element->isFormType()) {
             return $this->row();
         }
+        $html = '';
         foreach ($this->html as $item) {
+            $html .= $item->toString()->show();
         }
-
+        return $html;
     }
 
     public function row(): string
@@ -61,16 +64,13 @@ class Bootstrap4 implements ToStringInterface
         if ($this->element->isFormType()) {
             return '';
         }
-        $div = Tag::create('div');
-        if ($this->isExpanded()) {
-            $div->class('form-check');
-        } else {
-            $div->class('form-group');
-        }
-        $div->setContents(
-            $this->label(),
-            $this->widget()
-        );
+        $div = Tag::div();
+        $div->class('form-group')
+            ->setContents(
+                $this->label(),
+                $this->widget(),
+                $this->error()
+            );
 
         return $div->toString();
     }
@@ -80,7 +80,7 @@ class Bootstrap4 implements ToStringInterface
         if ($this->element->isFormType()) {
             return '';
         }
-        $label = Tag::create('label')
+        $label = Tag::label('label')
             ->setContents($this->html->label())
             ->class('form-label');
         if ($this->element->isRequired()) {
@@ -113,13 +113,35 @@ class Bootstrap4 implements ToStringInterface
             return $this->widgetExpanded();
         }
         $this->form->class('form-control');
+        if ($error = $this->getError()) {
+            $this->form->class('is-invalid');
+        }
 
         return $this->form->toString();
     }
 
+    private function getError(): string
+    {
+        $error = $this->html->error();
+        if (!$error) return '';
+        if ($error instanceof ResultInterface) {
+            if ($error->isValid()) {
+                return '';
+            }
+            $error = $error->getErrorMessage();
+        }
+        if (is_array($error)) {
+            $error = implode("\n", $error);
+        }
+        return $error;
+    }
+
     public function error(): string
     {
-        // TODO: Implement error() method.
+        $error = $this->getError();
+        if (!$error) return '';
+        $error = "<div class='invalid-feedback d-block'>{$error}</div>";
+        return $error;
     }
 
     private function widgetExpanded(): string
@@ -127,11 +149,14 @@ class Bootstrap4 implements ToStringInterface
         $html = '';
         foreach ($this->form->getChoices() as $choice) {
             $choice->class('form-check-input');
-            $label = Tag::create('label')
+            $label = Tag::label()
+                ->setContents($choice->getLabel())
                 ->class('form-check-label')
                 ->set('for', $choice->get('id'));
-            $html .= $choice->toString() . "\n";
-            $html .= $label->toString() . "\n";
+            $div = Tag::div()
+                ->class('form-check')
+                ->setContents($choice, $label);
+            $html .= $div->toString();
         }
 
         return $html;

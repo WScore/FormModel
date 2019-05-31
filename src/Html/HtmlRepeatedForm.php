@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Html;
 
+use ArrayAccess;
 use WScore\FormModel\Element\FormType;
+use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
@@ -11,20 +13,33 @@ class HtmlRepeatedForm extends AbstractHtml
 {
     /**
      * HtmlForm constructor.
+     * @param ToStringInterface $toString
      * @param FormType $element
      * @param HtmlFormInterface|null $parent
-     * @param null $value
      */
-    public function __construct(FormType $element, HtmlFormInterface $parent=null, $value = null)
+    public function __construct(ToStringInterface $toString, FormType $element, HtmlFormInterface $parent=null)
     {
-        parent::__construct($element, $parent, $value);
+        parent::__construct($toString, $element, $parent);
+    }
+
+    /**
+     * @param null|string|array|ArrayAccess $inputs
+     * @param null|string|array|ArrayAccess $errors
+     */
+    public function setInputs($inputs, $errors = null)
+    {
+        parent::setInputs($inputs, $errors);
         $index = 0;
-        foreach ($value as $index => $val) {
-            $this[$index] = new HtmlForm($element, $this, $val, $index);
+        if (is_array($inputs)) {
+            foreach ($inputs as $index => $val) {
+                $this[$index] = new HtmlForm($this->toString(), $this->element, $this, $index);
+                $this[$index]->setInputs($val, ValueAccess::get($errors, $index));
+            }
         }
-        for ($extra = 0; $extra < $element->getRepeats(); $extra++) {
+        for ($extra = 0; $extra < $this->element->getRepeats(); $extra++) {
             $index += 1;
-            $this[$index] = new HtmlForm($element, $this, [], $index);
+            $this[$index] = new HtmlForm($this->toString(), $this->element, $this, $index);
+            $this[$index]->setInputs([], ValueAccess::get($errors, $index));
         }
     }
 

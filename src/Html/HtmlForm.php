@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Html;
 
+use ArrayAccess;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Form;
@@ -12,60 +13,31 @@ class HtmlForm extends AbstractHtml
 {
     /**
      * HtmlForm constructor.
+     * @param ToStringInterface $toString
      * @param FormType $element
      * @param HtmlFormInterface|null $parent
-     * @param null $value
      * @param null|string $name
      */
-    public function __construct(FormType $element, HtmlFormInterface $parent=null, $value = null, $name = null)
+    public function __construct(ToStringInterface $toString, FormType $element, HtmlFormInterface $parent=null, $name = null)
     {
-        parent::__construct($element, $parent, $value, $name);
+        parent::__construct($toString, $element, $parent, $name);
         foreach ($element->getChildren() as $child) {
             $name = $child->getName();
-            $this[$name] = Html::create($child, $this, $this->getChildValue($name));
-            if ($this->getToString()) {
-                $this[$name]->setToString($this->getToString());
-            }
+            $this[$name] = Html::create($toString, $child, $this);
         }
     }
 
     /**
-     * @param ToStringInterface $toString
+     * @param null|string|array|ArrayAccess $inputs
+     * @param null|string|array|ArrayAccess $errors
      */
-    public function setToString(ToStringInterface $toString): void
+    public function setInputs($inputs, $errors = null)
     {
-        foreach ($this->getChildren() as $child) {
-            $child->setToString($toString);
+        parent::setInputs($inputs, $errors);
+        foreach ($this->element->getChildren() as $child) {
+            $name = $child->getName();
+            $this[$name]->setInputs(ValueAccess::get($inputs, $name), ValueAccess::get($errors, $name));
         }
-    }
-
-    /**
-     * @param string $name
-     * @return array|object|string|null
-     */
-    private function getChildValue(string $name)
-    {
-        $value = $this->value();
-        if (is_null($value)) {
-            return $value;
-        }
-        if (is_array($value)) {
-            return $value[$name] ?? null;
-        }
-        if (is_object($value)) {
-            $method = 'get' . ucwords($name);
-            if (method_exists($value, $method)) {
-                return $value->$method();
-            }
-            $method = $name;
-            if (method_exists($value, $method)) {
-                return $value->$method();
-            }
-            if (property_exists ($value, $name)) {
-                return $value->$name;
-            }
-        }
-        return $value;
     }
 
     /**

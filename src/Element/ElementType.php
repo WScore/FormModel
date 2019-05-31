@@ -9,4 +9,5 @@ class ElementType
     const TYPE_REPEATED = 'form-repeated';
     const TYPE_CHOICE = 'type-choice';
     const TYPE_TEXT = 'text';
+    const DATE = 'date';
 }

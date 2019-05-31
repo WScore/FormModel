@@ -57,9 +57,10 @@ interface ElementInterface
 
     /**
      * @param null|array|string $inputs
+     * @param null|array|string $errors
      * @return HtmlFormInterface
      */
-    public function createHtml($inputs = null): HtmlFormInterface;
+    public function createHtml($inputs = null, $errors = null): HtmlFormInterface;
 
     /**
      * @return array

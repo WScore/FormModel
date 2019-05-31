@@ -35,6 +35,16 @@ class FormType extends AbstractElement implements FormElementInterface
     }
 
     /**
+     * @param string $name
+     * @return FormElementInterface
+     */
+    public function setName(string $name): FormElementInterface
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
      * @param ElementInterface $element
      * @return $this
      */

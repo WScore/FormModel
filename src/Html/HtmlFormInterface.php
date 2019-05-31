@@ -5,6 +5,7 @@ namespace WScore\FormModel\Html;
 
 use ArrayAccess;
 use IteratorAggregate;
+use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
@@ -12,6 +13,12 @@ use WScore\Html\Tags\Tag;
 
 interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
 {
+    /**
+     * @param null|string|array|ArrayAccess $inputs
+     * @param null|string|array|ArrayAccess $errors
+     */
+    public function setInputs($inputs, $errors = null);
+
     /**
      * @return string
      */
@@ -28,9 +35,14 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     public function label();
 
     /**
-     * @return string
+     * @return string|array|mixed
      */
     public function value();
+
+    /**
+     * @return string|array|mixed
+     */
+    public function error();
 
     /**
      * @return Input|Tag|Choices
@@ -48,6 +60,18 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     public function __toString();
 
     /**
+     * @param $name
+     * @return bool
+     */
+    public function has($name): bool;
+
+    /**
+     * @param $name
+     * @return HtmlFormInterface
+     */
+    public function get($name): ?HtmlFormInterface;
+
+    /**
      * @return bool
      */
     public function hasChildren(): bool;
@@ -58,15 +82,15 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     public function getChildren(): array;
 
     /**
+     * @return ElementInterface
+     */
+    public function getElement(): ElementInterface;
+
+    /**
      * @param mixed $offset
      * @return $this|HtmlFormInterface
      */
     public function offsetGet($offset);
-
-    /**
-     * @param ToStringInterface $toString
-     */
-    public function setToString(ToStringInterface $toString): void;
 
     /**
      * @return ToStringInterface|null
