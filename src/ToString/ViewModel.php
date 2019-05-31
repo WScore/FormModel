@@ -38,6 +38,7 @@ class ViewModel implements ArrayAccess, IteratorAggregate
 
     public function show(): string
     {
+        // todo: implement using $this, not toString's show. 
         return $this->toString->show();
     }
 

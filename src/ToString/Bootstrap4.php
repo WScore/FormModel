@@ -52,7 +52,7 @@ class Bootstrap4 implements ToStringInterface
         if (!$this->element->isFormType()) {
             return $this->row();
         }
-        $html = '';
+        $html = $this->label() . $this->error();
         foreach ($this->html as $item) {
             $html .= $item->toString()->show();
         }
@@ -80,7 +80,7 @@ class Bootstrap4 implements ToStringInterface
         if ($this->element->isFormType()) {
             return '';
         }
-        $label = Tag::label('label')
+        $label = Tag::label()
             ->setContents($this->html->label())
             ->class('form-label');
         if ($this->element->isRequired()) {
