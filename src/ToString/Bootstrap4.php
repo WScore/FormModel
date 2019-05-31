@@ -63,19 +63,12 @@ class Bootstrap4 implements ToStringInterface
             return '';
         }
         $div = Tag::create('div');
-        if ($this->isExpanded()) {
-            $div->class('form-group')
-                ->setContents(
-                    $this->label(),
-                    $this->widget());
-        } else {
-            $div->class('form-group')
-                ->setContents(
-                    $this->label(),
-                    $this->widget(),
-                    $this->error()
+        $div->class('form-group')
+            ->setContents(
+                $this->label(),
+                $this->widget(),
+                $this->error()
             );
-        }
 
         return $div->toString();
     }
@@ -145,7 +138,7 @@ class Bootstrap4 implements ToStringInterface
     {
         $error = $this->getError();
         if (!$error) return '';
-        $error = "<div class='invalid-feedback'>{$error}</div>";
+        $error = "<div class='invalid-feedback d-block'>{$error}</div>";
         return $error;
     }
 
