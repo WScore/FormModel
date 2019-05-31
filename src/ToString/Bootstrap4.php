@@ -41,7 +41,7 @@ class Bootstrap4 implements ToStringInterface
     {
         $self = clone($this);
         $self->html = $html;
-        $self->element = $element;
+        $self->element = $html->getElement();
         $self->form = $html->form();
 
         return $self;

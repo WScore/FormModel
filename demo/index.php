@@ -4,11 +4,11 @@ require_once __DIR__ . '/builder.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $book = buildForm();
-    $html = $book->createHtml();
+    $html = $book->createView();
 } else {
     $book = buildForm();
     $validation = $book->createValidation($_POST);
-    $html = $validation->createHtml();
+    $html = $validation->createView();
 }
 
 ?>
@@ -47,24 +47,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <form id="sample-form" action="" method="post" novalidate="">
 
         <h2>Book Information</h2>
-        <?= $html['title']->toString()->row(); ?>
+        <?= $html['title']; ?>
         <div class="row">
             <div class="col-sm">
-                <?= $html['published_at']->toString()->row(); ?>
+                <?= $html['published_at']; ?>
             </div>
             <div class="col-sm">
-                <?= $html['isbn_code']->toString()->row(); ?>
+                <?= $html['isbn_code']; ?>
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
-                <?= $html['language']->toString()->row(); ?>
+                <?= $html['language']; ?>
             </div>
             <div class="col-sm">
-                <?= $html['format']->toString()->row(); ?>
+                <?= $html['format']; ?>
             </div>
             <div class="col-sm">
-                <?= $html['type']->toString()->row(); ?>
+                <?= $html['type']; ?>
             </div>
         </div>
 
@@ -74,10 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         ?>
         <div class="row">
             <div class="col-sm">
-                <?= $publisher['name']->toString()->row(); ?>
+                <?= $publisher['name']; ?>
             </div>
             <div class="col-sm">
-                <?= $publisher['url']->toString()->row(); ?>
+                <?= $publisher['url']; ?>
             </div>
         </div>
 
@@ -98,10 +98,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <tbody>
                 <?php foreach ($authors as $author): ?>
                     <tr>
-                        <td><?= $author['name']->toString()->widget() ?>
-                            <?= $author['name']->toString()->error() ?></td>
-                        <td><?= $author['type']->toString()->widget() ?>
-                            <?= $author['type']->toString()->error() ?></td>
+                        <td><?= $author['name']->widget() ?>
+                            <?= $author['name']->error() ?></td>
+                        <td><?= $author['type']->widget() ?>
+                            <?= $author['type']->error() ?></td>
                     </tr>
                 <?php endforeach;?>
                 </tbody>

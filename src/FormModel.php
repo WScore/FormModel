@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\FormModel\ToString\ViewModel;
 use WScore\FormModel\Validation\ValidationModel;
 
 class FormModel
@@ -103,10 +104,29 @@ class FormModel
      */
     public function createValidation(array $inputs = null)
     {
-        $validation = new ValidationModel($this->form);
+        $validation = new ValidationModel($this);
         if (!empty($inputs)) {
             $validation->verify($inputs);
         }
         return $validation;
+    }
+
+    /**
+     * @param array $inputs
+     * @param null $errors
+     * @return ViewModel
+     */
+    public function createView($inputs = [], $errors = null)
+    {
+        $html = $this->form->createHtml($inputs, $errors);
+        return $this->builder->viewModel($html);
+    }
+
+    /**
+     * @return FormElementInterface
+     */
+    public function getElement(): FormElementInterface
+    {
+        return $this->form;
     }
 }

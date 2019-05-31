@@ -128,6 +128,32 @@ abstract class AbstractHtml implements HtmlFormInterface
     }
 
     /**
+     * @param $name
+     * @return bool
+     */
+    public function has($name): bool
+    {
+        return array_key_exists($name, $this->children);
+    }
+
+    /**
+     * @param $name
+     * @return HtmlFormInterface
+     */
+    public function get($name): ?HtmlFormInterface
+    {
+        return $this->children[$name] ?? null;
+    }
+
+    /**
+     * @return ElementInterface
+     */
+    public function getElement(): ElementInterface
+    {
+        return $this->element;
+    }
+
+    /**
      * @return bool
      */
     public function hasChildren(): bool

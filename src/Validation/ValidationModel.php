@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace WScore\FormModel\Validation;
 
 use BadMethodCallException;
+use WScore\FormModel\FormModel;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\FormModel\ToString\ViewModel;
 use WScore\Validation\Interfaces\ResultInterface;
 
 class ValidationModel
@@ -14,6 +16,11 @@ class ValidationModel
      * @var FormElementInterface
      */
     private $form;
+
+    /**
+     * @var FormElementInterface
+     */
+    private $element;
 
     /**
      * @var array
@@ -27,11 +34,12 @@ class ValidationModel
 
     /**
      * ValidationModel constructor.
-     * @param FormElementInterface $form
+     * @param FormModel $form
      */
-    public function __construct(FormElementInterface $form)
+    public function __construct(FormModel $form)
     {
         $this->form = $form;
+        $this->element = $form->getElement();
     }
 
     /**
@@ -41,8 +49,8 @@ class ValidationModel
     public function verify(array $inputs): self
     {
         $this->inputs = $this->cleanUp($inputs);
-        $validation = $this->form->createValidation();
-        $inputs = $this->inputs[$this->form->getName()] ?? [];
+        $validation = $this->element->createValidation();
+        $inputs = $this->inputs[$this->element->getName()] ?? [];
         $this->results = $validation->verify($inputs);
 
         return $this;
@@ -68,11 +76,19 @@ class ValidationModel
     }
 
     /**
-     * @return HtmlFormInterface|HtmlFormInterface
+     * @return HtmlFormInterface
      */
     public function createHtml(): HtmlFormInterface
     {
-        return $this->form->createHtml($this->inputs, $this->results);
+        return $this->element->createHtml($this->inputs, $this->results);
+    }
+
+    /**
+     * @return ViewModel
+     */
+    public function createView(): ViewModel
+    {
+        return $this->form->createView($this->inputs, $this->results);
     }
 
     private function cleanUp(array $values)
