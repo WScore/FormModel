@@ -7,9 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $html = $book->createHtml();
 } else {
     $book = buildForm();
-    // todo: use formElement's name when verify.
-    $result = $book->createValidation()->verify($_POST['book']??[]);
-    $html = $book->createHtml($_POST, $result);
+    $validation = $book->createValidation($_POST);
+    $html = $validation->createHtml();
 }
 
 ?>
@@ -35,9 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
 <div class="container">
 
-    <?php if (isset($result)) : ?>
+    <?php if (isset($validation)) : ?>
         <?php
-            if ($result->isValid()) {
+            if ($validation->isValid()) {
                 echo '<div class="alert alert-success">Verified!</div>';
             } else {
                 echo '<div class="alert alert-danger">Please check the input values!!!</div>';

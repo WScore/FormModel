@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\FormModel\Validation\ValidationModel;
 
 class FormModel
 {
@@ -33,7 +34,7 @@ class FormModel
      * @param array $options
      * @return $this
      */
-    public function add(string $name, string $type, $options = [])
+    public function add(string $name, string $type, $options = []): FormModel
     {
         if (in_array($type, [ElementType::TYPE_FORM, ElementType::TYPE_REPEATED], true) ) {
             throw new InvalidArgumentException('Cannot instantiate forms. ');
@@ -96,10 +97,15 @@ class FormModel
     }
 
     /**
-     * @return Validation\Validator
+     * @param array|null $inputs
+     * @return ValidationModel
      */
-    public function createValidation()
+    public function createValidation(array $inputs = null)
     {
-        return $this->form->createValidation();
+        $validation = new ValidationModel($this->form);
+        if (!empty($inputs)) {
+            $validation->verify($inputs);
+        }
+        return $validation;
     }
 }
