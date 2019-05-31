@@ -70,6 +70,11 @@ class FormBuilder
         return $this->element($type, $name, $label);
     }
 
+    public function formModel(string $name, array $options = []): FormModel
+    {
+        return new FormModel($this, $name, $options);
+    }
+
     public function form(string $name, string $label = ''): FormElementInterface
     {
         $form = new FormType($this->builder, $name, $label);

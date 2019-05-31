@@ -22,10 +22,11 @@ class FormModel
      */
     private $form;
 
-    public function __construct(FormBuilder $builder, string $name)
+    public function __construct(FormBuilder $builder, string $name, array $options = [])
     {
         $this->builder = $builder;
         $this->form = $builder->form($name);
+        $builder->apply($this->form, $options);
     }
 
     /**

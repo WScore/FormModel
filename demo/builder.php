@@ -3,15 +3,19 @@
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\FormModel;
+use WScore\Validation\Filters\FilterEmptyValues;
 
 /**
  * @return FormModel
  */
 function buildForm()
 {
-    $book = new FormModel(FormBuilder::create(), 'book');
-
-    $book
+    $builder = FormBuilder::create();
+    $book = $builder->formModel('book', [
+            'filters' => [
+                FilterEmptyValues::class
+            ]
+        ])
         ->add('title', ElementType::TYPE_TEXT, [
             'label' => 'Book Title',
         ])
@@ -30,18 +34,16 @@ function buildForm()
         ])
         ->add('language', ElementType::TYPE_CHOICE, [
             'label' => 'Written Language',
-            'placeholder' => 'select a language',
+            'placeholder' => 'select a language...',
             'choices' => [
                 'zh' => 'Chinese',
                 'en' => 'English',
                 'ja' => 'Japanese',
             ],
-# todo: implement placeholder for select.
-#            'placeholder' => 'select a language',
-            ])
+        ])
         ->add('format', ElementType::TYPE_CHOICE, [
             'label' => 'Format Type',
-            'placeholder' => 'select a type',
+            'placeholder' => 'select a type...',
             'choices' => [
                 'HARDCOVER' => 'Hard Cover',
                 'PAPERBACK' => 'Paperback',
@@ -97,7 +99,7 @@ function buildAuthor()
         ])
         ->add('type', ElementType::TYPE_CHOICE, [
             'label' => 'type',
-            'placeholder' => 'select a type',
+            'placeholder' => 'select a type...',
             'choices' => [
                 'AUTHOR' => 'Author',
                 'STORY' => 'Story',
