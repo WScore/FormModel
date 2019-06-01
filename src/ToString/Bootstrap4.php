@@ -72,7 +72,9 @@ class Bootstrap4 implements ToStringInterface
     public function label(): string
     {
         if ($this->element->isFormType()) {
-            return '';
+            return Tag::create('h2')
+                ->setContents($this->html->label())
+                ->toString();
         }
         $label = Tag::label()
             ->setContents($this->html->label())

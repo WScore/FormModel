@@ -64,6 +64,7 @@ class FormModel
             $this->form->addRepeatedForm($repeat, $element);
             $this->builder->apply($this->form->get($name), $options);
         } else {
+            $this->builder->apply($element, $options);
             $this->form->addForm($element);
         }
         return $this;

@@ -46,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     <form id="sample-form" action="" method="post" novalidate="">
 
-        <h2>Book Information</h2>
         <?= $html->show(); ?>
 
         <p class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn on html validation.</label></p>

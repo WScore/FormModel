@@ -13,6 +13,7 @@ function buildForm()
 {
     $builder = FormBuilder::create();
     $book = $builder->formModel('book', [
+            'label' => 'Book Information',
             'filters' => [
                 FilterEmptyValues::class
             ]
@@ -61,9 +62,12 @@ function buildForm()
             'expand' => true,
             'multiple' => true,
         ])
-        ->addForm('publisher', buildPublisher())
+        ->addForm('publisher', buildPublisher(), [
+            'label' => 'Publisher Information',
+        ])
         ->addForm('authors', buildAuthor(), [
             'repeat' => 3,
+            'label' => 'Author List',
             'filters' => [
                 Required::class,
             ],
