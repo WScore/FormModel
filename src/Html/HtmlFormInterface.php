@@ -5,7 +5,7 @@ namespace WScore\FormModel\Html;
 
 use ArrayAccess;
 use IteratorAggregate;
-use WScore\FormModel\Interfaces\ElementInterface;
+use WScore\FormModel\Element\ElementInterface;
 use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;

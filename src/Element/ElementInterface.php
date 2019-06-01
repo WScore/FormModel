@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace WScore\FormModel\Interfaces;
+namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Validation\Validator;

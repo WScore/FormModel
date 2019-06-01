@@ -5,9 +5,9 @@ namespace WScore\FormModel;
 
 use ArrayAccess;
 use InvalidArgumentException;
+use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
-use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\FormModel\Element\FormElementInterface;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\FormModel\Validation\ValidationModel;
 
@@ -81,7 +81,7 @@ class FormModel
 
     /**
      * @param string $name
-     * @return Interfaces\ElementInterface|FormElementInterface|null
+     * @return \WScore\FormModel\Element\ElementInterface|FormElementInterface|null
      */
     public function get(string $name)
     {

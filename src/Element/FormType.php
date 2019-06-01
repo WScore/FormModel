@@ -7,8 +7,6 @@ use ArrayIterator;
 use BadMethodCallException;
 use InvalidArgumentException;
 use Traversable;
-use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Validation\ValidatorBuilder;
 
 class FormType extends AbstractElement implements FormElementInterface

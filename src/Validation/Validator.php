@@ -5,9 +5,9 @@ namespace WScore\FormModel\Validation;
 
 use InvalidArgumentException;
 use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
-use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\FormElementInterface;
+use WScore\FormModel\Element\FormElementInterface;
 use WScore\Validation\Filters\InArray;
 use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ResultInterface;

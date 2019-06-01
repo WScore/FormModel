@@ -5,8 +5,7 @@ namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\Html;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\ToStringInterface;
+use WScore\FormModel\ToString\ToStringInterface;
 use WScore\FormModel\Validation\Validator;
 use WScore\Validation\ValidatorBuilder;
 

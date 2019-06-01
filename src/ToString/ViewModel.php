@@ -8,9 +8,8 @@ use ArrayIterator;
 use BadMethodCallException;
 use IteratorAggregate;
 use Traversable;
+use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\ToStringInterface;
 
 class ViewModel implements ArrayAccess, IteratorAggregate
 {

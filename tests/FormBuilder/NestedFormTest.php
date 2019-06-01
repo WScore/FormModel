@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use WScore\FormModel\Element\FormElementInterface;
 use WScore\FormModel\FormBuilder;
-use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\Validation\Filters\StringCases;
 
 class NestedFormTest extends TestCase

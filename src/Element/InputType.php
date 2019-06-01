@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Element;
 
-use WScore\FormModel\Interfaces\ElementInterface;
-
 class InputType extends AbstractElement implements ElementInterface
 {
     /**

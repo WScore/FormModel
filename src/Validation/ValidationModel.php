@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace WScore\FormModel\Validation;
 
 use BadMethodCallException;
+use WScore\FormModel\Element\FormElementInterface;
 use WScore\FormModel\FormModel;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Interfaces\FormElementInterface;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\Validation\Interfaces\ResultInterface;
 

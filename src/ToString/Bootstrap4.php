@@ -4,9 +4,8 @@ declare(strict_types=1);
 namespace WScore\FormModel\ToString;
 
 use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;

@@ -5,13 +5,13 @@ namespace WScore\FormModel;
 
 use InvalidArgumentException;
 use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\ElementInterface;
+use WScore\FormModel\Element\FormElementInterface;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\FormElementInterface;
-use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\FormModel\ToString\Bootstrap4;
+use WScore\FormModel\ToString\ToStringInterface;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\Validation\ValidatorBuilder;
 

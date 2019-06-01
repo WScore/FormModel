@@ -8,8 +8,8 @@ use ArrayIterator;
 use InvalidArgumentException;
 use Traversable;
 use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\FormType;
-use WScore\FormModel\Interfaces\ElementInterface;
 use WScore\Html\Tags\Input;
 
 abstract class AbstractHtml implements HtmlFormInterface
