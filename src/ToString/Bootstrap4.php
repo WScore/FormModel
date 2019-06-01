@@ -33,10 +33,9 @@ class Bootstrap4 implements ToStringInterface
 
     /**
      * @param HtmlFormInterface $html
-     * @param ElementInterface $element
      * @return Bootstrap4|ToStringInterface
      */
-    public function create(HtmlFormInterface $html, ElementInterface $element): ToStringInterface
+    public function create(HtmlFormInterface $html): ToStringInterface
     {
         $self = clone($this);
         $self->html = $html;

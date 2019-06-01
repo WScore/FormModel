@@ -81,7 +81,7 @@ class FormModel
 
     /**
      * @param string $name
-     * @return \WScore\FormModel\Element\ElementInterface|FormElementInterface|null
+     * @return ElementInterface|FormElementInterface|null
      */
     public function get(string $name)
     {

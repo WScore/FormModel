@@ -11,10 +11,9 @@ interface ToStringInterface
 
     /**
      * @param HtmlFormInterface $html
-     * @param ElementInterface $element
      * @return ToStringInterface
      */
-    public function create(HtmlFormInterface $html, ElementInterface $element): ToStringInterface;
+    public function create(HtmlFormInterface $html): ToStringInterface;
 
     public function row(): string;
 
