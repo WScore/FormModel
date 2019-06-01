@@ -38,8 +38,19 @@ class ViewModel implements ArrayAccess, IteratorAggregate
 
     public function show(): string
     {
-        // todo: implement using $this, not toString's show. 
-        return $this->toString->show();
+        if ($this->element->isFormType()) {
+            return $this->showForm();
+        }
+        return $this->row();
+    }
+
+    private function showForm(): string
+    {
+        $html = $this->label() . $this->error();
+        foreach ($this->getIterator() as $item) {
+            $html .= $item->show();
+        }
+        return $html;
     }
 
     public function row(): string

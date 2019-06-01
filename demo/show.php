@@ -4,11 +4,11 @@ require_once __DIR__ . '/builder.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $book = buildForm();
-    $html = $book->createHtml();
+    $html = $book->createView();
 } else {
     $book = buildForm();
     $validation = $book->createValidation($_POST);
-    $html = $validation->createHtml();
+    $html = $validation->createView();
 }
 
 ?>
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     <form id="sample-form" action="" method="post" novalidate="">
 
         <h2>Book Information</h2>
-        <?= $html->toString()->show(); ?>
+        <?= $html->show(); ?>
 
         <p class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn on html validation.</label></p>
         <script>

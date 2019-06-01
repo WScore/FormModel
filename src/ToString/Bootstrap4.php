@@ -47,18 +47,6 @@ class Bootstrap4 implements ToStringInterface
         return $self;
     }
 
-    public function show(): string
-    {
-        if (!$this->element->isFormType()) {
-            return $this->row();
-        }
-        $html = $this->label() . $this->error();
-        foreach ($this->html as $item) {
-            $html .= $item->toString()->show();
-        }
-        return $html;
-    }
-
     public function row(): string
     {
         if ($this->element->isFormType()) {
