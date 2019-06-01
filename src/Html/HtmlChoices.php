@@ -42,12 +42,4 @@ class HtmlChoices extends AbstractHtml
         $form = $this->form();
         return $form->getChoices();
     }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        // TODO: Implement __toString() method.
-    }
 }

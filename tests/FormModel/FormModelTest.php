@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\FormModel;
-use WScore\FormModel\Html\HtmlFormInterface;
+use WScore\FormModel\ToString\ViewModel;
 
 class FormModelTest extends TestCase
 {
@@ -40,9 +40,9 @@ class FormModelTest extends TestCase
         $this->assertEquals('type', $type->getName());
         $this->assertEquals('Book Type', $type->getLabel());
 
-        $html = $form->createHtml();
-        $typeHtml = $html['type'];
-        $this->assertTrue($typeHtml instanceof HtmlFormInterface);
+        $view = $form->createView();
+        $typeHtml = $view['type'];
+        $this->assertTrue($typeHtml instanceof ViewModel);
         $this->assertEquals('<div class="form-check">
 <input type="radio" name="book[type]" id="book[type]_0" required="required" value="fiction" class="form-check-input">
 <label class="form-check-label" for="book[type]_0">Fiction</label>
@@ -52,6 +52,6 @@ class FormModelTest extends TestCase
 </div><div class="form-check">
 <input type="radio" name="book[type]" id="book[type]_2" required="required" value="manga" class="form-check-input">
 <label class="form-check-label" for="book[type]_2">Manga</label>
-</div>', $typeHtml->toString()->widget());
+</div>', $typeHtml->widget());
     }
 }

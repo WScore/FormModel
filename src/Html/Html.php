@@ -7,30 +7,28 @@ use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Form;
 use WScore\Html\Tags\Input;
 
 class Html extends AbstractHtml
 {
     /**
-     * @param ToStringInterface $toString
      * @param ElementInterface $element
      * @param HtmlFormInterface|null $parent
      * @return HtmlFormInterface
      */
-    public static function create(ToStringInterface $toString, ElementInterface $element, HtmlFormInterface $parent=null): HtmlFormInterface
+    public static function create(ElementInterface $element, HtmlFormInterface $parent=null): HtmlFormInterface
     {
         if ($element->getType() === ElementType::TYPE_CHOICE && $element instanceof ChoiceType) {
-            return new HtmlChoices($toString, $element, $parent);
+            return new HtmlChoices($element, $parent);
         }
         if ($element->isFormType() && $element instanceof FormType) {
             if ($element->isRepeatedForm()) {
-                return new HtmlRepeatedForm($toString, $element, $parent);
+                return new HtmlRepeatedForm($element, $parent);
             }
-            return new HtmlForm($toString, $element, $parent);
+            return new HtmlForm($element, $parent);
         }
-        $self = new self($toString, $element, $parent);
+        $self = new self($element, $parent);
 
         return $self;
     }
@@ -50,13 +48,5 @@ class Html extends AbstractHtml
         $form->required($this->element->isRequired());
 
         return $form;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        // TODO: Implement __toString() method.
     }
 }

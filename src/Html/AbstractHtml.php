@@ -10,7 +10,6 @@ use Traversable;
 use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Interfaces\ElementInterface;
-use WScore\FormModel\Interfaces\ToStringInterface;
 use WScore\Html\Tags\Input;
 
 abstract class AbstractHtml implements HtmlFormInterface
@@ -41,20 +40,13 @@ abstract class AbstractHtml implements HtmlFormInterface
     private $name;
 
     /**
-     * @var ToStringInterface
-     */
-    private $toString;
-
-    /**
      * AbstractHtml constructor.
-     * @param ToStringInterface $toString
      * @param ElementInterface $element
      * @param HtmlFormInterface|null $parent
      * @param null|string $name
      */
-    public function __construct(ToStringInterface $toString, ElementInterface $element, HtmlFormInterface $parent = null, $name = null)
+    public function __construct(ElementInterface $element, HtmlFormInterface $parent = null, $name = null)
     {
-        $this->toString = $toString;
         $this->element = $element;
         $this->parent = $parent;
         $this->name = $name ?? $element->getName();
@@ -216,21 +208,5 @@ abstract class AbstractHtml implements HtmlFormInterface
     public function getIterator()
     {
         return new ArrayIterator($this->children);
-    }
-
-    /**
-     * @return ToStringInterface|null
-     */
-    protected function getToString(): ?ToStringInterface
-    {
-        return $this->toString;
-    }
-
-    public function toString(): ?ToStringInterface
-    {
-        if ($this->toString) {
-            return $this->toString->create($this, $this->element);
-        }
-        return null;
     }
 }
