@@ -70,7 +70,7 @@ class Validator
         $validation = $this->builder->form($filters);
         foreach ($element->getChildren() as $child) {
             if ($child->isRepeatedForm()) {
-                $validation->addRepeatedForm($child->getName(), $this->build($child));
+                $validation->addRepeatedForm($child->getName(), $this->build($child), $child->getFilters());
             } else {
                 $validation->add($child->getName(), $this->build($child));
             }

@@ -33,6 +33,11 @@ class ValidationModel
     private $results;
 
     /**
+     * @var Validator
+     */
+    private $validation;
+
+    /**
      * ValidationModel constructor.
      * @param FormModel $form
      */
@@ -40,6 +45,7 @@ class ValidationModel
     {
         $this->form = $form;
         $this->element = $form->getElement();
+        $this->validation = $this->element->createValidation();
     }
 
     /**
@@ -49,9 +55,8 @@ class ValidationModel
     public function verify(array $inputs): self
     {
         $this->inputs = $this->cleanUp($inputs);
-        $validation = $this->element->createValidation();
         $inputs = $this->inputs[$this->element->getName()] ?? [];
-        $this->results = $validation->verify($inputs);
+        $this->results = $this->validation->verify($inputs);
 
         return $this;
     }

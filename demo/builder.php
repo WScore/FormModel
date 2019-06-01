@@ -4,6 +4,7 @@ use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\FormModel;
 use WScore\Validation\Filters\FilterEmptyValues;
+use WScore\Validation\Filters\Required;
 
 /**
  * @return FormModel
@@ -62,7 +63,10 @@ function buildForm()
         ])
         ->addForm('publisher', buildPublisher())
         ->addForm('authors', buildAuthor(), [
-            'repeat' => 3
+            'repeat' => 3,
+            'filters' => [
+                Required::class,
+            ],
         ])
     ;
 
