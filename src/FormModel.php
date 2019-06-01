@@ -93,12 +93,11 @@ class FormModel
 
     /**
      * @param null|string|array|ArrayAccess $inputs
-     * @param null|string|array|ArrayAccess $errors
      * @return Html\HtmlFormInterface
      */
-    public function createHtml($inputs = [], $errors = null)
+    public function createHtml($inputs = [])
     {
-        return $this->form->createHtml($inputs, $errors);
+        return $this->form->createHtml($inputs);
     }
 
     /**
