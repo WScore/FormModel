@@ -14,9 +14,8 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
 {
     /**
      * @param null|string|array|ArrayAccess $inputs
-     * @param null|string|array|ArrayAccess $errors
      */
-    public function setInputs($inputs, $errors = null);
+    public function setInputs($inputs);
 
     /**
      * @return string
@@ -37,11 +36,6 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
      * @return string|array|mixed
      */
     public function value();
-
-    /**
-     * @return string|array|mixed
-     */
-    public function error();
 
     /**
      * @return Input|Tag|Choices

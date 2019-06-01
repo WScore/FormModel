@@ -27,14 +27,13 @@ class HtmlForm extends AbstractHtml
 
     /**
      * @param null|string|array|ArrayAccess $inputs
-     * @param null|string|array|ArrayAccess $errors
      */
-    public function setInputs($inputs, $errors = null)
+    public function setInputs($inputs)
     {
-        parent::setInputs($inputs, $errors);
+        parent::setInputs($inputs);
         foreach ($this->element->getChildren() as $child) {
             $name = $child->getName();
-            $this[$name]->setInputs(ValueAccess::get($inputs, $name), ValueAccess::get($errors, $name));
+            $this[$name]->setInputs(ValueAccess::get($inputs, $name));
         }
     }
 

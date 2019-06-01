@@ -13,6 +13,7 @@ use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\Bootstrap4;
 use WScore\FormModel\ToString\ToStringInterface;
 use WScore\FormModel\ToString\ViewModel;
+use WScore\Validation\Interfaces\ResultInterface;
 use WScore\Validation\ValidatorBuilder;
 
 /**
@@ -77,9 +78,9 @@ class FormBuilder
         return new FormModel($this, $name, $options);
     }
 
-    public function viewModel(HtmlFormInterface $html): ViewModel
+    public function viewModel(HtmlFormInterface $html, ResultInterface $result = null): ViewModel
     {
-        return new ViewModel($this->toString, $html);
+        return new ViewModel($this->toString, $html, $result);
     }
 
     public function form(string $name, string $label = ''): FormElementInterface

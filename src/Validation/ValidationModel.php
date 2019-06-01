@@ -85,7 +85,7 @@ class ValidationModel
      */
     public function createHtml(): HtmlFormInterface
     {
-        return $this->element->createHtml($this->inputs, $this->results);
+        return $this->element->createHtml($this->inputs);
     }
 
     /**

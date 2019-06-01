@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         <?php
         $authors = $html['authors'];
-        if ($authors->error()) {
+        if ($authors->hasError()) {
             echo '<p class="text-danger">enter at least one author.</p>';
         } else {
             echo '<p class="text-muted">enter at least one author.</p>';

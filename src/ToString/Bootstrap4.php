@@ -22,10 +22,16 @@ class Bootstrap4 implements ToStringInterface
      * @var ElementInterface
      */
     private $element;
+
     /**
      * @var Choices|Input|Tag
      */
     private $form;
+
+    /**
+     * @var null|ResultInterface
+     */
+    private $result;
 
     public function __construct()
     {
@@ -33,14 +39,16 @@ class Bootstrap4 implements ToStringInterface
 
     /**
      * @param HtmlFormInterface $html
+     * @param ResultInterface|null $result
      * @return Bootstrap4|ToStringInterface
      */
-    public function create(HtmlFormInterface $html): ToStringInterface
+    public function create(HtmlFormInterface $html, ResultInterface $result = null): ToStringInterface
     {
         $self = clone($this);
         $self->html = $html;
         $self->element = $html->getElement();
         $self->form = $html->form();
+        $self->result = $result;
 
         return $self;
     }
@@ -64,7 +72,9 @@ class Bootstrap4 implements ToStringInterface
     public function label(): string
     {
         if ($this->element->isFormType()) {
-            return '';
+            return Tag::create('h2')
+                ->setContents($this->html->label())
+                ->toString();
         }
         $label = Tag::label()
             ->setContents($this->html->label())
@@ -108,18 +118,11 @@ class Bootstrap4 implements ToStringInterface
 
     private function getError(): string
     {
-        $error = $this->html->error();
-        if (!$error) return '';
-        if ($error instanceof ResultInterface) {
-            if ($error->isValid()) {
-                return '';
-            }
-            $error = $error->getErrorMessage();
+        if (!$this->result) return '';
+        if ($this->result->isValid()) {
+            return '';
         }
-        if (is_array($error)) {
-            $error = implode("\n", $error);
-        }
-        return $error;
+        return implode("\n", $this->result->getErrorMessage());
     }
 
     public function error(): string

@@ -10,6 +10,7 @@ use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormElementInterface;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\FormModel\Validation\ValidationModel;
+use WScore\Validation\Interfaces\ResultInterface;
 
 class FormModel
 {
@@ -63,6 +64,7 @@ class FormModel
             $this->form->addRepeatedForm($repeat, $element);
             $this->builder->apply($this->form->get($name), $options);
         } else {
+            $this->builder->apply($element, $options);
             $this->form->addForm($element);
         }
         return $this;
@@ -92,12 +94,11 @@ class FormModel
 
     /**
      * @param null|string|array|ArrayAccess $inputs
-     * @param null|string|array|ArrayAccess $errors
      * @return Html\HtmlFormInterface
      */
-    public function createHtml($inputs = [], $errors = null)
+    public function createHtml($inputs = [])
     {
-        return $this->form->createHtml($inputs, $errors);
+        return $this->form->createHtml($inputs);
     }
 
     /**
@@ -115,13 +116,13 @@ class FormModel
 
     /**
      * @param array $inputs
-     * @param null $errors
+     * @param null|ResultInterface $errors
      * @return ViewModel
      */
     public function createView($inputs = [], $errors = null)
     {
-        $html = $this->form->createHtml($inputs, $errors);
-        return $this->builder->viewModel($html);
+        $html = $this->form->createHtml($inputs);
+        return $this->builder->viewModel($html, $errors);
     }
 
     /**
