@@ -79,7 +79,7 @@ class FormBuilder
 
     public function viewModel(HtmlFormInterface $html): ViewModel
     {
-        return new ViewModel($this->toString, $html, $html->getElement());
+        return new ViewModel($this->toString, $html);
     }
 
     public function form(string $name, string $label = ''): FormElementInterface

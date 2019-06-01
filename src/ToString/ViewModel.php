@@ -28,11 +28,11 @@ class ViewModel implements ArrayAccess, IteratorAggregate
      */
     private $element;
 
-    public function __construct(ToStringInterface $toString, HtmlFormInterface $html, ElementInterface $element)
+    public function __construct(ToStringInterface $toString, HtmlFormInterface $html)
     {
-        $this->toString = $toString->create($html, $element);
+        $this->toString = $toString->create($html);
         $this->html = $html;
-        $this->element = $element;
+        $this->element = $html->getElement();
     }
 
     public function show(): string
@@ -89,7 +89,7 @@ class ViewModel implements ArrayAccess, IteratorAggregate
     {
         $html = $this->html->get($offset);
         return $html
-            ? new self($this->toString, $html, $html->getElement())
+            ? new self($this->toString, $html)
             : null;
     }
 
@@ -119,7 +119,7 @@ class ViewModel implements ArrayAccess, IteratorAggregate
     {
         $list = [];
         foreach ($this->html->getChildren() as $child) {
-            $list[] = new ViewModel($this->toString, $child, $child->getElement());
+            $list[] = new ViewModel($this->toString, $child);
         };
         return new ArrayIterator($list);
     }
