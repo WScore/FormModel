@@ -53,10 +53,21 @@ class Validator
         throw new InvalidArgumentException('cannot build validator');
     }
 
+    private $elementType2ValidationType = [
+        ElementType::TEXTAREA => 'text',
+    ];
+
+    private function getValidationType($elementType)
+    {
+        return array_key_exists($elementType, $this->elementType2ValidationType)
+            ? $this->elementType2ValidationType[$elementType]
+            : $elementType;
+    }
+
     private function buildInput(ElementInterface $element): ValidationInterface
     {
         $filters = $element->getFilters();
-        $filters['type'] = $element->getType();
+        $filters['type'] = $this->getValidationType($element->getType());
         if ($element->isRequired()) {
             $filters[Required::class] = [];
         }

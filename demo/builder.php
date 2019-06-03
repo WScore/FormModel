@@ -21,6 +21,12 @@ function buildForm()
         ->add('title', ElementType::TEXT, [
             'label' => 'Book Title',
         ])
+        ->add('abstract', ElementType::TEXTAREA, [
+            'label' => 'Abstracts',
+            'attributes' => [
+                'style' => 'height: 5em;',
+            ]
+        ])
         ->add('published_at', ElementType::DATE, [
             'label' => 'Published At',
             'required' => false,

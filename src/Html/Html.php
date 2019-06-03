@@ -28,6 +28,9 @@ class Html extends AbstractHtml
             }
             return new HtmlForm($element, $parent);
         }
+        if ($element->getType() === ElementType::TEXTAREA) {
+            return new HtmlTextArea($element, $parent);
+        }
         $self = new self($element, $parent);
 
         return $self;
