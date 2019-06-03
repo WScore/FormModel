@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Validation\ValidateFactory;
 use WScore\Validation\Interfaces\ValidationInterface;
 
 interface ElementInterface
