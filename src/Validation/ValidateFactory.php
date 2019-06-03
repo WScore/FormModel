@@ -10,36 +10,26 @@ use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormElementInterface;
 use WScore\Validation\Filters\InArray;
 use WScore\Validation\Filters\Required;
-use WScore\Validation\Interfaces\ResultInterface;
 use WScore\Validation\Interfaces\ValidationInterface;
 use WScore\Validation\ValidatorBuilder;
 
-class Validator
+class ValidateFactory
 {
     /**
      * @var ValidatorBuilder
      */
     private $builder;
 
-    /**
-     * @var ValidationInterface
-     */
-    private $validation;
+    private $elementType2ValidationType = [
+        ElementType::TEXTAREA => 'text',
+    ];
 
     public function __construct(ValidatorBuilder $builder)
     {
         $this->builder = $builder;
     }
 
-    public static function create(ValidatorBuilder $builder, ElementInterface $element): Validator
-    {
-        $self = new self($builder);
-        $self->validation = $self->build($element);
-
-        return $self;
-    }
-
-    private function build(ElementInterface $element): ValidationInterface
+    public function build(ElementInterface $element): ValidationInterface
     {
         if ($element->isFormType() && $element instanceof FormElementInterface) {
             return $this->buildForm($element);
@@ -52,10 +42,6 @@ class Validator
         }
         throw new InvalidArgumentException('cannot build validator');
     }
-
-    private $elementType2ValidationType = [
-        ElementType::TEXTAREA => 'text',
-    ];
 
     private function getValidationType($elementType)
     {
@@ -72,6 +58,7 @@ class Validator
             $filters[Required::class] = [];
         }
         $validation = $this->builder->chain($filters);
+
         return $validation;
     }
 
@@ -89,16 +76,6 @@ class Validator
         return $validation;
     }
 
-    public function verify($inputs): ResultInterface
-    {
-        return $this->validation->verify($inputs);
-    }
-
-    public function getValidation(): ValidationInterface
-    {
-        return $this->validation;
-    }
-
     private function buildChoices(ChoiceType $element)
     {
         $filters = $element->getFilters();
@@ -112,7 +89,7 @@ class Validator
             ? [InArray::REPLACE => $choices]
             : [InArray::CHOICES => $choices];
         $validation = $this->builder->chain($filters);
-        return $validation;
 
+        return $validation;
     }
 }

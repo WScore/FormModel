@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormBuilder;
-use WScore\FormModel\Validation\Validator;
 use WScore\Validation\Filters\StringCases;
 use WScore\Validation\Validators\Result;
+use WScore\Validation\Validators\ValidationChain;
 
 class InputTypeTest extends TestCase
 {
@@ -28,7 +28,7 @@ class InputTypeTest extends TestCase
         $this->assertEquals('User Name', $html->label());
 
         $validator = $text->createValidation();
-        $this->assertEquals(Validator::class, get_class($validator));
+        $this->assertEquals(ValidationChain::class, get_class($validator));
         $result = $validator->verify('my name');
         $this->assertEquals(Result::class, get_class($result));
         $this->assertEquals('MY NAME', $result->value());

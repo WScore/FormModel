@@ -9,6 +9,7 @@ use WScore\FormModel\FormModel;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\Validation\Interfaces\ResultInterface;
+use WScore\Validation\Interfaces\ValidationInterface;
 
 class ValidationModel
 {
@@ -23,6 +24,11 @@ class ValidationModel
     private $element;
 
     /**
+     * @var ValidationInterface
+     */
+    private $validation;
+
+    /**
      * @var array
      */
     private $inputs;
@@ -31,11 +37,6 @@ class ValidationModel
      * @var ResultInterface
      */
     private $results;
-
-    /**
-     * @var Validator
-     */
-    private $validation;
 
     /**
      * ValidationModel constructor.

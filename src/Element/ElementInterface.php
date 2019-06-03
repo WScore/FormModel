@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Validation\Validator;
+use WScore\FormModel\Validation\ValidateFactory;
+use WScore\Validation\Interfaces\ValidationInterface;
 
 interface ElementInterface
 {
@@ -51,9 +52,9 @@ interface ElementInterface
     public function setLabel(string $label): ElementInterface;
 
     /**
-     * @return Validator
+     * @return ValidationInterface
      */
-    public function createValidation(): Validator;
+    public function createValidation(): ValidationInterface;
 
     /**
      * @param null|array|string $inputs
