@@ -44,7 +44,10 @@ class ViewModel implements ArrayAccess, IteratorAggregate
 
     public function hasError(): bool
     {
-        return !$this->result->isValid();
+        if ($this->result) {
+            return !$this->result->isValid();
+        }
+        return false;
     }
 
     public function show(): string
@@ -101,7 +104,7 @@ class ViewModel implements ArrayAccess, IteratorAggregate
     {
         $html = $this->html->get($offset);
         return $html
-            ? new ViewModel($this->toString, $html, $this->result[$offset])
+            ? new ViewModel($this->toString, $html, $this->result[$offset] ?? null)
             : null;
     }
 
@@ -131,7 +134,7 @@ class ViewModel implements ArrayAccess, IteratorAggregate
     {
         $list = [];
         foreach ($this->html->getChildren() as $name => $child) {
-            $list[] = new ViewModel($this->toString, $child, $this->result[$name]);
+            $list[] = new ViewModel($this->toString, $child, $this->result[$name] ?? null);
         };
         return new ArrayIterator($list);
     }
