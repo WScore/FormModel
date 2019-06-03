@@ -7,10 +7,8 @@ use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormType;
-use WScore\Html\Form;
-use WScore\Html\Tags\Input;
 
-class Html extends AbstractHtml
+class Html
 {
     /**
      * @param ElementInterface $element
@@ -31,25 +29,8 @@ class Html extends AbstractHtml
         if ($element->getType() === ElementType::TEXTAREA) {
             return new HtmlTextArea($element, $parent);
         }
-        $self = new self($element, $parent);
+        $self = new HtmlInput($element, $parent);
 
         return $self;
-    }
-
-    /**
-     * @return Input
-     */
-    public function form()
-    {
-        $type = $this->element->getType();
-        $name = $this->fullName();
-        $attributes = $this->element->getAttributes();
-        if (is_string($this->value())) {
-            $attributes['value'] = $this->value();
-        }
-        $form = Form::input($type, $name)->setAttributes($attributes);
-        $form->required($this->element->isRequired());
-
-        return $form;
     }
 }
