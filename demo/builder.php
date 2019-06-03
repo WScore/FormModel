@@ -18,7 +18,7 @@ function buildForm()
                 FilterEmptyValues::class
             ]
         ])
-        ->add('title', ElementType::TYPE_TEXT, [
+        ->add('title', ElementType::TEXT, [
             'label' => 'Book Title',
         ])
         ->add('published_at', ElementType::DATE, [
@@ -28,13 +28,13 @@ function buildForm()
                 'style' => 'width: 12em;'
             ]
         ])
-        ->add('isbn_code', ElementType::TYPE_TEXT, [
+        ->add('isbn_code', ElementType::TEXT, [
             'label' => 'ISBN Code',
             'attributes' => [
                 'style' => 'width: 16em;'
             ]
         ])
-        ->add('language', ElementType::TYPE_CHOICE, [
+        ->add('language', ElementType::CHOICE_TYPE, [
             'label' => 'Written Language',
             'placeholder' => 'select a language...',
             'choices' => [
@@ -43,7 +43,7 @@ function buildForm()
                 'ja' => 'Japanese',
             ],
         ])
-        ->add('format', ElementType::TYPE_CHOICE, [
+        ->add('format', ElementType::CHOICE_TYPE, [
             'label' => 'Format Type',
             'placeholder' => 'select a type...',
             'choices' => [
@@ -52,7 +52,7 @@ function buildForm()
             ],
             'expand' => true,
         ])
-        ->add('type', ElementType::TYPE_CHOICE, [
+        ->add('type', ElementType::CHOICE_TYPE, [
             'label' => 'Book Category',
             'choices' => [
                 'TEXT_BOOK' => 'Book',
@@ -84,7 +84,7 @@ function buildPublisher()
 {
     $publisher = new FormModel(FormBuilder::create(), 'publisher');
     $publisher
-        ->add('name', ElementType::TYPE_TEXT, [
+        ->add('name', ElementType::TEXT, [
             'label' => 'publisher name',
         ])
         ->add('url', "URL", [
@@ -102,10 +102,10 @@ function buildAuthor()
 {
     $author = new FormModel(FormBuilder::create(), 'author');
     $author
-        ->add('name', ElementType::TYPE_TEXT, [
+        ->add('name', ElementType::TEXT, [
             'label' => 'author name',
         ])
-        ->add('type', ElementType::TYPE_CHOICE, [
+        ->add('type', ElementType::CHOICE_TYPE, [
             'label' => 'type',
             'placeholder' => 'select a type...',
             'choices' => [

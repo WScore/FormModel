@@ -34,7 +34,7 @@ class ChoiceType extends InputType
 
     public function __construct(ValidatorBuilder $builder, $name, $label = '')
     {
-        $type = ElementType::TYPE_CHOICE;
+        $type = ElementType::CHOICE_TYPE;
         parent::__construct($builder, $type, $name, $label);
     }
 

@@ -29,7 +29,7 @@ class FormType extends AbstractElement implements FormElementInterface
      */
     public function __construct(ValidatorBuilder $builder, string $name, string $label = '')
     {
-        parent::__construct($builder, ElementType::TYPE_FORM, $name, $label);
+        parent::__construct($builder, ElementType::FORM_TYPE, $name, $label);
     }
 
     /**

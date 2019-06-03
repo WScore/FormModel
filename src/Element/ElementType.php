@@ -5,9 +5,9 @@ namespace WScore\FormModel\Element;
 
 class ElementType
 {
-    const TYPE_FORM = 'form-type';
-    const TYPE_REPEATED = 'form-repeated';
-    const TYPE_CHOICE = 'type-choice';
-    const TYPE_TEXT = 'text';
+    const FORM_TYPE = 'form-type';
+    const REPEATED_FORM = 'form-repeated';
+    const CHOICE_TYPE = 'type-choice';
+    const TEXT = 'text';
     const DATE = 'date';
 }

@@ -44,7 +44,7 @@ class Validator
         if ($element->isFormType() && $element instanceof FormElementInterface) {
             return $this->buildForm($element);
         }
-        if ($element->getType() === ElementType::TYPE_CHOICE && $element instanceof ChoiceType) {
+        if ($element->getType() === ElementType::CHOICE_TYPE && $element instanceof ChoiceType) {
             return $this->buildChoices($element);
         }
         if ($element instanceof ElementInterface) {

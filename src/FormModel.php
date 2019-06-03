@@ -39,13 +39,13 @@ class FormModel
      */
     public function add(string $name, string $type, $options = []): FormModel
     {
-        if (in_array($type, [ElementType::TYPE_FORM, ElementType::TYPE_REPEATED], true) ) {
+        if (in_array($type, [ElementType::FORM_TYPE, ElementType::REPEATED_FORM], true) ) {
             throw new InvalidArgumentException('Cannot instantiate forms. ');
         }
         if (!isset($options['label'])) {
             $options['label'] = $name;
         }
-        if ($type === ElementType::TYPE_CHOICE) {
+        if ($type === ElementType::CHOICE_TYPE) {
             return $this->addChoices($name, $options);
         }
         $element = $this->builder->$type($name);

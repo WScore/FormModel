@@ -19,7 +19,7 @@ class Html extends AbstractHtml
      */
     public static function create(ElementInterface $element, HtmlFormInterface $parent=null): HtmlFormInterface
     {
-        if ($element->getType() === ElementType::TYPE_CHOICE && $element instanceof ChoiceType) {
+        if ($element->getType() === ElementType::CHOICE_TYPE && $element instanceof ChoiceType) {
             return new HtmlChoices($element, $parent);
         }
         if ($element->isFormType() && $element instanceof FormType) {

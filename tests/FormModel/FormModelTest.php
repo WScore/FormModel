@@ -15,7 +15,7 @@ class FormModelTest extends TestCase
     {
         $builder = FormBuilder::create();
         $form = new FormModel($builder, 'test-form');
-        $form->add('name', ElementType::TYPE_TEXT, [
+        $form->add('name', ElementType::TEXT, [
             'label' => 'User Name',
         ]);
         $text = $form->get('name');
@@ -27,7 +27,7 @@ class FormModelTest extends TestCase
     {
         $builder = FormBuilder::create();
         $form = new FormModel($builder, 'book');
-        $form->add('type', ElementType::TYPE_CHOICE, [
+        $form->add('type', ElementType::CHOICE_TYPE, [
             'label' => 'Book Type',
             'choices' => [
                 'fiction' => 'Fiction',
