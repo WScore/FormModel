@@ -11,7 +11,7 @@ use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
 use WScore\Validation\Interfaces\ResultInterface;
 
-class Bootstrap4Div implements ToStringInterface
+class Bootstrap4Form implements ToStringInterface
 {
     /**
      * @var HtmlFormInterface
@@ -44,22 +44,6 @@ class Bootstrap4Div implements ToStringInterface
         $this->element = $html->getElement();
         $this->form = $html->form();
         $this->result = $result;
-    }
-
-    /**
-     * @param HtmlFormInterface $html
-     * @param ResultInterface|null $result
-     * @return Bootstrap4Div|ToStringInterface
-     */
-    public function create(HtmlFormInterface $html, ResultInterface $result = null): ToStringInterface
-    {
-        $self = clone($this);
-        $self->html = $html;
-        $self->element = $html->getElement();
-        $self->form = $html->form();
-        $self->result = $result;
-
-        return $self;
     }
 
     public function row(): string

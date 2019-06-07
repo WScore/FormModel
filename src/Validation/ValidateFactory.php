@@ -22,6 +22,7 @@ class ValidateFactory
 
     private $elementType2ValidationType = [
         ElementType::TEXTAREA => 'text',
+        ElementType::CHECKBOX => 'text',
     ];
 
     public function __construct(ValidatorBuilder $builder)

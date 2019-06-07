@@ -12,7 +12,7 @@ use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\Bootstrap4;
-use WScore\FormModel\ToString\ToStringInterface;
+use WScore\FormModel\ToString\ToStringFactoryInterface;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\Validation\Interfaces\ResultInterface;
 use WScore\Validation\ValidatorBuilder;
@@ -30,7 +30,7 @@ class FormBuilder
     private $builder;
 
     /**
-     * @var ToStringInterface
+     * @var ToStringFactoryInterface
      */
     private $toString;
 
@@ -42,7 +42,7 @@ class FormBuilder
         $this->builder = $builder;
     }
 
-    public static function create(string $locale = 'en', ToStringInterface $toString = null): self
+    public static function create(string $locale = 'en', ToStringFactoryInterface $toString = null): self
     {
         $toString = $toString ?? new Bootstrap4();
         $self = new self(new ValidatorBuilder($locale));
@@ -54,9 +54,9 @@ class FormBuilder
     }
 
     /**
-     * @param ToStringInterface $toString
+     * @param ToStringFactoryInterface $toString
      */
-    public function setToString(ToStringInterface $toString): void
+    public function setToString(ToStringFactoryInterface $toString): void
     {
         $this->toString = $toString;
     }

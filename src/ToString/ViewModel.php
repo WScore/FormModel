@@ -15,7 +15,7 @@ use WScore\Validation\Interfaces\ResultInterface;
 class ViewModel implements ArrayAccess, IteratorAggregate
 {
     /**
-     * @var ToStringInterface
+     * @var ToStringFactoryInterface
      */
     private $toString;
 
@@ -34,9 +34,15 @@ class ViewModel implements ArrayAccess, IteratorAggregate
      */
     private $result;
 
-    public function __construct(ToStringInterface $toString, HtmlFormInterface $html, ResultInterface $result = null)
+    /**
+     * @var ToStringFactoryInterface
+     */
+    private $factory;
+
+    public function __construct(ToStringFactoryInterface $factory, HtmlFormInterface $html, ResultInterface $result = null)
     {
-        $this->toString = $toString->create($html, $result);
+        $this->factory = $factory;
+        $this->toString = $factory->create($html, $result);
         $this->html = $html;
         $this->element = $html->getElement();
         $this->result = $result;
@@ -104,7 +110,7 @@ class ViewModel implements ArrayAccess, IteratorAggregate
     {
         $html = $this->html->get($offset);
         return $html
-            ? new ViewModel($this->toString, $html, $this->result[$offset] ?? null)
+            ? new ViewModel($this->factory, $html, $this->result[$offset] ?? null)
             : null;
     }
 
@@ -134,7 +140,7 @@ class ViewModel implements ArrayAccess, IteratorAggregate
     {
         $list = [];
         foreach ($this->html->getChildren() as $name => $child) {
-            $list[] = new ViewModel($this->toString, $child, $this->result[$name] ?? null);
+            $list[] = new ViewModel($this->factory, $child, $this->result[$name] ?? null);
         };
         return new ArrayIterator($list);
     }
