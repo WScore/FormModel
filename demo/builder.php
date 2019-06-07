@@ -45,7 +45,7 @@ function buildForm()
             ]
         ])
         ->add('language', ElementType::CHOICE_TYPE, [
-            'label' => 'Written Language',
+            'label' => 'Language',
             'placeholder' => 'select a language...',
             'choices' => [
                 'zh' => 'Chinese',
