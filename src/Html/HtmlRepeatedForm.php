@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace WScore\FormModel\Html;
 
 use ArrayAccess;
-use WScore\FormModel\Element\FormType;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
