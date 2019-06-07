@@ -60,6 +60,11 @@ abstract class AbstractHtml implements HtmlFormInterface
         $this->value = $inputs;
     }
 
+    public function setParent(HtmlFormInterface $parent): void
+    {
+        $this->parent = $parent;
+    }
+
     /**
      * @return string
      */

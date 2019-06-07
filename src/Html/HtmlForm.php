@@ -21,7 +21,9 @@ class HtmlForm extends AbstractHtml
         parent::__construct($element, $parent, $name);
         foreach ($element->getChildren() as $child) {
             $name = $child->getName();
-            $this[$name] = Html::create($child, $this);
+            $html = $child->createHtml();
+            $html->setParent($this);
+            $this[$name] = $html;
         }
     }
 

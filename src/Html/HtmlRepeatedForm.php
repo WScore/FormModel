@@ -11,16 +11,6 @@ use WScore\Html\Tags\Tag;
 class HtmlRepeatedForm extends AbstractHtml
 {
     /**
-     * HtmlForm constructor.
-     * @param FormType $element
-     * @param HtmlFormInterface|null $parent
-     */
-    public function __construct(FormType $element, HtmlFormInterface $parent=null)
-    {
-        parent::__construct($element, $parent);
-    }
-
-    /**
      * @param null|string|array|ArrayAccess $inputs
      */
     public function setInputs($inputs)

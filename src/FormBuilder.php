@@ -7,9 +7,11 @@ use InvalidArgumentException;
 use WScore\FormModel\Element\CheckBoxType;
 use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementInterface;
+use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormElementInterface;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
+use WScore\FormModel\Element\TextAreaType;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\Bootstrap4;
 use WScore\FormModel\ToString\ToStringFactoryInterface;
@@ -96,6 +98,15 @@ class FormBuilder
     public function element(string $type, string $name, string $label = ''): ElementInterface
     {
         $form = new InputType($this->builder, $type, $name, $label);
+        if ($this->toString) {
+            $form->setToString($this->toString);
+        }
+        return $form;
+    }
+
+    public function textArea(string $name, string $label = ''): ElementInterface
+    {
+        $form = new TextAreaType($this->builder, ElementType::TEXTAREA, $name, $label);
         if ($this->toString) {
             $form->setToString($this->toString);
         }

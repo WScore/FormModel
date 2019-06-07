@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\Html\HtmlInput;
+use WScore\FormModel\Html\HtmlTextArea;
 
-class InputType extends AbstractElement implements ElementInterface
+class TextAreaType extends AbstractElement implements ElementInterface
 {
     /**
      * @var bool
@@ -37,7 +37,7 @@ class InputType extends AbstractElement implements ElementInterface
      */
     public function createHtml($inputs = null): HtmlFormInterface
     {
-        $html = new HtmlInput($this);
+        $html = new HtmlTextArea($this);
         $html->setInputs($inputs);
         return $html;
     }

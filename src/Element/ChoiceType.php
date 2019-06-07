@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Element;
 
+use WScore\FormModel\Html\HtmlChoices;
+use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\Validation\ValidatorBuilder;
 
 class ChoiceType extends InputType
@@ -126,5 +128,16 @@ class ChoiceType extends InputType
     public function getPlaceholder(): ?string
     {
         return $this->placeholder;
+    }
+
+    /**
+     * @param null|array|string $inputs
+     * @return HtmlFormInterface
+     */
+    public function createHtml($inputs = null): HtmlFormInterface
+    {
+        $html = new HtmlChoices($this);
+        $html->setInputs($inputs);
+        return $html;
     }
 }

@@ -18,6 +18,12 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     public function setInputs($inputs);
 
     /**
+     * @param HtmlFormInterface $parent
+     * @return void
+     */
+    public function setParent(HtmlFormInterface $parent) : void ;
+
+    /**
      * @return string
      */
     public function name();

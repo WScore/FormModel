@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Element;
 
-use WScore\Validation\ValidatorBuilder;
+use WScore\FormModel\Html\HtmlCheckBox;
+use WScore\FormModel\Html\HtmlFormInterface;
 
 class CheckBoxType extends AbstractElement implements ElementInterface
 {
@@ -74,5 +75,16 @@ class CheckBoxType extends AbstractElement implements ElementInterface
     public function getDefault(): ?string
     {
         return $this->default;
+    }
+
+    /**
+     * @param null|array|string $inputs
+     * @return HtmlFormInterface
+     */
+    public function createHtml($inputs = null): HtmlFormInterface
+    {
+        $html = new HtmlCheckBox($this);
+        $html->setInputs($inputs);
+        return $html;
     }
 }

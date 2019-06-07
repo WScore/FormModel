@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Element;
 
-use WScore\FormModel\Html\Html;
-use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\ToStringFactoryInterface;
 use WScore\FormModel\ToString\ToStringInterface;
 use WScore\FormModel\Validation\ValidateFactory;
@@ -146,20 +144,6 @@ abstract class AbstractElement implements ElementInterface
     public function createValidation(): ValidationInterface
     {
         return $this->validationBuilder->build($this);
-    }
-
-    /**
-     * @param null|array|string $inputs
-     * @return HtmlFormInterface
-     */
-    public function createHtml($inputs = null): HtmlFormInterface
-    {
-        if ($this instanceof FormType && is_array($inputs)) {
-            $inputs = $inputs[$this->name] ?? null;
-        }
-        $html = Html::create($this, null);
-        $html->setInputs($inputs);
-        return $html;
     }
 
     /**

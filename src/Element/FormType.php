@@ -7,6 +7,9 @@ use ArrayIterator;
 use BadMethodCallException;
 use InvalidArgumentException;
 use Traversable;
+use WScore\FormModel\Html\HtmlForm;
+use WScore\FormModel\Html\HtmlFormInterface;
+use WScore\FormModel\Html\HtmlRepeatedForm;
 use WScore\Validation\ValidatorBuilder;
 
 class FormType extends AbstractElement implements FormElementInterface
@@ -161,5 +164,19 @@ class FormType extends AbstractElement implements FormElementInterface
     public function setRepeats(int $num)
     {
         $this->numRepeats = $num;
+    }
+
+    /**
+     * @param null|array|string $inputs
+     * @return HtmlFormInterface
+     */
+    public function createHtml($inputs = null): HtmlFormInterface
+    {
+        $html = $this->isRepeatedForm()
+            ? new HtmlRepeatedForm($this, null)
+            : new HtmlForm($this, null);
+        $inputs = $inputs[$this->name] ?? null;
+        $html->setInputs($inputs);
+        return $html;
     }
 }
