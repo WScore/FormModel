@@ -27,8 +27,6 @@ class HtmlCheckBox extends AbstractHtml
         $form = Form::input($type, $name)->setAttributes($attributes);
         $form->required($this->element->isRequired());
 
-        $label = Tag::label($form, $this->element->getLabel());
-
-        return $label;
+        return $form;
     }
 }
