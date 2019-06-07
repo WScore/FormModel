@@ -59,7 +59,7 @@ class Bootstrap4Check implements ToStringInterface
     public function widget(): string
     {
         $this->form->class('form-check-input');
-        if ($this->result->value() === $this->html->value()) {
+        if ($this->result && $this->result->value() === $this->html->value()) {
             $this->form->set('checked', 'checked');
         }
         if ($error = $this->getError()) {
