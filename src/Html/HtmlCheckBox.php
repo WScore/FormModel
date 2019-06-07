@@ -8,11 +8,6 @@ use WScore\Html\Tags\Tag;
 
 class HtmlCheckBox extends AbstractHtml
 {
-    public function label()
-    {
-        return '';
-    }
-
     /**
      * @return Tag
      */
