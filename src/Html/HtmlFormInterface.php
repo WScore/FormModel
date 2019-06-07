@@ -38,6 +38,11 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     public function value();
 
     /**
+     * @return bool
+     */
+    public function isRequired(): bool;
+
+    /**
      * @return Input|Tag|Choices
      */
     public function form();

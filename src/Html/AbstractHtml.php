@@ -97,6 +97,14 @@ abstract class AbstractHtml implements HtmlFormInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isRequired(): bool
+    {
+        return $this->element->isRequired();
+    }
+
+    /**
      * @return Input[]
      */
     public function choices()

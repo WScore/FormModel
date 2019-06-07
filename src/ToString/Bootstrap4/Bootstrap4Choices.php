@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\ToString\Bootstrap4;
 
+use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\ToStringInterface;
 use WScore\Html\Tags\Choices;
@@ -10,12 +12,17 @@ use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
 use WScore\Validation\Interfaces\ResultInterface;
 
-class Bootstrap4Input implements ToStringInterface
+class Bootstrap4Choices implements ToStringInterface
 {
     /**
      * @var HtmlFormInterface
      */
     private $html;
+
+    /**
+     * @var ElementInterface|ChoiceType
+     */
+    private $element;
 
     /**
      * @var Choices|Input|Tag
@@ -30,6 +37,7 @@ class Bootstrap4Input implements ToStringInterface
     public function __construct(HtmlFormInterface $html, ResultInterface $result = null)
     {
         $this->html = $html;
+        $this->element = $html->getElement();
         $this->form = $html->form();
         $this->result = $result;
     }
@@ -58,12 +66,26 @@ class Bootstrap4Input implements ToStringInterface
         if ($this->html->isRequired()) {
             $label->class('required');
         }
+        if (!$this->isExpanded()) {
+            $label->set('for', $this->form->get('id'));
+        }
 
         return $label->toString();
     }
 
+    private function isExpanded(): bool
+    {
+        if ($this->element->isExpand()) {
+            return true;
+        }
+        return false;
+    }
+
     public function widget(): string
     {
+        if ($this->isExpanded()) {
+            return $this->widgetExpanded();
+        }
         $this->form->class('form-control');
         if ($error = $this->getError()) {
             $this->form->class('is-invalid');
@@ -87,5 +109,23 @@ class Bootstrap4Input implements ToStringInterface
         if (!$error) return '';
         $error = "<div class='invalid-feedback d-block'>{$error}</div>";
         return $error;
+    }
+
+    private function widgetExpanded(): string
+    {
+        $html = '';
+        foreach ($this->form->getChoices() as $choice) {
+            $choice->class('form-check-input');
+            $label = Tag::label()
+                ->setContents($choice->getLabel())
+                ->class('form-check-label')
+                ->set('for', $choice->get('id'));
+            $div = Tag::div()
+                ->class('form-check')
+                ->setContents($choice, $label);
+            $html .= $div->toString();
+        }
+
+        return $html;
     }
 }

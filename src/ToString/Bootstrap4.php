@@ -6,6 +6,7 @@ namespace WScore\FormModel\ToString;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\Bootstrap4\Bootstrap4Check;
+use WScore\FormModel\ToString\Bootstrap4\Bootstrap4Choices;
 use WScore\FormModel\ToString\Bootstrap4\Bootstrap4Form;
 use WScore\FormModel\ToString\Bootstrap4\Bootstrap4Input;
 use WScore\Validation\Interfaces\ResultInterface;
@@ -25,6 +26,9 @@ class Bootstrap4 implements ToStringFactoryInterface
         }
         if ($element->getType() === ElementType::CHECKBOX) {
             return new Bootstrap4Check($html, $result);
+        }
+        if ($element->getType() === ElementType::CHOICE_TYPE) {
+            return new Bootstrap4Choices($html, $result);
         }
         return new Bootstrap4Input($html, $result);
     }

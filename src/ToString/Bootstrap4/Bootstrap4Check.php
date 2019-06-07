@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\ToString\Bootstrap4;
 
-use WScore\FormModel\Element\ChoiceType;
-use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\ToStringInterface;
 use WScore\Html\Tags\Choices;
@@ -20,11 +18,6 @@ class Bootstrap4Check implements ToStringInterface
     private $html;
 
     /**
-     * @var ElementInterface
-     */
-    private $element;
-
-    /**
      * @var Choices|Input|Tag
      */
     private $form;
@@ -37,7 +30,6 @@ class Bootstrap4Check implements ToStringInterface
     public function __construct(HtmlFormInterface $html, ResultInterface $result = null)
     {
         $this->html = $html;
-        $this->element = $html->getElement();
         $this->form = $html->form();
         $this->result = $result;
     }
@@ -57,7 +49,7 @@ class Bootstrap4Check implements ToStringInterface
 
     public function label(): string
     {
-        $label = Tag::label($this->element->getLabel())
+        $label = Tag::label($this->html->label())
             ->class('form-check-label')
             ->set('for', $this->form->get('id'));
 
