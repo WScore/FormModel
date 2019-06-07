@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Html;
 
+use WScore\FormModel\Element\CheckBoxType;
 use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
@@ -28,6 +29,9 @@ class Html
         }
         if ($element->getType() === ElementType::TEXTAREA) {
             return new HtmlTextArea($element, $parent);
+        }
+        if ($element->getType() === ElementType::CHECKBOX && $element instanceof CheckBoxType) {
+            return new HtmlCheckBox($element, $parent);
         }
         $self = new HtmlInput($element, $parent);
 

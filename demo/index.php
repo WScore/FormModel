@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         <h2>Book Information</h2>
         <?= $html['title']; ?>
+        <?= $html['million']; ?>
         <?= $html['abstract']; ?>
         <div class="row">
             <div class="col-sm">

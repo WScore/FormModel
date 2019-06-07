@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace WScore\FormModel;
 
 use InvalidArgumentException;
+use WScore\FormModel\Element\CheckBoxType;
 use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\FormElementInterface;
@@ -123,5 +124,14 @@ class FormBuilder
             }
         }
         return $element;
+    }
+
+    public function checkBox(string $type, string $name): CheckBoxType
+    {
+        $form = new CheckBoxType($this->builder, $type, $name);
+        if ($this->toString) {
+            $form->setToString($this->toString);
+        }
+        return $form;
     }
 }

@@ -48,6 +48,9 @@ class FormModel
         if ($type === ElementType::CHOICE_TYPE) {
             return $this->addChoices($name, $options);
         }
+        if ($type === ElementType::CHECKBOX) {
+            return $this->addCheckBoxes($type, $name, $options);
+        }
         $element = $this->builder->$type($name);
         $this->builder->apply($element, $options);
         $this->form->add($element);
@@ -78,6 +81,14 @@ class FormModel
     private function addChoices(string $name, array $options): FormModel
     {
         $form = $this->builder->choices($name);
+        $this->builder->apply($form, $options);
+        $this->form->add($form);
+        return $this;
+    }
+
+    private function addCheckBoxes(string $type, string $name, array $options)
+    {
+        $form = $this->builder->checkBox($type, $name);
         $this->builder->apply($form, $options);
         $this->form->add($form);
         return $this;

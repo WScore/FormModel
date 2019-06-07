@@ -11,4 +11,5 @@ class ElementType
     const TEXT = 'text';
     const DATE = 'date';
     const TEXTAREA = 'textarea';
+    const CHECKBOX = 'checkbox';
 }

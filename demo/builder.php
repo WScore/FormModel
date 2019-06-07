@@ -21,6 +21,10 @@ function buildForm()
         ->add('title', ElementType::TEXT, [
             'label' => 'Book Title',
         ])
+        ->add('million', ElementType::CHECKBOX, [
+            'label' => 'Million Seller',
+            'value' => 'MILLION',
+        ])
         ->add('abstract', ElementType::TEXTAREA, [
             'label' => 'Abstracts',
             'attributes' => [

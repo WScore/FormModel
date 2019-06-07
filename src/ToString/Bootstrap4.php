@@ -76,8 +76,11 @@ class Bootstrap4 implements ToStringInterface
                 ->setContents($this->html->label())
                 ->toString();
         }
+        $strLabel = $this->html->label();
+        if (!$strLabel) return '';
+
         $label = Tag::label()
-            ->setContents($this->html->label())
+            ->setContents($strLabel)
             ->class('form-label');
         if ($this->element->isRequired()) {
             $label->class('required');
