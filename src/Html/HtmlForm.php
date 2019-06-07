@@ -8,7 +8,7 @@ use WScore\FormModel\Element\FormType;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
-class HtmlForm extends AbstractHtml
+final class HtmlForm extends AbstractHtml
 {
     /**
      * HtmlForm constructor.

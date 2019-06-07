@@ -7,7 +7,7 @@ use WScore\Html\Form;
 use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
 
-class HtmlChoices extends AbstractHtml
+final class HtmlChoices extends AbstractHtml
 {
     /**
      * @return Choices

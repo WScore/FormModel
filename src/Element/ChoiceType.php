@@ -7,7 +7,7 @@ use WScore\FormModel\Html\HtmlChoices;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\Validation\ValidatorBuilder;
 
-class ChoiceType extends InputType
+final class ChoiceType extends AbstractElement
 {
     /**
      * @var bool
@@ -33,6 +33,29 @@ class ChoiceType extends InputType
      * @var string
      */
     private $placeholder;
+
+    /**
+     * @var bool
+     */
+    private $isRequired = true;
+
+    /**
+     * @return bool
+     */
+    public function isRequired(): bool
+    {
+        return $this->isRequired;
+    }
+
+    /**
+     * @param bool $required
+     * @return $this
+     */
+    public function setRequired(bool $required = true): ElementInterface
+    {
+        $this->isRequired = $required;
+        return $this;
+    }
 
     public function __construct(ValidatorBuilder $builder, $name, $label = '')
     {

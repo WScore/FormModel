@@ -12,7 +12,7 @@ use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlRepeatedForm;
 use WScore\Validation\ValidatorBuilder;
 
-class FormType extends AbstractElement implements FormElementInterface
+final class FormType extends AbstractElement implements FormElementInterface
 {
     /**
      * @var ElementInterface[]

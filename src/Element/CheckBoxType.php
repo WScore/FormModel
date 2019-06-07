@@ -6,7 +6,7 @@ namespace WScore\FormModel\Element;
 use WScore\FormModel\Html\HtmlCheckBox;
 use WScore\FormModel\Html\HtmlFormInterface;
 
-class CheckBoxType extends AbstractElement implements ElementInterface
+final class CheckBoxType extends AbstractElement
 {
     /**
      * @var bool

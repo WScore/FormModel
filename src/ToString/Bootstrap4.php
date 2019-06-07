@@ -11,7 +11,7 @@ use WScore\FormModel\ToString\Bootstrap4\ToForm;
 use WScore\FormModel\ToString\Bootstrap4\ToInput;
 use WScore\Validation\Interfaces\ResultInterface;
 
-class Bootstrap4 implements ToStringFactoryInterface
+final class Bootstrap4 implements ToStringFactoryInterface
 {
     /**
      * @param HtmlFormInterface $html

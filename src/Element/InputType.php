@@ -6,7 +6,7 @@ namespace WScore\FormModel\Element;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlInput;
 
-class InputType extends AbstractElement implements ElementInterface
+final class InputType extends AbstractElement
 {
     /**
      * @var bool

@@ -7,7 +7,7 @@ use ArrayAccess;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
-class HtmlRepeatedForm extends AbstractHtml
+final class HtmlRepeatedForm extends AbstractHtml
 {
     /**
      * @param null|string|array|ArrayAccess $inputs

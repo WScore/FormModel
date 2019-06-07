@@ -6,7 +6,7 @@ namespace WScore\FormModel\Html;
 use WScore\Html\Form;
 use WScore\Html\Tags\Input;
 
-class HtmlTextArea extends AbstractHtml
+final class HtmlTextArea extends AbstractHtml
 {
     /**
      * @return Input

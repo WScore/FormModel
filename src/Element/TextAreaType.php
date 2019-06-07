@@ -6,7 +6,7 @@ namespace WScore\FormModel\Element;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlTextArea;
 
-class TextAreaType extends AbstractElement implements ElementInterface
+final class TextAreaType extends AbstractElement
 {
     /**
      * @var bool

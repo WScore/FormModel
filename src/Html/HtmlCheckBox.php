@@ -6,7 +6,7 @@ namespace WScore\FormModel\Html;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
-class HtmlCheckBox extends AbstractHtml
+final class HtmlCheckBox extends AbstractHtml
 {
     /**
      * @return Tag

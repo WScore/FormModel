@@ -11,7 +11,7 @@ use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
 use WScore\Validation\Interfaces\ResultInterface;
 
-class ToForm implements ToStringInterface
+final class ToForm implements ToStringInterface
 {
     /**
      * @var HtmlFormInterface
