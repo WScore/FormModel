@@ -173,8 +173,8 @@ class FormType extends AbstractElement implements FormElementInterface
     public function createHtml($inputs = null): HtmlFormInterface
     {
         $html = $this->isRepeatedForm()
-            ? new HtmlRepeatedForm($this, null)
-            : new HtmlForm($this, null);
+            ? new HtmlRepeatedForm($this)
+            : new HtmlForm($this);
         $inputs = $inputs[$this->name] ?? null;
         $html->setInputs($inputs);
         return $html;

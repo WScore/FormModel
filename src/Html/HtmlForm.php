@@ -13,12 +13,11 @@ class HtmlForm extends AbstractHtml
     /**
      * HtmlForm constructor.
      * @param FormType $element
-     * @param HtmlFormInterface|null $parent
      * @param null|string $name
      */
-    public function __construct(FormType $element, HtmlFormInterface $parent=null, $name = null)
+    public function __construct(FormType $element, $name = null)
     {
-        parent::__construct($element, $parent, $name);
+        parent::__construct($element, $name);
         foreach ($element->getChildren() as $child) {
             $name = $child->getName();
             $html = $child->createHtml();

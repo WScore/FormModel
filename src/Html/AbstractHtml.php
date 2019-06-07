@@ -42,13 +42,11 @@ abstract class AbstractHtml implements HtmlFormInterface
     /**
      * AbstractHtml constructor.
      * @param ElementInterface $element
-     * @param HtmlFormInterface|null $parent
      * @param null|string $name
      */
-    public function __construct(ElementInterface $element, HtmlFormInterface $parent = null, $name = null)
+    public function __construct(ElementInterface $element, $name = null)
     {
         $this->element = $element;
-        $this->parent = $parent;
         $this->name = $name ?? $element->getName();
     }
 

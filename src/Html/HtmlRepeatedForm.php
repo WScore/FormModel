@@ -18,13 +18,15 @@ class HtmlRepeatedForm extends AbstractHtml
         $index = 0;
         if (is_array($inputs)) {
             foreach ($inputs as $index => $val) {
-                $this[$index] = new HtmlForm($this->element, $this, $index);
+                $this[$index] = new HtmlForm($this->element, $index);
+                $this[$index]->setParent($this);
                 $this[$index]->setInputs($val);
             }
         }
         for ($extra = 0; $extra < $this->element->getRepeats(); $extra++) {
             $index += 1;
-            $this[$index] = new HtmlForm($this->element, $this, $index);
+            $this[$index] = new HtmlForm($this->element, $index);
+            $this[$index]->setParent($this);
             $this[$index]->setInputs([]);
         }
     }
