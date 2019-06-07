@@ -12,7 +12,7 @@ use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
 use WScore\Validation\Interfaces\ResultInterface;
 
-class Bootstrap4Choices implements ToStringInterface
+class ToChoices implements ToStringInterface
 {
     /**
      * @var HtmlFormInterface

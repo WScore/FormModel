@@ -5,10 +5,10 @@ namespace WScore\FormModel\ToString;
 
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\ToString\Bootstrap4\Bootstrap4Check;
-use WScore\FormModel\ToString\Bootstrap4\Bootstrap4Choices;
-use WScore\FormModel\ToString\Bootstrap4\Bootstrap4Form;
-use WScore\FormModel\ToString\Bootstrap4\Bootstrap4Input;
+use WScore\FormModel\ToString\Bootstrap4\ToCheckBox;
+use WScore\FormModel\ToString\Bootstrap4\ToChoices;
+use WScore\FormModel\ToString\Bootstrap4\ToForm;
+use WScore\FormModel\ToString\Bootstrap4\ToInput;
 use WScore\Validation\Interfaces\ResultInterface;
 
 class Bootstrap4 implements ToStringFactoryInterface
@@ -16,20 +16,20 @@ class Bootstrap4 implements ToStringFactoryInterface
     /**
      * @param HtmlFormInterface $html
      * @param ResultInterface|null $result
-     * @return Bootstrap4Input|ToStringFactoryInterface
+     * @return ToInput|ToStringFactoryInterface
      */
     public function create(HtmlFormInterface $html, ResultInterface $result = null): ToStringInterface
     {
         $element = $html->getElement();
         if ($element->isFormType()) {
-            return new Bootstrap4Form($html, $result);
+            return new ToForm($html, $result);
         }
         if ($element->getType() === ElementType::CHECKBOX) {
-            return new Bootstrap4Check($html, $result);
+            return new ToCheckBox($html, $result);
         }
         if ($element->getType() === ElementType::CHOICE_TYPE) {
-            return new Bootstrap4Choices($html, $result);
+            return new ToChoices($html, $result);
         }
-        return new Bootstrap4Input($html, $result);
+        return new ToInput($html, $result);
     }
 }

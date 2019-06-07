@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\ToString\Bootstrap4;
 
-use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\ToStringInterface;
 use WScore\Html\Tags\Choices;
@@ -11,17 +10,12 @@ use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
 use WScore\Validation\Interfaces\ResultInterface;
 
-class Bootstrap4Form implements ToStringInterface
+class ToCheckBox implements ToStringInterface
 {
     /**
      * @var HtmlFormInterface
      */
     private $html;
-
-    /**
-     * @var ElementInterface
-     */
-    private $element;
 
     /**
      * @var Choices|Input|Tag
@@ -33,34 +27,46 @@ class Bootstrap4Form implements ToStringInterface
      */
     private $result;
 
-    /**
-     * Bootstrap4Div constructor.
-     * @param HtmlFormInterface $html
-     * @param ResultInterface $result
-     */
-    public function __construct($html, $result)
+    public function __construct(HtmlFormInterface $html, ResultInterface $result = null)
     {
         $this->html = $html;
-        $this->element = $html->getElement();
         $this->form = $html->form();
         $this->result = $result;
     }
 
     public function row(): string
     {
-        return '';
+        $div = Tag::div();
+        $div->class('form-check')
+            ->setContents(
+                $this->widget(),
+                $this->label(),
+                $this->error()
+            );
+
+        return $div->toString();
     }
 
     public function label(): string
     {
-        return Tag::create('h2')
-            ->setContents($this->html->label())
-            ->toString();
+        $label = Tag::label($this->html->label())
+            ->class('form-check-label')
+            ->set('for', $this->form->get('id'));
+
+        return $label->toString();
     }
 
     public function widget(): string
     {
-        return '';
+        $this->form->class('form-check-input');
+        if ($this->result && $this->result->value() === $this->html->value()) {
+            $this->form->set('checked', 'checked');
+        }
+        if ($error = $this->getError()) {
+            $this->form->class('is-invalid');
+        }
+
+        return $this->form->toString();
     }
 
     private function getError(): string

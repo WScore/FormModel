@@ -10,7 +10,7 @@ use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
 use WScore\Validation\Interfaces\ResultInterface;
 
-class Bootstrap4Check implements ToStringInterface
+class ToInput implements ToStringInterface
 {
     /**
      * @var HtmlFormInterface
@@ -37,10 +37,10 @@ class Bootstrap4Check implements ToStringInterface
     public function row(): string
     {
         $div = Tag::div();
-        $div->class('form-check')
+        $div->class('form-group')
             ->setContents(
-                $this->widget(),
                 $this->label(),
+                $this->widget(),
                 $this->error()
             );
 
@@ -49,19 +49,22 @@ class Bootstrap4Check implements ToStringInterface
 
     public function label(): string
     {
-        $label = Tag::label($this->html->label())
-            ->class('form-check-label')
-            ->set('for', $this->form->get('id'));
+        $strLabel = $this->html->label();
+        if (!$strLabel) return '';
+
+        $label = Tag::label()
+            ->setContents($strLabel)
+            ->class('form-label');
+        if ($this->html->isRequired()) {
+            $label->class('required');
+        }
 
         return $label->toString();
     }
 
     public function widget(): string
     {
-        $this->form->class('form-check-input');
-        if ($this->result && $this->result->value() === $this->html->value()) {
-            $this->form->set('checked', 'checked');
-        }
+        $this->form->class('form-control');
         if ($error = $this->getError()) {
             $this->form->class('is-invalid');
         }
