@@ -15,7 +15,7 @@ final class HtmlTextArea extends AbstractHtml
     {
         $name = $this->fullName();
         $attributes = $this->element->getAttributes();
-        $form = Form::textArea($name, $this->value() ?? '')->setAttributes($attributes);
+        $form = Form::textArea($name, $this->inputs() ?? '')->setAttributes($attributes);
         $form->required($this->element->isRequired());
 
         return $form;

@@ -16,8 +16,8 @@ final class HtmlInput extends AbstractHtml
         $type = $this->element->getType();
         $name = $this->fullName();
         $attributes = $this->element->getAttributes();
-        if (is_string($this->value())) {
-            $attributes['value'] = $this->value();
+        if (is_string($this->inputs())) {
+            $attributes['value'] = $this->inputs();
         }
         $form = Form::input($type, $name)->setAttributes($attributes);
         $form->required($this->element->isRequired());

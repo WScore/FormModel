@@ -27,7 +27,7 @@ abstract class AbstractHtml implements HtmlFormInterface
     /**
      * @var array|object|string|ArrayAccess
      */
-    private $value;
+    private $inputs;
 
     /**
      * @var string
@@ -55,7 +55,7 @@ abstract class AbstractHtml implements HtmlFormInterface
      */
     public function setInputs($inputs)
     {
-        $this->value = $inputs;
+        $this->inputs = $inputs;
     }
 
     public function setParent(HtmlFormInterface $parent): void
@@ -94,9 +94,9 @@ abstract class AbstractHtml implements HtmlFormInterface
     /**
      * @return string
      */
-    public function value()
+    public function inputs()
     {
-        return $this->value;
+        return $this->inputs;
     }
 
     /**

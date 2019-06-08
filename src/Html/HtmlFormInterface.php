@@ -41,7 +41,7 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     /**
      * @return string|array|mixed
      */
-    public function value();
+    public function inputs();
 
     /**
      * @return bool

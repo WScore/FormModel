@@ -59,7 +59,7 @@ final class ToCheckBox implements ToStringInterface
     public function widget(): string
     {
         $this->form->class('form-check-input');
-        if ($this->result && $this->result->value() === $this->html->value()) {
+        if ($this->result && $this->result->value() === $this->html->inputs()) {
             $this->form->set('checked', 'checked');
         }
         if ($error = $this->getError()) {

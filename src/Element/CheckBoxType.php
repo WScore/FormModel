@@ -54,7 +54,7 @@ final class CheckBoxType extends AbstractElement
     /**
      * @return bool|string
      */
-    public function isValue()
+    public function getValue()
     {
         return $this->value;
     }
