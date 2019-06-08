@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace WScore\FormModel;
 
 use InvalidArgumentException;
-use WScore\FormModel\Element\CheckBoxType;
+use WScore\FormModel\Element\ButtonType;
 use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormElementInterface;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
+use WScore\FormModel\Element\RadioType;
 use WScore\FormModel\Element\TextAreaType;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\Bootstrap4;
@@ -137,9 +138,18 @@ class FormBuilder
         return $element;
     }
 
-    public function checkBox(string $type, string $name): CheckBoxType
+    public function checkBox(string $type, string $name): ButtonType
     {
-        $form = new CheckBoxType($this->builder, $type, $name);
+        $form = new ButtonType($this->builder, $type, $name);
+        if ($this->toString) {
+            $form->setToString($this->toString);
+        }
+        return $form;
+    }
+
+    public function radio(string $type, string $name): ButtonType
+    {
+        $form = new ButtonType($this->builder, $type, $name);
         if ($this->toString) {
             $form->setToString($this->toString);
         }

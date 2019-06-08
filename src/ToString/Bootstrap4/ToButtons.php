@@ -10,7 +10,7 @@ use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
 use WScore\Validation\Interfaces\ResultInterface;
 
-final class ToCheckBox implements ToStringInterface
+final class ToButtons implements ToStringInterface
 {
     /**
      * @var HtmlFormInterface

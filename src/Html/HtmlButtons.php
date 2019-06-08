@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Html;
 
-use WScore\FormModel\Element\CheckBoxType;
+use WScore\FormModel\Element\ButtonType;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
-final class HtmlCheckBox extends AbstractHtml
+final class HtmlButtons extends AbstractHtml
 {
     /**
-     * @var CheckBoxType
+     * @var ButtonType
      */
     protected $element;
 

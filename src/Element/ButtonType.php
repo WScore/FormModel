@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Element;
 
-use WScore\FormModel\Html\HtmlCheckBox;
+use WScore\FormModel\Html\HtmlButtons;
 use WScore\FormModel\Html\HtmlFormInterface;
 
-final class CheckBoxType extends AbstractElement
+final class ButtonType extends AbstractElement
 {
     /**
      * @var bool
@@ -43,9 +43,9 @@ final class CheckBoxType extends AbstractElement
 
     /**
      * @param bool|string $value
-     * @return CheckBoxType
+     * @return ButtonType
      */
-    public function setValue($value): CheckBoxType
+    public function setValue($value): ButtonType
     {
         $this->value = $value;
         return $this;
@@ -61,9 +61,9 @@ final class CheckBoxType extends AbstractElement
 
     /**
      * @param string|null $default
-     * @return CheckBoxType
+     * @return ButtonType
      */
-    public function setDefault(?string $default): CheckBoxType
+    public function setDefault(?string $default): ButtonType
     {
         $this->default = $default;
         return $this;
@@ -83,7 +83,7 @@ final class CheckBoxType extends AbstractElement
      */
     public function createHtml($inputs = null): HtmlFormInterface
     {
-        $html = new HtmlCheckBox($this);
+        $html = new HtmlButtons($this);
         $html->setInputs($inputs);
         return $html;
     }

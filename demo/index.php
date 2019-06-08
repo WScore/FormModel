@@ -51,8 +51,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                 <h2>Book Information</h2>
                 <?= $html['title']; ?>
-                <?= $html['million']; ?>
                 <?= $html['abstract']; ?>
+                <div class="form-group">
+                    <label class="form-label">Checkbox and Radio Button</label>
+                    <div class="row">
+                        <div class="col-sm">
+                            <?= $html['million']; ?>
+                        </div>
+                        <div class="col-sm">
+                            <?= $html['checked']; ?>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm">
                         <?= $html['published_at']; ?>

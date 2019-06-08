@@ -12,4 +12,5 @@ interface ElementType
     const DATE = 'date';
     const TEXTAREA = 'textarea';
     const CHECKBOX = 'checkbox';
+    const RADIO = 'radio';
 }

@@ -25,6 +25,10 @@ function buildForm()
             'label' => 'Million Seller',
             'value' => 'MILLION',
         ])
+        ->add('checked', ElementType::RADIO, [
+            'label' => 'Check Me',
+            'value' => 'RADIO',
+        ])
         ->add('abstract', ElementType::TEXTAREA, [
             'label' => 'Abstracts',
             'attributes' => [

@@ -5,7 +5,7 @@ namespace WScore\FormModel\ToString;
 
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\FormModel\ToString\Bootstrap4\ToCheckBox;
+use WScore\FormModel\ToString\Bootstrap4\ToButtons;
 use WScore\FormModel\ToString\Bootstrap4\ToChoices;
 use WScore\FormModel\ToString\Bootstrap4\ToForm;
 use WScore\FormModel\ToString\Bootstrap4\ToInput;
@@ -25,7 +25,10 @@ final class Bootstrap4 implements ToStringFactoryInterface
             return new ToForm($html, $result);
         }
         if ($element->getType() === ElementType::CHECKBOX) {
-            return new ToCheckBox($html, $result);
+            return new ToButtons($html, $result);
+        }
+        if ($element->getType() === ElementType::RADIO) {
+            return new ToButtons($html, $result);
         }
         if ($element->getType() === ElementType::CHOICE_TYPE) {
             return new ToChoices($html, $result);

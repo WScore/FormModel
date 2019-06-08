@@ -49,7 +49,10 @@ class FormModel
             return $this->addChoices($name, $options);
         }
         if ($type === ElementType::CHECKBOX) {
-            return $this->addCheckBoxes($type, $name, $options);
+            return $this->addButtons($type, $name, $options);
+        }
+        if ($type === ElementType::RADIO) {
+            return $this->addButtons($type, $name, $options);
         }
         $element = $this->builder->$type($name);
         $this->builder->apply($element, $options);
@@ -86,7 +89,7 @@ class FormModel
         return $this;
     }
 
-    private function addCheckBoxes(string $type, string $name, array $options)
+    private function addButtons(string $type, string $name, array $options)
     {
         $form = $this->builder->checkBox($type, $name);
         $this->builder->apply($form, $options);
