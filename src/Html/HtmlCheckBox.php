@@ -3,11 +3,17 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Html;
 
+use WScore\FormModel\Element\CheckBoxType;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
 final class HtmlCheckBox extends AbstractHtml
 {
+    /**
+     * @var CheckBoxType
+     */
+    protected $element;
+
     /**
      * @return Tag
      */
@@ -16,8 +22,8 @@ final class HtmlCheckBox extends AbstractHtml
         $type = $this->element->getType();
         $name = $this->fullName();
         $attributes = $this->element->getAttributes();
-        if (is_string($this->value())) {
-            $attributes['value'] = $this->value();
+        if (is_string($this->inputs())) {
+            $attributes['value'] = $this->element->getValue();
         }
         $form = Form::input($type, $name)->setAttributes($attributes);
         $form->required($this->element->isRequired());
