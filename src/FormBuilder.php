@@ -11,7 +11,6 @@ use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormElementInterface;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
-use WScore\FormModel\Element\RadioType;
 use WScore\FormModel\Element\TextAreaType;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\Bootstrap4;
