@@ -59,9 +59,6 @@ final class ToButtons implements ToStringInterface
     public function widget(): string
     {
         $this->form->class('form-check-input');
-        if ($this->result && $this->result->value() === $this->html->inputs()) {
-            $this->form->set('checked', 'checked');
-        }
         if ($error = $this->getError()) {
             $this->form->class('is-invalid');
         }

@@ -44,14 +44,14 @@ class FormModelTest extends TestCase
         $typeHtml = $view['type'];
         $this->assertTrue($typeHtml instanceof ViewModel);
         $this->assertEquals('<div class="form-check">
-<input type="radio" name="book[type]" id="book[type]_0" required="required" value="fiction" class="form-check-input">
-<label class="form-check-label" for="book[type]_0">Fiction</label>
+<input type="radio" name="book[type]" id="book_type__fiction" value="fiction" required="required" class="form-check-input">
+<label class="form-check-label" for="book_type__fiction">Fiction</label>
 </div><div class="form-check">
-<input type="radio" name="book[type]" id="book[type]_1" required="required" value="non-fiction" class="form-check-input">
-<label class="form-check-label" for="book[type]_1">Non Fiction</label>
+<input type="radio" name="book[type]" id="book_type__non-fiction" value="non-fiction" required="required" class="form-check-input">
+<label class="form-check-label" for="book_type__non-fiction">Non Fiction</label>
 </div><div class="form-check">
-<input type="radio" name="book[type]" id="book[type]_2" required="required" value="manga" class="form-check-input">
-<label class="form-check-label" for="book[type]_2">Manga</label>
+<input type="radio" name="book[type]" id="book_type__manga" value="manga" required="required" class="form-check-input">
+<label class="form-check-label" for="book_type__manga">Manga</label>
 </div>', $typeHtml->widget());
     }
 }

@@ -115,7 +115,7 @@ class FormBuilder
 
     public function choices(string $name, string $label = ''): ChoiceType
     {
-        $form = new ChoiceType($this->builder, $name, $label);
+        $form = new ChoiceType($this, $name, $label);
         if ($this->toString) {
             $form->setToString($this->toString);
         }
@@ -153,5 +153,10 @@ class FormBuilder
             $form->setToString($this->toString);
         }
         return $form;
+    }
+
+    public function getValidationBuilder(): ValidatorBuilder
+    {
+        return $this->builder;
     }
 }

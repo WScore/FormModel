@@ -78,6 +78,9 @@ abstract class AbstractHtml implements HtmlFormInterface
     {
         if ($this->parent) {
             $parentName = $this->parent->fullName();
+            if ($this->name() === '') {
+                return $parentName;
+            }
             return $parentName . "[{$this->name()}]";
         }
         return $this->name();

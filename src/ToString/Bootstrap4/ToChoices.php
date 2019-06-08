@@ -114,15 +114,13 @@ final class ToChoices implements ToStringInterface
     private function widgetExpanded(): string
     {
         $html = '';
-        foreach ($this->form->getChoices() as $choice) {
-            $choice->class('form-check-input');
-            $label = Tag::label()
-                ->setContents($choice->getLabel())
+        foreach ($this->html->getChildren() as $name => $button) {
+            $form = $button->form()->class('form-check-input');
+            $label = Tag::label($button->label())
                 ->class('form-check-label')
-                ->set('for', $choice->get('id'));
-            $div = Tag::div()
-                ->class('form-check')
-                ->setContents($choice, $label);
+                ->set('for', $form->get('id'));
+            $div = Tag::div($form, $label)
+                ->class('form-check');
             $html .= $div->toString();
         }
 

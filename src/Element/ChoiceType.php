@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Element;
 
+use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Html\HtmlChoices;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\Validation\ValidatorBuilder;
 
 final class ChoiceType extends AbstractElement
 {
@@ -40,6 +40,11 @@ final class ChoiceType extends AbstractElement
     private $isRequired = true;
 
     /**
+     * @var FormBuilder
+     */
+    private $builder;
+
+    /**
      * @return bool
      */
     public function isRequired(): bool
@@ -57,10 +62,11 @@ final class ChoiceType extends AbstractElement
         return $this;
     }
 
-    public function __construct(ValidatorBuilder $builder, $name, $label = '')
+    public function __construct(FormBuilder $builder, $name, $label = '')
     {
         $type = ElementType::CHOICE_TYPE;
-        parent::__construct($builder, $type, $name, $label);
+        parent::__construct($builder->getValidationBuilder(), $type, $name, $label);
+        $this->builder = $builder;
     }
 
     /**
@@ -162,5 +168,48 @@ final class ChoiceType extends AbstractElement
         $html = new HtmlChoices($this);
         $html->setInputs($inputs);
         return $html;
+    }
+
+    /**
+     * @param string $name
+     * @return ButtonType|null
+     */
+    public function get($name)
+    {
+        if (!$this->expand) {
+            return null;
+        }
+        if (!array_key_exists($name, $this->choices)) {
+            return null;
+        }
+        $options = [
+            'value' => $name,
+            'label' => $this->choices[$name],
+        ];
+        if ($this->isMultiple()) {
+            $element = $this->builder->checkBox(ElementType::CHECKBOX, $name);
+        } else {
+            $element = $this->builder->radio(ElementType::RADIO, '');
+            $options['required'] = $this->isRequired();
+        }
+        $this->builder->apply($element, $options);
+
+        return $element;
+    }
+
+    /**
+     * @return array|ButtonType[];
+     */
+    public function getChildren()
+    {
+        $children = [];
+        if (!$this->expand) {
+            return $children;
+        }
+        foreach ($this->choices as $name => $choice) {
+            $children[$name] = $this->get($name);
+        }
+
+        return $children;
     }
 }
