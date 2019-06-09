@@ -85,10 +85,10 @@ function buildForm()
             'expand' => true,
             'multiple' => true,
         ])
-        ->addForm('publisher', buildPublisher(), [
+        ->addForm('publisher', buildPublisher($builder), [
             'label' => 'Publisher Information',
         ])
-        ->addForm('authors', buildAuthor(), [
+        ->addForm('authors', buildAuthor($builder), [
             'repeat' => 3,
             'label' => 'Author List',
             'filters' => [
@@ -101,11 +101,12 @@ function buildForm()
 }
 
 /**
+ * @param FormBuilder $builder
  * @return FormModel
  */
-function buildPublisher()
+function buildPublisher(FormBuilder $builder)
 {
-    $publisher = new FormModel(FormBuilder::create(), 'publisher');
+    $publisher = $builder->formModel('publisher');
     $publisher
         ->add('name', ElementType::TEXT, [
             'label' => 'publisher name',
@@ -119,11 +120,12 @@ function buildPublisher()
 }
 
 /**
+ * @param FormBuilder $builder
  * @return FormModel
  */
-function buildAuthor()
+function buildAuthor(FormBuilder $builder)
 {
-    $author = new FormModel(FormBuilder::create(), 'author');
+    $author = $builder->formModel('author');
     $author
         ->add('name', ElementType::TEXT, [
             'label' => 'author name',

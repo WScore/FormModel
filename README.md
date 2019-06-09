@@ -1,49 +1,97 @@
 FormModel
 =========
 
-a framework agnostic component for HTML form and validation models. 
+a framework agnostic component for building HTML forms and validations. 
 
-Trying to replicate something similar to Symfony's Form component... 
-but is very hard to do, as expected. 
+works for; 
+
+- various input types, such as date, textarea, choices,
+- incorporates another form, 
+- incorporates one-to-many forms, and 
+- defaults to output html forms for `Bootstrap 4`. 
+
+> inspired by `Symfony/form` component. 
+
+### Installation
+
+t.b.w.
+
+### Demo
+
+clone this repository, 
+
+```
+git clone https://github.com/asaokamei/FormModel
+cd FormModel
+composer install
+```
+
+run the demo script, 
+
+```
+cd demo
+php -S localhost:8000
+```
+
+then, browse the above url. 
 
 How To
 ------
 
 ### Set Up FormModel 
 
+create a form model using `FormBuilder`. 
+
 ```php
-$fb = new FormBuilder();
-$form = $fb->form('user');
-$form->add($fb->text('name')->required());
-$form->add($fb->email('email')->required());
+use WScore\FormModel\FormBuilder;
+
+$builder = FormBuilder::create();
+$book = $builder->formModel('book', [
+        'label' => 'Book Information',
+    ]);
+```
+
+### Add Elements
+
+add elements for the form model, `$book`. 
+
+```php
+use WScore\FormModel\Element\ElementType;
+
+$book
+    ->add('title', ElementType::TEXT, [
+        'label' => 'Book Title',
+    ])
+    ->add('abstract', ElementType::TEXTAREA, [
+        'label' => 'Abstracts',
+        'attributes' => [
+            'style' => 'height: 5em;',
+        ]
+    ]);
 ```
 
 ### Show HTML Form
 
-```php
-<?php
-$html = $form->createHtml();
-?>
-<html>
-<?= $form['name']; ?>
+to show HTML forms, create a view, `$view`, as below. 
 
-<div class="form-label"><?= $form['name']->label() ?></div>
-<div class="form-value"><?= $form['name']->widget(); ?></div>
-</html>
+```php
+$view = $book->createView();
 ```
 
-### Validate Input
+or, validate inputs then create a view. 
 
 ```php
-$validator = $form->createValidation();
-$results = $validator->validate($_POST);
-if ($results->isValid()) {
-    // do something
-} else {
-    foreach($results as $result) {
-        if (!$result->isValid()) {
-            $result->getErrorMessage();
-        }
-    }
-}
+$validation = $book->createValidation($_POST);
+$view = $validation->createView();
+```
+
+### HTML Form
+
+once a view is created, show html forms as such. 
+
+```html
+<form>
+<?= $view['title']; ?>
+<?= $view['abstract']; ?>
+</form>
 ```

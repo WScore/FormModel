@@ -2,13 +2,12 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/builder.php';
 
+$book = buildForm();
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $book = buildForm();
-    $html = $book->createView();
+    $view = $book->createView();
 } else {
-    $book = buildForm();
     $validation = $book->createValidation($_POST);
-    $html = $validation->createView();
+    $view = $validation->createView();
 }
 
 ?>
@@ -50,21 +49,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <div class="col-md-6">
 
                 <h2>Book Information</h2>
-                <?= $html['title']; ?>
-                <?= $html['abstract']; ?>
+                <?= $view['title']; ?>
+                <?= $view['abstract']; ?>
                 <div class="form-group">
                     <label class="form-label">Checkbox and Radio Button</label>
                     <div class="row">
                         <div class="col-sm">
-                            <?= $html['million']; ?>
+                            <?= $view['million']; ?>
                         </div>
                         <div class="col-sm">
-                            <?= $html['checked']; ?>
+                            <?= $view['checked']; ?>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <?php $cases = $html['cases']; ?>
+                    <?php $cases = $view['cases']; ?>
                     <?= $cases->label(); ?>
                     <div class="row">
                         <div class="col-sm"><?= $cases['case1']->show(); ?></div>
@@ -77,21 +76,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <?= $html['published_at']; ?>
+                        <?= $view['published_at']; ?>
                     </div>
                     <div class="col-sm">
-                        <?= $html['isbn_code']; ?>
+                        <?= $view['isbn_code']; ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">
-                        <?= $html['language']; ?>
+                        <?= $view['language']; ?>
                     </div>
                     <div class="col-sm">
-                        <?= $html['format']; ?>
+                        <?= $view['format']; ?>
                     </div>
                     <div class="col-sm">
-                        <?= $html['type']; ?>
+                        <?= $view['type']; ?>
                     </div>
                 </div>
 
@@ -100,14 +99,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                 <h2>Publisher Information</h2>
                 <?php
-                $publisher = $html['publisher'];
+                $publisher = $view['publisher'];
                 ?>
                 <?= $publisher['name']; ?>
                 <?= $publisher['url']; ?>
 
                 <h2>Authors Information</h2>
                 <?php
-                $authors = $html['authors'];
+                $authors = $view['authors'];
                 if ($authors->hasError()) {
                     echo '<p class="text-danger">enter at least one author.</p>';
                 } else {
