@@ -18,6 +18,12 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     public function setInputs($inputs);
 
     /**
+     * @param HtmlFormInterface $parent
+     * @return void
+     */
+    public function setParent(HtmlFormInterface $parent) : void ;
+
+    /**
      * @return string
      */
     public function name();
@@ -35,7 +41,12 @@ interface HtmlFormInterface extends ArrayAccess, IteratorAggregate
     /**
      * @return string|array|mixed
      */
-    public function value();
+    public function inputs();
+
+    /**
+     * @return bool
+     */
+    public function isRequired(): bool;
 
     /**
      * @return Input|Tag|Choices

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Element;
 
-class ElementType
+interface ElementType
 {
     const FORM_TYPE = 'form-type';
     const REPEATED_FORM = 'form-repeated';
@@ -11,4 +11,6 @@ class ElementType
     const TEXT = 'text';
     const DATE = 'date';
     const TEXTAREA = 'textarea';
+    const CHECKBOX = 'checkbox';
+    const RADIO = 'radio';
 }

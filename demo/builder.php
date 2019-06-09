@@ -21,6 +21,23 @@ function buildForm()
         ->add('title', ElementType::TEXT, [
             'label' => 'Book Title',
         ])
+        ->add('million', ElementType::CHECKBOX, [
+            'label' => 'Million Seller',
+            'value' => 'MILLION',
+        ])
+        ->add('checked', ElementType::RADIO, [
+            'label' => 'Check Me',
+            'value' => 'RADIO',
+        ])
+        ->add('cases', ElementType::CHOICE_TYPE, [
+            'label' => 'Various Cases',
+            'expand' => true,
+            'choices' => [
+                'case1' => 'Case #1',
+                'case2' => 'Case #2',
+                'case3' => 'Case #3',
+            ]
+        ])
         ->add('abstract', ElementType::TEXTAREA, [
             'label' => 'Abstracts',
             'attributes' => [
@@ -41,7 +58,7 @@ function buildForm()
             ]
         ])
         ->add('language', ElementType::CHOICE_TYPE, [
-            'label' => 'Written Language',
+            'label' => 'Language',
             'placeholder' => 'select a language...',
             'choices' => [
                 'zh' => 'Chinese',

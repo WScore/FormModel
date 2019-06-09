@@ -6,7 +6,7 @@ namespace WScore\FormModel\Html;
 use WScore\Html\Form;
 use WScore\Html\Tags\Input;
 
-class HtmlTextArea extends AbstractHtml
+final class HtmlTextArea extends AbstractHtml
 {
     /**
      * @return Input
@@ -15,7 +15,7 @@ class HtmlTextArea extends AbstractHtml
     {
         $name = $this->fullName();
         $attributes = $this->element->getAttributes();
-        $form = Form::textArea($name, $this->value() ?? '')->setAttributes($attributes);
+        $form = Form::textArea($name, $this->inputs() ?? '')->setAttributes($attributes);
         $form->required($this->element->isRequired());
 
         return $form;

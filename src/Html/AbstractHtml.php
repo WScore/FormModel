@@ -27,7 +27,7 @@ abstract class AbstractHtml implements HtmlFormInterface
     /**
      * @var array|object|string|ArrayAccess
      */
-    private $value;
+    private $inputs;
 
     /**
      * @var string
@@ -42,13 +42,11 @@ abstract class AbstractHtml implements HtmlFormInterface
     /**
      * AbstractHtml constructor.
      * @param ElementInterface $element
-     * @param HtmlFormInterface|null $parent
      * @param null|string $name
      */
-    public function __construct(ElementInterface $element, HtmlFormInterface $parent = null, $name = null)
+    public function __construct(ElementInterface $element, $name = null)
     {
         $this->element = $element;
-        $this->parent = $parent;
         $this->name = $name ?? $element->getName();
     }
 
@@ -57,7 +55,12 @@ abstract class AbstractHtml implements HtmlFormInterface
      */
     public function setInputs($inputs)
     {
-        $this->value = $inputs;
+        $this->inputs = $inputs;
+    }
+
+    public function setParent(HtmlFormInterface $parent): void
+    {
+        $this->parent = $parent;
     }
 
     /**
@@ -75,6 +78,9 @@ abstract class AbstractHtml implements HtmlFormInterface
     {
         if ($this->parent) {
             $parentName = $this->parent->fullName();
+            if ($this->name() === '') {
+                return $parentName;
+            }
             return $parentName . "[{$this->name()}]";
         }
         return $this->name();
@@ -91,9 +97,17 @@ abstract class AbstractHtml implements HtmlFormInterface
     /**
      * @return string
      */
-    public function value()
+    public function inputs()
     {
-        return $this->value;
+        return $this->inputs;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRequired(): bool
+    {
+        return $this->element->isRequired();
     }
 
     /**

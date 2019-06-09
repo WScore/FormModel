@@ -4,14 +4,17 @@ declare(strict_types=1);
 namespace WScore\FormModel;
 
 use InvalidArgumentException;
+use WScore\FormModel\Element\ButtonType;
 use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementInterface;
+use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormElementInterface;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
+use WScore\FormModel\Element\TextAreaType;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\Bootstrap4;
-use WScore\FormModel\ToString\ToStringInterface;
+use WScore\FormModel\ToString\ToStringFactoryInterface;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\Validation\Interfaces\ResultInterface;
 use WScore\Validation\ValidatorBuilder;
@@ -29,7 +32,7 @@ class FormBuilder
     private $builder;
 
     /**
-     * @var ToStringInterface
+     * @var ToStringFactoryInterface
      */
     private $toString;
 
@@ -41,7 +44,7 @@ class FormBuilder
         $this->builder = $builder;
     }
 
-    public static function create(string $locale = 'en', ToStringInterface $toString = null): self
+    public static function create(string $locale = 'en', ToStringFactoryInterface $toString = null): self
     {
         $toString = $toString ?? new Bootstrap4();
         $self = new self(new ValidatorBuilder($locale));
@@ -53,9 +56,9 @@ class FormBuilder
     }
 
     /**
-     * @param ToStringInterface $toString
+     * @param ToStringFactoryInterface $toString
      */
-    public function setToString(ToStringInterface $toString): void
+    public function setToString(ToStringFactoryInterface $toString): void
     {
         $this->toString = $toString;
     }
@@ -101,9 +104,18 @@ class FormBuilder
         return $form;
     }
 
+    public function textArea(string $name, string $label = ''): ElementInterface
+    {
+        $form = new TextAreaType($this->builder, ElementType::TEXTAREA, $name, $label);
+        if ($this->toString) {
+            $form->setToString($this->toString);
+        }
+        return $form;
+    }
+
     public function choices(string $name, string $label = ''): ChoiceType
     {
-        $form = new ChoiceType($this->builder, $name, $label);
+        $form = new ChoiceType($this, $name, $label);
         if ($this->toString) {
             $form->setToString($this->toString);
         }
@@ -123,5 +135,28 @@ class FormBuilder
             }
         }
         return $element;
+    }
+
+    public function checkBox(string $type, string $name): ButtonType
+    {
+        $form = new ButtonType($this->builder, $type, $name);
+        if ($this->toString) {
+            $form->setToString($this->toString);
+        }
+        return $form;
+    }
+
+    public function radio(string $type, string $name): ButtonType
+    {
+        $form = new ButtonType($this->builder, $type, $name);
+        if ($this->toString) {
+            $form->setToString($this->toString);
+        }
+        return $form;
+    }
+
+    public function getValidationBuilder(): ValidatorBuilder
+    {
+        return $this->builder;
     }
 }

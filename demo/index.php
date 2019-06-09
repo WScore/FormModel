@@ -46,71 +46,96 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
     <form id="sample-form" action="" method="post" novalidate="">
 
-        <h2>Book Information</h2>
-        <?= $html['title']; ?>
-        <?= $html['abstract']; ?>
         <div class="row">
-            <div class="col-sm">
-                <?= $html['published_at']; ?>
-            </div>
-            <div class="col-sm">
-                <?= $html['isbn_code']; ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm">
-                <?= $html['language']; ?>
-            </div>
-            <div class="col-sm">
-                <?= $html['format']; ?>
-            </div>
-            <div class="col-sm">
-                <?= $html['type']; ?>
-            </div>
-        </div>
+            <div class="col-md-6">
 
-        <h2>Publisher Information</h2>
-        <?php
-        $publisher = $html['publisher'];
-        ?>
-        <div class="row">
-            <div class="col-sm">
+                <h2>Book Information</h2>
+                <?= $html['title']; ?>
+                <?= $html['abstract']; ?>
+                <div class="form-group">
+                    <label class="form-label">Checkbox and Radio Button</label>
+                    <div class="row">
+                        <div class="col-sm">
+                            <?= $html['million']; ?>
+                        </div>
+                        <div class="col-sm">
+                            <?= $html['checked']; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php $cases = $html['cases']; ?>
+                    <?= $cases->label(); ?>
+                    <div class="row">
+                        <div class="col-sm"><?= $cases['case1']->show(); ?></div>
+                        <div class="col-sm"><?= $cases['case2']->show(); ?></div>
+                        <div class="col-sm"><?= $cases['case3']->show(); ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><?= $cases->error(); ?></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <?= $html['published_at']; ?>
+                    </div>
+                    <div class="col-sm">
+                        <?= $html['isbn_code']; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <?= $html['language']; ?>
+                    </div>
+                    <div class="col-sm">
+                        <?= $html['format']; ?>
+                    </div>
+                    <div class="col-sm">
+                        <?= $html['type']; ?>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+
+                <h2>Publisher Information</h2>
+                <?php
+                $publisher = $html['publisher'];
+                ?>
                 <?= $publisher['name']; ?>
-            </div>
-            <div class="col-sm">
                 <?= $publisher['url']; ?>
+
+                <h2>Authors Information</h2>
+                <?php
+                $authors = $html['authors'];
+                if ($authors->hasError()) {
+                    echo '<p class="text-danger">enter at least one author.</p>';
+                } else {
+                    echo '<p class="text-muted">enter at least one author.</p>';
+                }
+                ?>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th><label class="form-label">Author's Name</label></th>
+                            <th><label class="form-label">Type</label></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($authors as $author): ?>
+                            <tr>
+                                <td><?= $author['name']->widget() ?>
+                                    <?= $author['name']->error() ?></td>
+                                <td><?= $author['type']->widget() ?>
+                                    <?= $author['type']->error() ?></td>
+                            </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
-        </div>
-
-        <h2>Authors Information</h2>
-
-        <?php
-        $authors = $html['authors'];
-        if ($authors->hasError()) {
-            echo '<p class="text-danger">enter at least one author.</p>';
-        } else {
-            echo '<p class="text-muted">enter at least one author.</p>';
-        }
-        ?>
-        <div class="table-responsive">
-            <table class="table table-hover table-striped">
-                <thead>
-                <tr>
-                    <th><label class="form-label">Author's Name</label></th>
-                    <th><label class="form-label">Type</label></th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($authors as $author): ?>
-                    <tr>
-                        <td><?= $author['name']->widget() ?>
-                            <?= $author['name']->error() ?></td>
-                        <td><?= $author['type']->widget() ?>
-                            <?= $author['type']->error() ?></td>
-                    </tr>
-                <?php endforeach;?>
-                </tbody>
-            </table>
         </div>
 
         <p>&nbsp;</p>

@@ -3,12 +3,39 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Html;
 
+use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\ElementInterface;
 use WScore\Html\Form;
 use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
 
-class HtmlChoices extends AbstractHtml
+final class HtmlChoices extends AbstractHtml
 {
+    /**
+     * HtmlChoices constructor.
+     * @param ElementInterface|ChoiceType $element
+     * @param null $name
+     */
+    public function __construct(ElementInterface $element, $name = null)
+    {
+        parent::__construct($element, $name);
+        if ($element->isExpand()) {
+            foreach ($element->getChildren() as $key => $choice) {
+                $html = $choice->createHtml();
+                $html->setParent($this);
+                $this[$key] = $html;
+            }
+        }
+    }
+
+    public function setInputs($inputs)
+    {
+        parent::setInputs($inputs);
+        foreach ($this->getChildren() as $key => $child) {
+            $child->setInputs(ValueAccess::get($inputs, $key));
+        }
+    }
+
     /**
      * @return Choices
      */
@@ -17,7 +44,7 @@ class HtmlChoices extends AbstractHtml
         $name = $this->fullName();
         $form = Form::choices($name, $this->makeChoices())
             ->setAttributes($this->element->getAttributes())
-            ->setInitValue($this->value());
+            ->setInitValue($this->inputs());
         $form->required($this->element->isRequired());
         $form->expand($this->element->isExpand());
         $form->multiple($this->element->isMultiple());
