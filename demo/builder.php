@@ -29,6 +29,15 @@ function buildForm()
             'label' => 'Check Me',
             'value' => 'RADIO',
         ])
+        ->add('cases', ElementType::CHOICE_TYPE, [
+            'label' => 'Various Cases',
+            'expand' => true,
+            'choices' => [
+                'case1' => 'Case #1',
+                'case2' => 'Case #2',
+                'case3' => 'Case #3',
+            ]
+        ])
         ->add('abstract', ElementType::TEXTAREA, [
             'label' => 'Abstracts',
             'attributes' => [

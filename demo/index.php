@@ -63,6 +63,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <?php $cases = $html['cases']; ?>
+                    <?= $cases->label(); ?>
+                    <div class="row">
+                        <div class="col-sm"><?= $cases['case1']->show(); ?></div>
+                        <div class="col-sm"><?= $cases['case2']->show(); ?></div>
+                        <div class="col-sm"><?= $cases['case3']->show(); ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><?= $cases->error(); ?></div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm">
                         <?= $html['published_at']; ?>
