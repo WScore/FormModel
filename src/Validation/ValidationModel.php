@@ -10,6 +10,7 @@ use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\Validation\Interfaces\ResultInterface;
 use WScore\Validation\Interfaces\ValidationInterface;
+use WScore\Validation\Validators\ResultList;
 
 class ValidationModel
 {
@@ -34,7 +35,7 @@ class ValidationModel
     private $inputs;
 
     /**
-     * @var ResultInterface
+     * @var ResultInterface|ResultList
      */
     private $results;
 
@@ -110,5 +111,16 @@ class ValidationModel
             }
         }
         return $values;
+    }
+
+    /**
+     * @return array|string|string[]
+     */
+    public function getData()
+    {
+        if (!$this->results) {
+            throw new \BadMethodCallException('validation result is not set. ');
+        }
+        return $this->results->value();
     }
 }

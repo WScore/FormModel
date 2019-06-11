@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } else {
     $validation = $book->createValidation($_POST);
     $view = $validation->createView();
+    $data = $validation->getData();
 }
 
 ?>
@@ -137,6 +138,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             </div>
         </div>
 
+        <?php if (isset($data)) : ?>
+            <h2>var dump of validated data.</h2>
+            <?php var_dump($data); ?>
+        <?php endif; ?>
         <p>&nbsp;</p>
         <span class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn on html validation.</label></span>
         <br>
