@@ -67,8 +67,11 @@ class FormModel
         $repeat = (int) ($options['repeat'] ?? 0);
         unset($options['repeat']);
         if ($repeat) {
-            $this->form->addRepeatedForm($repeat, $element);
-            $this->builder->apply($this->form->get($name), $options);
+            $repeated = $this->builder->form($name);
+            $this->builder->apply($repeated, $options);
+            $repeated->addForm($element);
+            $repeated->setRepeats($repeat);
+            $this->form->addForm($repeated);
         } else {
             $this->builder->apply($element, $options);
             $this->form->addForm($element);

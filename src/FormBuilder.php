@@ -91,7 +91,7 @@ class FormBuilder
         $form = new FormType($this->builder, $name, $label);
         if ($this->toString) {
             $form->setToString($this->toString);
-}
+        }
         return $form;
     }
 

@@ -48,6 +48,19 @@ final class ChoiceType extends AbstractElement
     private $builder;
 
     /**
+     * ChoiceType constructor.
+     * @param FormBuilder $builder
+     * @param string $name
+     * @param string $label
+     */
+    public function __construct(FormBuilder $builder, string $name, $label = '')
+    {
+        $type = ElementType::CHOICE_TYPE;
+        parent::__construct($builder->getValidationBuilder(), $type, $name, $label);
+        $this->builder = $builder;
+    }
+
+    /**
      * @return bool
      */
     public function isRequired(): bool
@@ -63,13 +76,6 @@ final class ChoiceType extends AbstractElement
     {
         $this->isRequired = $required;
         return $this;
-    }
-
-    public function __construct(FormBuilder $builder, $name, $label = '')
-    {
-        $type = ElementType::CHOICE_TYPE;
-        parent::__construct($builder->getValidationBuilder(), $type, $name, $label);
-        $this->builder = $builder;
     }
 
     /**

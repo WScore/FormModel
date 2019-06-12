@@ -12,6 +12,7 @@ use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlRepeatedForm;
 use WScore\Validation\Interfaces\ValidationInterface;
 use WScore\Validation\ValidatorBuilder;
+use WScore\Validation\Validators\ValidationList;
 
 final class FormType extends AbstractElement implements FormElementInterface
 {
@@ -186,9 +187,22 @@ final class FormType extends AbstractElement implements FormElementInterface
      */
     public function createValidation(): ValidationInterface
     {
-        $filters = $this->getFilters();
+        if ($this->isRepeatedForm()) {
+            $repeated = $this->get($this->getName());
+            return $this->createValidationForm($repeated);
+        }
+        return $this->createValidationForm($this);
+    }
+
+    /**
+     * @param ElementInterface|FormType $formType
+     * @return ValidationInterface|ValidationList
+     */
+    private function createValidationForm($formType)
+    {
+        $filters = $formType->getFilters();
         $validation = $this->validationBuilder->form($filters);
-        foreach ($this->getChildren() as $child) {
+        foreach ($formType->getChildren() as $child) {
             if ($child->isRepeatedForm()) {
                 $validation->addRepeatedForm($child->getName(), $child->createValidation(), $child->getFilters());
             } else {

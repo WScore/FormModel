@@ -125,7 +125,9 @@ function buildPublisher(FormBuilder $builder)
  */
 function buildAuthor(FormBuilder $builder)
 {
-    $author = $builder->formModel('author');
+    $author = $builder->formModel('author', [
+        'label' => 'author info',
+    ]);
     $author
         ->add('name', ElementType::TEXT, [
             'label' => 'author name',

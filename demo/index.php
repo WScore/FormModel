@@ -108,12 +108,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <h2>Authors Information</h2>
                 <?php
                 $authors = $view['authors'];
-                if ($authors->hasError()) {
-                    echo '<p class="text-danger">enter at least one author.</p>';
-                } else {
-                    echo '<p class="text-muted">enter at least one author.</p>';
-                }
                 ?>
+                <?= $authors->error(); ?>
+                <p class="text-muted">enter at least one author.</p>
                 <div class="table-responsive">
                     <table class="table table-hover table-striped">
                         <thead>
@@ -140,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         <?php if (isset($data)) : ?>
             <h2>var dump of validated data.</h2>
-            <?php var_dump($data); ?>
+            <pre><?php print_r($data); ?></pre>
         <?php endif; ?>
         <p>&nbsp;</p>
         <span class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn on html validation.</label></span>
