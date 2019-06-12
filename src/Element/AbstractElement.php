@@ -32,7 +32,7 @@ abstract class AbstractElement implements ElementInterface
     protected $attributes = [];
 
     /**
-     * @var ValidateFactory
+     * @var ValidatorBuilder
      */
     protected $validationBuilder;
 
@@ -57,7 +57,7 @@ abstract class AbstractElement implements ElementInterface
         $this->type = $type;
         $this->name = $name;
         $this->label = $label;
-        $this->validationBuilder = new ValidateFactory($builder);
+        $this->validationBuilder = $builder;
     }
 
     public function setToString(ToStringFactoryInterface $toString): void
@@ -143,7 +143,7 @@ abstract class AbstractElement implements ElementInterface
      */
     public function createValidation(): ValidationInterface
     {
-        return $this->validationBuilder->build($this);
+        return $this->validationFactory->build($this);
     }
 
     /**

@@ -10,6 +10,7 @@ use Traversable;
 use WScore\FormModel\Html\HtmlForm;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlRepeatedForm;
+use WScore\Validation\Interfaces\ValidationInterface;
 use WScore\Validation\ValidatorBuilder;
 
 final class FormType extends AbstractElement implements FormElementInterface
@@ -178,5 +179,22 @@ final class FormType extends AbstractElement implements FormElementInterface
         $inputs = $inputs[$this->name] ?? null;
         $html->setInputs($inputs);
         return $html;
+    }
+
+    /**
+     * @return ValidationInterface
+     */
+    public function createValidation(): ValidationInterface
+    {
+        $filters = $this->getFilters();
+        $validation = $this->validationBuilder->form($filters);
+        foreach ($this->getChildren() as $child) {
+            if ($child->isRepeatedForm()) {
+                $validation->addRepeatedForm($child->getName(), $child->createValidation(), $child->getFilters());
+            } else {
+                $validation->add($child->getName(), $child->createValidation());
+            }
+        }
+        return $validation;
     }
 }

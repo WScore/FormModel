@@ -6,6 +6,9 @@ namespace WScore\FormModel\Element;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Html\HtmlChoices;
 use WScore\FormModel\Html\HtmlFormInterface;
+use WScore\Validation\Filters\InArray;
+use WScore\Validation\Filters\Required;
+use WScore\Validation\Interfaces\ValidationInterface;
 
 final class ChoiceType extends AbstractElement
 {
@@ -211,5 +214,25 @@ final class ChoiceType extends AbstractElement
         }
 
         return $children;
+    }
+
+    /**
+     * @return ValidationInterface
+     */
+    public function createValidation(): ValidationInterface
+    {
+        $filters = $this->getFilters();
+        $filters['type'] = 'text';
+        $filters['multiple'] = $this->isMultiple();
+        if ($this->isRequired()) {
+            $filters[Required::class] = [];
+        }
+        $choices = $this->getChoices();
+        $filters[InArray::class] = $this->isReplace()
+            ? [InArray::REPLACE => $choices]
+            : [InArray::CHOICES => array_keys($choices)];
+        $validation = $this->validationBuilder->chain($filters);
+
+        return $validation;
     }
 }

@@ -5,6 +5,8 @@ namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlTextArea;
+use WScore\Validation\Filters\Required;
+use WScore\Validation\Interfaces\ValidationInterface;
 
 final class TextAreaType extends AbstractElement
 {
@@ -40,5 +42,19 @@ final class TextAreaType extends AbstractElement
         $html = new HtmlTextArea($this);
         $html->setInputs($inputs);
         return $html;
+    }
+
+    /**
+     * @return ValidationInterface
+     */
+    public function createValidation(): ValidationInterface
+    {
+        $filters = $this->getFilters();
+        $filters['type'] = 'text';
+        if ($this->isRequired()) {
+            $filters[Required::class] = [];
+        }
+        $validation = $this->validationBuilder->chain($filters);
+        return $validation;
     }
 }

@@ -5,6 +5,8 @@ namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\HtmlButtons;
 use WScore\FormModel\Html\HtmlFormInterface;
+use WScore\Validation\Filters\Required;
+use WScore\Validation\Interfaces\ValidationInterface;
 
 final class ButtonType extends AbstractElement
 {
@@ -86,5 +88,19 @@ final class ButtonType extends AbstractElement
         $html = new HtmlButtons($this);
         $html->setInputs($inputs);
         return $html;
+    }
+
+    /**
+     * @return ValidationInterface
+     */
+    public function createValidation(): ValidationInterface
+    {
+        $filters = $this->getFilters();
+        $filters['type'] = 'text';
+        if ($this->isRequired()) {
+            $filters[Required::class] = [];
+        }
+        $validation = $this->validationBuilder->chain($filters);
+        return $validation;
     }
 }
