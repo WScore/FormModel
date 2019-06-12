@@ -5,8 +5,6 @@ namespace WScore\FormModel\Element;
 
 use WScore\FormModel\ToString\ToStringFactoryInterface;
 use WScore\FormModel\ToString\ToStringInterface;
-use WScore\FormModel\Validation\ValidateFactory;
-use WScore\Validation\Interfaces\ValidationInterface;
 use WScore\Validation\ValidatorBuilder;
 
 abstract class AbstractElement implements ElementInterface
@@ -136,14 +134,6 @@ abstract class AbstractElement implements ElementInterface
     {
         $this->attributes = $attributes;
         return $this;
-    }
-
-    /**
-     * @return ValidationInterface
-     */
-    public function createValidation(): ValidationInterface
-    {
-        return $this->validationFactory->build($this);
     }
 
     /**

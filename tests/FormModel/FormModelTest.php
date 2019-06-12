@@ -32,7 +32,7 @@ class FormModelTest extends TestCase
             'choices' => [
                 'fiction' => 'Fiction',
                 'non-fiction' => 'Non Fiction',
-                'manga' => 'Manga',
+                'comic' => 'Comic',
             ],
             'expand' => true,
         ]);
@@ -50,8 +50,8 @@ class FormModelTest extends TestCase
 <input type="radio" name="book[type]" id="book_type__non-fiction" value="non-fiction" required="required" class="form-check-input">
 <label class="form-check-label" for="book_type__non-fiction">Non Fiction</label>
 </div><div class="form-check">
-<input type="radio" name="book[type]" id="book_type__manga" value="manga" required="required" class="form-check-input">
-<label class="form-check-label" for="book_type__manga">Manga</label>
+<input type="radio" name="book[type]" id="book_type__comic" value="comic" required="required" class="form-check-input">
+<label class="form-check-label" for="book_type__comic">Comic</label>
 </div>', $typeHtml->widget());
     }
 }

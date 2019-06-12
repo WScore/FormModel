@@ -119,7 +119,7 @@ class ValidationModel
     public function getData()
     {
         if (!$this->results) {
-            throw new \BadMethodCallException('validation result is not set. ');
+            throw new BadMethodCallException('validation result is not set. ');
         }
         return $this->results->value();
     }
