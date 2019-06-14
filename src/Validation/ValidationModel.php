@@ -123,4 +123,12 @@ class ValidationModel
         }
         return $this->results->value();
     }
+
+    /**
+     * @return array
+     */
+    public function getInputs(): array
+    {
+        return $this->inputs;
+    }
 }

@@ -135,9 +135,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             </div>
         </div>
 
-        <?php if (isset($data)) : ?>
-            <h2>var dump of validated data.</h2>
-            <pre><?php print_r($data); ?></pre>
+        <?php if (isset($validation)) : ?>
+            <h2>var export of validated data.</h2>
+            <pre><?php var_export($validation->getInputs()); ?></pre>
         <?php endif; ?>
         <p>&nbsp;</p>
         <span class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn on html validation.</label></span>
