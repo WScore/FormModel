@@ -8,7 +8,6 @@ use WScore\FormModel\Element\ButtonType;
 use WScore\FormModel\Element\ChoiceType;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
-use WScore\FormModel\Element\FormElementInterface;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\InputType;
 use WScore\FormModel\Element\TextAreaType;
@@ -86,7 +85,7 @@ class FormBuilder
         return new ViewModel($this->toString, $html, $result);
     }
 
-    public function form(string $name, string $label = ''): FormElementInterface
+    public function form(string $name, string $label = ''): ElementInterface
     {
         $form = new FormType($this->builder, $name, $label);
         if ($this->toString) {

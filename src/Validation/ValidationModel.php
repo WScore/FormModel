@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace WScore\FormModel\Validation;
 
 use BadMethodCallException;
-use WScore\FormModel\Element\FormElementInterface;
+use WScore\FormModel\Element\ElementInterface;
+use WScore\FormModel\Element\FormType;
 use WScore\FormModel\FormModel;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\ViewModel;
@@ -15,12 +16,12 @@ use WScore\Validation\Validators\ResultList;
 class ValidationModel
 {
     /**
-     * @var FormElementInterface
+     * @var ElementInterface|FormType
      */
     private $form;
 
     /**
-     * @var FormElementInterface
+     * @var ElementInterface
      */
     private $element;
 

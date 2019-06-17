@@ -7,7 +7,7 @@ use ArrayAccess;
 use InvalidArgumentException;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
-use WScore\FormModel\Element\FormElementInterface;
+use WScore\FormModel\Element\FormType;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\FormModel\Validation\ValidationModel;
 use WScore\Validation\Interfaces\ResultInterface;
@@ -20,7 +20,7 @@ class FormModel
     private $builder;
 
     /**
-     * @var FormElementInterface
+     * @var ElementInterface|FormType
      */
     private $form;
 
@@ -69,12 +69,12 @@ class FormModel
         if ($repeat) {
             $repeated = $this->builder->form($name);
             $this->builder->apply($repeated, $options);
-            $repeated->addForm($element);
+            $repeated->add($element);
             $repeated->setRepeats($repeat);
-            $this->form->addForm($repeated);
+            $this->form->add($repeated);
         } else {
             $this->builder->apply($element, $options);
-            $this->form->addForm($element);
+            $this->form->add($element);
         }
         return $this;
     }
@@ -102,7 +102,7 @@ class FormModel
 
     /**
      * @param string $name
-     * @return ElementInterface|FormElementInterface|null
+     * @return ElementInterface|null
      */
     public function get(string $name)
     {
@@ -143,9 +143,9 @@ class FormModel
     }
 
     /**
-     * @return FormElementInterface
+     * @return ElementInterface
      */
-    public function getElement(): FormElementInterface
+    public function getElement(): ElementInterface
     {
         return $this->form;
     }
