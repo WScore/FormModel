@@ -23,7 +23,7 @@ class NestedFormTest extends TestCase
                     StringCases::class=>[StringCases::UC_WORDS]
                 ])
         );
-        $book->addForm(
+        $book->add(
             $fm->form('publisher')
                 ->add($fm->text('name'))
         );

@@ -94,13 +94,7 @@ interface ElementInterface
      * @return $this
      */
     public function add(ElementInterface $element): ElementInterface;
-
-    /**
-     * @param ElementInterface $element
-     * @return $this
-     */
-    public function addForm(ElementInterface $element): ElementInterface;
-
+    
     /**
      * @param ElementInterface $element
      * @param int $repeat

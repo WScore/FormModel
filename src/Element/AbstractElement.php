@@ -190,16 +190,6 @@ abstract class AbstractElement implements ElementInterface
 
     /**
      * @param ElementInterface $element
-     * @return $this
-     */
-    public function addForm(ElementInterface $element): ElementInterface
-    {
-        $this->addChild($element);
-        return $this;
-    }
-
-    /**
-     * @param ElementInterface $element
      * @param int $repeat
      * @return $this
      */

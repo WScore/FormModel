@@ -69,12 +69,12 @@ class FormModel
         if ($repeat) {
             $repeated = $this->builder->form($name);
             $this->builder->apply($repeated, $options);
-            $repeated->addForm($element);
+            $repeated->add($element);
             $repeated->setRepeats($repeat);
-            $this->form->addForm($repeated);
+            $this->form->add($repeated);
         } else {
             $this->builder->apply($element, $options);
-            $this->form->addForm($element);
+            $this->form->add($element);
         }
         return $this;
     }
