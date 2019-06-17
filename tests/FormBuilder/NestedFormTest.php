@@ -2,14 +2,14 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use WScore\FormModel\Element\FormElementInterface;
+use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\FormBuilder;
 use WScore\Validation\Filters\StringCases;
 
 class NestedFormTest extends TestCase
 {
     /**
-     * @var FormElementInterface
+     * @var ElementInterface
      */
     private $book;
 

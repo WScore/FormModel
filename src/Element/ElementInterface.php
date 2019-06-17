@@ -40,6 +40,12 @@ interface ElementInterface
     public function getName(): string;
 
     /**
+     * @param string $name
+     * @return ElementInterface
+     */
+    public function setName(string $name): ElementInterface;
+
+    /**
      * @return string
      */
     public function getLabel(): string;
@@ -82,4 +88,49 @@ interface ElementInterface
      * @return $this
      */
     public function setFilters(array $filters): ElementInterface;
+
+    /**
+     * @param ElementInterface $element
+     * @return $this
+     */
+    public function add(ElementInterface $element): ElementInterface;
+
+    /**
+     * @param ElementInterface $element
+     * @return $this
+     */
+    public function addForm(ElementInterface $element): ElementInterface;
+
+    /**
+     * @param ElementInterface $element
+     * @param int $repeat
+     * @return $this
+     */
+    public function addRepeatedForm(int $repeat, ElementInterface $element): ElementInterface;
+
+    /**
+     * @param string $name
+     * @return ElementInterface
+     */
+    public function get(string $name): ?ElementInterface;
+
+    /**
+     * @return bool
+     */
+    public function hasChildren(): bool;
+
+    /**
+     * @return ElementInterface[]
+     */
+    public function getChildren(): array;
+
+    /**
+     * @return int
+     */
+    public function getRepeats(): int;
+
+    /**
+     * @param int $num
+     */
+    public function setRepeats(int $num);
 }

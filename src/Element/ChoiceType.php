@@ -183,7 +183,7 @@ final class ChoiceType extends AbstractElement
      * @param string $name
      * @return ButtonType|null
      */
-    public function get($name)
+    public function get(string $name): ?ElementInterface
     {
         if (!$this->expand) {
             return null;
@@ -209,7 +209,7 @@ final class ChoiceType extends AbstractElement
     /**
      * @return array|ButtonType[];
      */
-    public function getChildren()
+    public function getChildren(): array
     {
         $children = [];
         if (!$this->expand) {
