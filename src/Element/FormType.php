@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Element;
 
-use ArrayIterator;
 use BadMethodCallException;
-use Traversable;
 use WScore\FormModel\Html\HtmlForm;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlRepeatedForm;
@@ -24,14 +22,6 @@ final class FormType extends AbstractElement
     public function __construct(ValidatorBuilder $builder, string $name, string $label = '')
     {
         parent::__construct($builder, ElementType::FORM_TYPE, $name, $label);
-    }
-
-    /**
-     * @return Traversable|ElementInterface[]
-     */
-    public function getIterator()
-    {
-        return new ArrayIterator($this->getChildren());
     }
 
     /**

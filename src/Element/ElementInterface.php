@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Element;
 
+use IteratorAggregate;
+use Traversable;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\Validation\Interfaces\ValidationInterface;
 
-interface ElementInterface
+interface ElementInterface extends IteratorAggregate
 {
     /**
      * @return bool
@@ -94,7 +96,7 @@ interface ElementInterface
      * @return $this
      */
     public function add(ElementInterface $element): ElementInterface;
-    
+
     /**
      * @param ElementInterface $element
      * @param int $repeat
@@ -117,6 +119,11 @@ interface ElementInterface
      * @return ElementInterface[]
      */
     public function getChildren(): array;
+
+    /**
+     * @return Traversable|ElementInterface[]
+     */
+    public function getIterator();
 
     /**
      * @return int
