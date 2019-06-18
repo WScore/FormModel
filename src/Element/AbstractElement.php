@@ -58,6 +58,11 @@ abstract class AbstractElement implements ElementInterface
     private $numRepeats = null;
 
     /**
+     * @var string
+     */
+    private $message;
+
+    /**
      * @param ValidatorBuilder $builder
      * @param string $type
      * @param string $name
@@ -181,7 +186,7 @@ abstract class AbstractElement implements ElementInterface
     public function get(string $name): ?ElementInterface
     {
         if (!isset($this->children[$name])) {
-            throw new InvalidArgumentException('No such name found: '.$name);
+            throw new InvalidArgumentException('No such name found: ' . $name);
         }
         $child = $this->children[$name];
 
@@ -256,5 +261,37 @@ abstract class AbstractElement implements ElementInterface
     public function setRepeats(int $num)
     {
         $this->numRepeats = $num;
+    }
+
+    /**
+     * @param string $message
+     * @return ElementInterface
+     */
+    public function setMessage(string $message): ElementInterface
+    {
+        $this->message = $message;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param string $type
+     * @return array
+     */
+    protected function prepareFilters($type = 'text'): array
+    {
+        $filters = $this->getFilters();
+        $filters['type'] = $type;
+        if ($message = $this->getMessage()) {
+            $filters['message'] = $message;
+        }
+        return $filters;
     }
 }

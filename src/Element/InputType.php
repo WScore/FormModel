@@ -49,8 +49,7 @@ final class InputType extends AbstractElement
      */
     public function createValidation(): ValidationInterface
     {
-        $filters = $this->getFilters();
-        $filters['type'] = $this->getType();
+        $filters = $this->prepareFilters($this->getType());
         if ($this->isRequired()) {
             $filters[Required::class] = [];
         }

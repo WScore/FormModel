@@ -38,3 +38,19 @@ label.required::after {
     font-weight:bold;
     color: #761418;
 }
+div.invalid-feedback {
+    border: 1px solid #deccd2;
+    background-color: #f4f8f8;
+    padding: .1rem;
+    border-radius: .1rem;
+    color: #b71f20;
+}
+div.invalid-feedback:before {
+    content: '！';
+    color: white;
+    font-weight: bold;
+    background-color: #c37073;
+    border-radius: .1rem;
+    padding: 0 .1rem;
+    margin-right: .1rem;
+}

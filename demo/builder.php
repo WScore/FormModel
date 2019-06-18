@@ -20,14 +20,17 @@ function buildForm()
         ])
         ->add('title', ElementType::TEXT, [
             'label' => 'Book Title',
+            'message' => 'a cool title is required!',
         ])
         ->add('million', ElementType::CHECKBOX, [
             'label' => 'Million Seller',
             'value' => 'MILLION',
+            'message' => 'always aim for a million!',
         ])
         ->add('checked', ElementType::RADIO, [
             'label' => 'Check Me',
             'value' => 'RADIO',
+            'message' => 'always check me!',
         ])
         ->add('cases', ElementType::CHOICE_TYPE, [
             'label' => 'Various Cases',
@@ -36,20 +39,22 @@ function buildForm()
                 'case1' => 'Case #1',
                 'case2' => 'Case #2',
                 'case3' => 'Case #3',
-            ]
+            ],
+            'message' => 'check the free located radio buttons!',
         ])
         ->add('abstract', ElementType::TEXTAREA, [
             'label' => 'Abstracts',
             'attributes' => [
                 'style' => 'height: 5em;',
-            ]
+            ],
+            'message' => 'good summary is nice!',
         ])
         ->add('published_at', ElementType::DATE, [
             'label' => 'Published At',
             'required' => false,
             'attributes' => [
                 'style' => 'width: 12em;'
-            ]
+            ],
         ])
         ->add('isbn_code', ElementType::TEXT, [
             'label' => 'ISBN Code',
@@ -65,6 +70,7 @@ function buildForm()
                 'en' => 'English',
                 'ja' => 'Japanese',
             ],
+            'message' => 'know your tongue!',
         ])
         ->add('format', ElementType::CHOICE_TYPE, [
             'label' => 'Format Type',
@@ -74,6 +80,7 @@ function buildForm()
                 'PAPERBACK' => 'Paperback',
             ],
             'expand' => true,
+            'message' => 'format is missing!',
         ])
         ->add('type', ElementType::CHOICE_TYPE, [
             'label' => 'Book Category',
@@ -84,6 +91,7 @@ function buildForm()
             ],
             'expand' => true,
             'multiple' => true,
+            'message' => 'category missing!',
         ])
         ->addForm('publisher', buildPublisher($builder), [
             'label' => 'Publisher Information',
@@ -131,6 +139,7 @@ function buildAuthor(FormBuilder $builder)
     $author
         ->add('name', ElementType::TEXT, [
             'label' => 'author name',
+            'message' => 'who is it?',
         ])
         ->add('type', ElementType::CHOICE_TYPE, [
             'label' => 'type',
@@ -140,6 +149,7 @@ function buildAuthor(FormBuilder $builder)
                 'STORY' => 'Story',
                 'ILLUSTRATION' => 'Illustration',
             ],
+            'message' => 'what they do?',
         ]);
     return $author;
 }

@@ -134,4 +134,15 @@ interface ElementInterface extends IteratorAggregate
      * @param int $num
      */
     public function setRepeats(int $num);
+
+    /**
+     * @param string $message
+     * @return ElementInterface
+     */
+    public function setMessage(string $message): ElementInterface;
+
+    /**
+     * @return string|null
+     */
+    public function getMessage(): ?string;
 }

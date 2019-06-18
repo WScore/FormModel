@@ -49,8 +49,7 @@ final class TextAreaType extends AbstractElement
      */
     public function createValidation(): ValidationInterface
     {
-        $filters = $this->getFilters();
-        $filters['type'] = 'text';
+        $filters = $this->prepareFilters('text');
         if ($this->isRequired()) {
             $filters[Required::class] = [];
         }

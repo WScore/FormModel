@@ -227,8 +227,7 @@ final class ChoiceType extends AbstractElement
      */
     public function createValidation(): ValidationInterface
     {
-        $filters = $this->getFilters();
-        $filters['type'] = 'text';
+        $filters = $this->prepareFilters('text');
         $filters['multiple'] = $this->isMultiple();
         if ($this->isRequired()) {
             $filters[Required::class] = [];
