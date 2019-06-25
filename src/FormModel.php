@@ -125,7 +125,7 @@ class FormModel
     public function createValidation(array $inputs = null)
     {
         $validation = new ValidationModel($this);
-        if (!empty($inputs)) {
+        if (!is_null($inputs)) {
             $validation->verify($inputs);
         }
         return $validation;

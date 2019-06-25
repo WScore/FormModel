@@ -21,18 +21,12 @@ class RealCases
         $this->builder = FormBuilder::create();
     }
 
-    /**
-     * @return RealCases
-     */
-    public static function forge()
+    public static function forge(): self
     {
         return new self();
     }
 
-    /**
-     * @return FormModel
-     */
-    public function build()
+    public function build(): FormModel
     {
         $builder = $this->builder;
         $book = $builder->formModel('book', [
@@ -43,6 +37,7 @@ class RealCases
         ])
             ->add('title', ElementType::TEXT, [
                 'label' => 'Book Title',
+                'message' => 'enter title here',
             ])
             ->add('million', ElementType::CHECKBOX, [
                 'label' => 'Million Seller',
@@ -54,6 +49,7 @@ class RealCases
             ])
             ->add('cases', ElementType::CHOICE_TYPE, [
                 'label' => 'Various Cases',
+                'message' => 'check some',
                 'expand' => true,
                 'choices' => [
                     'case1' => 'Case #1',
@@ -63,6 +59,7 @@ class RealCases
             ])
             ->add('abstract', ElementType::TEXTAREA, [
                 'label' => 'Abstracts',
+                'message' => 'summary',
                 'attributes' => [
                     'style' => 'height: 5em;',
                 ]
@@ -109,10 +106,10 @@ class RealCases
                 'expand' => true,
                 'multiple' => true,
             ])
-            ->addForm('publisher', self::buildPublisher(), [
+            ->addForm('publisher', $this->buildPublisher(), [
                 'label' => 'Publisher Information',
             ])
-            ->addForm('authors', self::buildAuthor(), [
+            ->addForm('authors', $this->buildAuthor(), [
                 'repeat' => 3,
                 'label' => 'Author List',
                 'filters' => [
@@ -124,11 +121,7 @@ class RealCases
         return $book;
     }
 
-
-    /**
-     * @return FormModel
-     */
-    private function buildPublisher()
+    private function buildPublisher(): FormModel
     {
         $builder = $this->builder;
         $publisher = $builder->formModel('publisher');
@@ -144,10 +137,7 @@ class RealCases
         return $publisher;
     }
 
-    /**
-     * @return FormModel
-     */
-    private function buildAuthor()
+    private function buildAuthor(): FormModel
     {
         $builder = $this->builder;
         $author = $builder->formModel('author', [
@@ -156,6 +146,7 @@ class RealCases
         $author
             ->add('name', ElementType::TEXT, [
                 'label' => 'author name',
+                'message' => 'names here',
             ])
             ->add('type', ElementType::CHOICE_TYPE, [
                 'label' => 'type',
