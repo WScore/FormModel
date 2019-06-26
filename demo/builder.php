@@ -119,9 +119,12 @@ function buildPublisher(FormBuilder $builder)
         ->add('name', ElementType::TEXT, [
             'label' => 'publisher name',
         ])
-        ->add('url', "URL", [
+        ->add('url', ElementType::URL, [
             'label' => 'Corporate URL',
             'required' => false,
+        ])
+        ->add('email', ElementType::EMAIL, [
+        'label' => 'Contact Email',
         ]);
 
     return $publisher;

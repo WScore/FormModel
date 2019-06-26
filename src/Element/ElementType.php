@@ -13,4 +13,6 @@ interface ElementType
     const TEXTAREA = 'textarea';
     const CHECKBOX = 'checkbox';
     const RADIO = 'radio';
+    const EMAIL = 'email';
+    const URL = 'url';
 }
