@@ -63,6 +63,13 @@ function buildForm()
                 'style' => 'width: 12em;'
             ],
         ])
+        ->add('updated_at', ElementType::DATETIME, [
+            'label' => 'Updated date/time',
+            'required' => false,
+            'attributes' => [
+                'style' => 'width: 16em;'
+            ],
+        ])
         ->add('isbn_code', ElementType::TEXT, [
             'label' => 'ISBN Code',
             'attributes' => [

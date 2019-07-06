@@ -83,6 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         <?= $view['published_ym']; ?>
                     </div>
                     <div class="col-sm">
+                        <?= $view['updated_at']; ?>
+                    </div>
+                    <div class="col-sm">
                         <?= $view['isbn_code']; ?>
                     </div>
                 </div>
