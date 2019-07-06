@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Element;
 
-interface ElementType
+class ElementType
 {
     const FORM_TYPE = 'form-type';
     const REPEATED_FORM = 'form-repeated';
@@ -19,4 +19,24 @@ interface ElementType
     const MONTH = 'month';
     const HIDDEN = 'hidden';
     const TEL = 'tel';
+
+    static private $type2validation = [
+        self::URL => 'URL',
+        self::HIDDEN => 'text',
+        self::TEL => 'digits',
+    ];
+
+    static private $type2html = [
+        self::DATETIME => 'datetime-local',
+    ];
+
+    public static function toValidationType($type): string
+    {
+        return self::$type2validation[$type] ?? $type;
+    }
+
+    public static function toHtmlType($type): string
+    {
+        return self::$type2html[$type] ?? $type;
+    }
 }

@@ -10,12 +10,6 @@ use WScore\Validation\Interfaces\ValidationInterface;
 
 final class InputType extends AbstractElement
 {
-    private $type2validation = [
-        ElementType::URL => 'URL',
-        ElementType::HIDDEN => 'text',
-        ElementType::TEL => 'digits',
-    ];
-
     /**
      * @var bool
      */
@@ -55,8 +49,7 @@ final class InputType extends AbstractElement
      */
     public function createValidation(): ValidationInterface
     {
-        $type = $this->getType();
-        $type = $this->type2validation[$type] ?? $type;
+        $type = ElementType::toValidationType($this->getType());
         $filters = $this->prepareFilters($type);
         if ($this->isRequired()) {
             $filters[Required::class] = [];

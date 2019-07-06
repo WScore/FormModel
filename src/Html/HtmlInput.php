@@ -9,16 +9,12 @@ use WScore\Html\Tags\Input;
 
 final class HtmlInput extends AbstractHtml
 {
-    private $type2html = [
-        ElementType::DATETIME => 'datetime-local',
-    ];
     /**
      * @return Input
      */
     public function form()
     {
-        $type = $this->element->getType();
-        $type = $this->type2html[$type] ?? $type;
+        $type = ElementType::toHtmlType($this->element->getType());
         $name = $this->fullName();
         $attributes = $this->element->getAttributes();
         if (is_string($this->inputs())) {
