@@ -80,6 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                         <?= $view['published_at']; ?>
                     </div>
                     <div class="col-sm">
+                        <?= $view['published_ym']; ?>
+                    </div>
+                    <div class="col-sm">
                         <?= $view['isbn_code']; ?>
                     </div>
                 </div>
@@ -138,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
         <?php if (isset($validation)) : ?>
             <h2>var export of validated data.</h2>
-            <pre><?php var_export($validation->getInputs()); ?></pre>
+            <pre><?php var_export($data); ?></pre>
         <?php endif; ?>
         <p>&nbsp;</p>
         <span class="text-info"><label><input type="checkbox" onclick="toggleValidation(this);"> turn on html validation.</label></span>

@@ -56,6 +56,13 @@ function buildForm()
                 'style' => 'width: 12em;'
             ],
         ])
+        ->add('published_ym', ElementType::MONTH, [
+            'label' => 'Published Year/Month',
+            'required' => false,
+            'attributes' => [
+                'style' => 'width: 12em;'
+            ],
+        ])
         ->add('isbn_code', ElementType::TEXT, [
             'label' => 'ISBN Code',
             'attributes' => [

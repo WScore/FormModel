@@ -15,4 +15,5 @@ interface ElementType
     const RADIO = 'radio';
     const EMAIL = 'email';
     const URL = 'url';
+    const MONTH = 'month';
 }
