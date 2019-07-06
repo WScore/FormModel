@@ -11,11 +11,6 @@ use WScore\Validation\Interfaces\ValidationInterface;
 final class ButtonType extends AbstractElement
 {
     /**
-     * @var bool
-     */
-    private $isRequired = true;
-
-    /**
      * @var bool|string
      */
     private $value = true;
@@ -24,24 +19,6 @@ final class ButtonType extends AbstractElement
      * @var null|string
      */
     private $default = null;
-
-    /**
-     * @return bool
-     */
-    public function isRequired(): bool
-    {
-        return $this->isRequired;
-    }
-
-    /**
-     * @param bool $required
-     * @return $this
-     */
-    public function setRequired(bool $required = true): ElementInterface
-    {
-        $this->isRequired = $required;
-        return $this;
-    }
 
     /**
      * @param bool|string $value

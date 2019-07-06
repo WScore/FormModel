@@ -38,11 +38,6 @@ final class ChoiceType extends AbstractElement
     private $placeholder;
 
     /**
-     * @var bool
-     */
-    private $isRequired = true;
-
-    /**
      * @var FormBuilder
      */
     private $builder;
@@ -58,24 +53,6 @@ final class ChoiceType extends AbstractElement
         $type = ElementType::CHOICE_TYPE;
         parent::__construct($builder->getValidationBuilder(), $type, $name, $label);
         $this->builder = $builder;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRequired(): bool
-    {
-        return $this->isRequired;
-    }
-
-    /**
-     * @param bool $required
-     * @return $this
-     */
-    public function setRequired(bool $required = true): ElementInterface
-    {
-        $this->isRequired = $required;
-        return $this;
     }
 
     /**

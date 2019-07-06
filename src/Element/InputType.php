@@ -11,29 +11,6 @@ use WScore\Validation\Interfaces\ValidationInterface;
 final class InputType extends AbstractElement
 {
     /**
-     * @var bool
-     */
-    private $isRequired = true;
-
-    /**
-     * @return bool
-     */
-    public function isRequired(): bool
-    {
-        return $this->isRequired;
-    }
-
-    /**
-     * @param bool $required
-     * @return $this
-     */
-    public function setRequired(bool $required = true): ElementInterface
-    {
-        $this->isRequired = $required;
-        return $this;
-    }
-
-    /**
      * @param null|array|string $inputs
      * @return HtmlFormInterface
      */

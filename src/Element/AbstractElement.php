@@ -63,6 +63,11 @@ abstract class AbstractElement implements ElementInterface
     private $message;
 
     /**
+     * @var bool
+     */
+    private $isRequired = true;
+
+    /**
      * @param ValidatorBuilder $builder
      * @param string $type
      * @param string $name
@@ -130,6 +135,24 @@ abstract class AbstractElement implements ElementInterface
     public function setLabel(string $label): ElementInterface
     {
         $this->label = $label;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRequired(): bool
+    {
+        return $this->isRequired;
+    }
+
+    /**
+     * @param bool $required
+     * @return $this
+     */
+    public function setRequired(bool $required = true): ElementInterface
+    {
+        $this->isRequired = $required;
         return $this;
     }
 
