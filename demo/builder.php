@@ -145,6 +145,9 @@ function buildPublisher(FormBuilder $builder)
         ])
         ->add('email', ElementType::EMAIL, [
         'label' => 'Contact Email',
+        ])
+        ->add('tel', ElementType::TEL, [
+            'label' => 'Telephone',
         ]);
 
     return $publisher;

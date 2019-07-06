@@ -18,4 +18,5 @@ interface ElementType
     const URL = 'url';
     const MONTH = 'month';
     const HIDDEN = 'hidden';
+    const TEL = 'tel';
 }

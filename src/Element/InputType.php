@@ -13,6 +13,7 @@ final class InputType extends AbstractElement
     private $type2validation = [
         ElementType::URL => 'URL',
         ElementType::HIDDEN => 'text',
+        ElementType::TEL => 'digits',
     ];
 
     /**

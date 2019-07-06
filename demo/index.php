@@ -112,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 <?= $publisher['name']; ?>
                 <?= $publisher['url']; ?>
                 <?= $publisher['email']; ?>
+                <?= $publisher['tel']; ?>
 
                 <h2>Authors Information</h2>
                 <?php
