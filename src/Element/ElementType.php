@@ -17,4 +17,5 @@ interface ElementType
     const EMAIL = 'email';
     const URL = 'url';
     const MONTH = 'month';
+    const HIDDEN = 'hidden';
 }

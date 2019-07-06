@@ -22,6 +22,12 @@ function buildForm()
             'label' => 'Book Title',
             'message' => 'a cool title is required!',
         ])
+        ->add('hidden', ElementType::HIDDEN, [
+            'label' => 'Hide-me',
+            'attributes' => [
+                'value' => 'hidden-val',
+            ],
+        ])
         ->add('million', ElementType::CHECKBOX, [
             'label' => 'Million Seller',
             'value' => 'MILLION',

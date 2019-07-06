@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
                 <h2>Book Information</h2>
                 <?= $view['title']; ?>
+                <?= $view['hidden']; ?>
                 <?= $view['abstract']; ?>
                 <div class="form-group">
                     <label class="form-label">Checkbox and Radio Button</label>
