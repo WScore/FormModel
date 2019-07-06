@@ -82,6 +82,12 @@ function buildForm()
                 'style' => 'width: 16em;'
             ]
         ])
+        ->add('secret_code', ElementType::PASSWORD, [
+            'label' => 'Secret Code',
+            'attributes' => [
+                'style' => 'width: 12em;'
+            ]
+        ])
         ->add('language', ElementType::CHOICE_TYPE, [
             'label' => 'Language',
             'placeholder' => 'select a language...',

@@ -89,6 +89,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     <div class="col-sm">
                         <?= $view['isbn_code']; ?>
                     </div>
+                    <div class="col-sm">
+                        <?= $view['secret_code']; ?>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">

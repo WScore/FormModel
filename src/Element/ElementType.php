@@ -19,11 +19,13 @@ class ElementType
     const MONTH = 'month';
     const HIDDEN = 'hidden';
     const TEL = 'tel';
+    const PASSWORD = 'password';
 
     static private $type2validation = [
         self::URL => 'URL',
         self::HIDDEN => 'text',
         self::TEL => 'digits',
+        self::PASSWORD => 'text',
     ];
 
     static private $type2html = [
