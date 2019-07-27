@@ -158,4 +158,9 @@ class FormBuilder
     {
         return $this->builder;
     }
+
+    public function getToString(): ToStringFactoryInterface
+    {
+        return $this->toString;
+    }
 }

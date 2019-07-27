@@ -9,6 +9,7 @@ use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\ToString\ViewModel;
+use WScore\FormModel\Type\TypeInterface;
 use WScore\FormModel\Validation\ValidationModel;
 use WScore\Validation\Interfaces\ResultInterface;
 
@@ -39,6 +40,11 @@ class FormModel
      */
     public function add(string $name, string $type, $options = []): FormModel
     {
+        if (class_exists($type) && method_exists($type, 'forge')) {
+            $element = $type::forge($this->builder, $name, $options);
+            $this->form->add($element);
+            return $this;
+        }
         if (in_array($type, [ElementType::FORM_TYPE, ElementType::REPEATED_FORM], true) ) {
             throw new InvalidArgumentException('Cannot instantiate forms. ');
         }

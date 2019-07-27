@@ -8,7 +8,7 @@ use WScore\FormModel\Html\HtmlInput;
 use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ValidationInterface;
 
-final class InputType extends AbstractElement
+class InputType extends AbstractElement
 {
     /**
      * @param null|array|string $inputs

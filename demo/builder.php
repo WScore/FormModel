@@ -3,6 +3,7 @@
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\FormModel;
+use WScore\FormModel\Type\TextType;
 use WScore\Validation\Filters\FilterEmptyValues;
 use WScore\Validation\Filters\Required;
 
@@ -18,7 +19,7 @@ function buildForm()
                 FilterEmptyValues::class
             ]
         ])
-        ->add('title', ElementType::TEXT, [
+        ->add('title', TextType::class, [
             'label' => 'Book Title',
             'message' => 'a cool title is required!',
         ])
