@@ -10,7 +10,7 @@ use WScore\Validation\Filters\InArray;
 use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ValidationInterface;
 
-final class ChoiceType extends AbstractElement
+class Choice extends AbstractElement
 {
     /**
      * @var bool
@@ -57,9 +57,9 @@ final class ChoiceType extends AbstractElement
 
     /**
      * @param bool $expand
-     * @return ChoiceType
+     * @return Choice
      */
-    public function setExpand(bool $expand): ChoiceType
+    public function setExpand(bool $expand): Choice
     {
         $this->expand = $expand;
         return $this;
@@ -75,9 +75,9 @@ final class ChoiceType extends AbstractElement
 
     /**
      * @param array $choices
-     * @return ChoiceType
+     * @return Choice
      */
-    public function setChoices(array $choices): ChoiceType
+    public function setChoices(array $choices): Choice
     {
         $this->choices = $choices;
         return $this;
@@ -93,9 +93,9 @@ final class ChoiceType extends AbstractElement
 
     /**
      * @param bool $replace
-     * @return ChoiceType
+     * @return Choice
      */
-    public function setReplace(bool $replace): ChoiceType
+    public function setReplace(bool $replace): Choice
     {
         $this->replace = $replace;
         return $this;
@@ -121,7 +121,7 @@ final class ChoiceType extends AbstractElement
      * @param bool|array $multiple
      * @return $this
      */
-    public function setMultiple($multiple = true): ChoiceType
+    public function setMultiple($multiple = true): Choice
     {
         $this->isMultiple = $multiple;
         return $this;
@@ -129,9 +129,9 @@ final class ChoiceType extends AbstractElement
 
     /**
      * @param string $holder
-     * @return ChoiceType
+     * @return Choice
      */
-    public function setPlaceholder($holder): ChoiceType
+    public function setPlaceholder($holder): Choice
     {
         $this->placeholder = $holder;
         return $this;

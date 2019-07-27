@@ -5,11 +5,11 @@ namespace WScore\FormModel;
 
 use InvalidArgumentException;
 use WScore\FormModel\Element\ButtonType;
-use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\Choice;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormType;
-use WScore\FormModel\Element\InputType;
+use WScore\FormModel\Element\Input;
 use WScore\FormModel\Element\TextAreaType;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\Bootstrap4;
@@ -96,7 +96,7 @@ class FormBuilder
 
     public function element(string $type, string $name, string $label = ''): ElementInterface
     {
-        $form = new InputType($this->builder, $type, $name, $label);
+        $form = new Input($this->builder, $type, $name, $label);
         if ($this->toString) {
             $form->setToString($this->toString);
         }
@@ -112,9 +112,9 @@ class FormBuilder
         return $form;
     }
 
-    public function choices(string $name, string $label = ''): ChoiceType
+    public function choices(string $name, string $label = ''): Choice
     {
-        $form = new ChoiceType($this, $name, $label);
+        $form = new Choice($this, $name, $label);
         if ($this->toString) {
             $form->setToString($this->toString);
         }

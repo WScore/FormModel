@@ -7,11 +7,11 @@ use WScore\FormModel\Element\Input;
 use WScore\FormModel\FormBuilder;
 use WScore\Validation\ValidatorBuilder;
 
-class TextType extends Input implements TypeInterface
+class EmailType extends Input implements TypeInterface
 {
     public function __construct(ValidatorBuilder $builder, string $name, string $label = '')
     {
-        parent::__construct($builder, 'text', $name, $label);
+        parent::__construct($builder, 'email', $name, $label);
     }
 
     public static function forge(FormBuilder $builder, string $name, array $options): TypeInterface

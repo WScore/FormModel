@@ -7,16 +7,16 @@ use WScore\FormModel\Element\Input;
 use WScore\FormModel\FormBuilder;
 use WScore\Validation\ValidatorBuilder;
 
-class TextType extends Input implements TypeInterface
+class ChoiceType extends \WScore\FormModel\Element\Choice implements TypeInterface
 {
-    public function __construct(ValidatorBuilder $builder, string $name, string $label = '')
+    public function __construct(FormBuilder $builder, string $name, string $label = '')
     {
-        parent::__construct($builder, 'text', $name, $label);
+        parent::__construct($builder, $name, $label);
     }
 
     public static function forge(FormBuilder $builder, string $name, array $options): TypeInterface
     {
-        $type = new self($builder->getValidationBuilder(), $name);
+        $type = new self($builder, $name);
         $builder->apply($type, $options);
         $type->setToString($builder->getToString());
 

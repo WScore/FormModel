@@ -3,7 +3,14 @@
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\FormModel;
+use WScore\FormModel\Type\ChoiceType;
+use WScore\FormModel\Type\DateType;
+use WScore\FormModel\Type\EmailType;
+use WScore\FormModel\Type\HiddenType;
+use WScore\FormModel\Type\MonthType;
+use WScore\FormModel\Type\TelType;
 use WScore\FormModel\Type\TextType;
+use WScore\FormModel\Type\UrlType;
 use WScore\Validation\Filters\FilterEmptyValues;
 use WScore\Validation\Filters\Required;
 
@@ -23,7 +30,7 @@ function buildForm()
             'label' => 'Book Title',
             'message' => 'a cool title is required!',
         ])
-        ->add('hidden', ElementType::HIDDEN, [
+        ->add('hidden', HiddenType::class, [
             'label' => 'Hide-me',
             'attributes' => [
                 'value' => 'hidden-val',
@@ -39,7 +46,7 @@ function buildForm()
             'value' => 'RADIO',
             'message' => 'always check me!',
         ])
-        ->add('cases', ElementType::CHOICE_TYPE, [
+        ->add('cases', ChoiceType::class, [
             'label' => 'Various Cases',
             'expand' => true,
             'choices' => [
@@ -56,14 +63,14 @@ function buildForm()
             ],
             'message' => 'good summary is nice!',
         ])
-        ->add('published_at', ElementType::DATE, [
+        ->add('published_at', DateType::class, [
             'label' => 'Published At',
             'required' => false,
             'attributes' => [
                 'style' => 'width: 12em;'
             ],
         ])
-        ->add('published_ym', ElementType::MONTH, [
+        ->add('published_ym', MonthType::class, [
             'label' => 'Published Year/Month',
             'required' => false,
             'attributes' => [
@@ -77,7 +84,7 @@ function buildForm()
                 'style' => 'width: 16em;'
             ],
         ])
-        ->add('isbn_code', ElementType::TEXT, [
+        ->add('isbn_code', TextType::class, [
             'label' => 'ISBN Code',
             'attributes' => [
                 'style' => 'width: 16em;'
@@ -89,7 +96,7 @@ function buildForm()
                 'style' => 'width: 12em;'
             ]
         ])
-        ->add('language', ElementType::CHOICE_TYPE, [
+        ->add('language', ChoiceType::class, [
             'label' => 'Language',
             'placeholder' => 'select a language...',
             'choices' => [
@@ -99,7 +106,7 @@ function buildForm()
             ],
             'message' => 'know your tongue!',
         ])
-        ->add('format', ElementType::CHOICE_TYPE, [
+        ->add('format', ChoiceType::class, [
             'label' => 'Format Type',
             'placeholder' => 'select a type...',
             'choices' => [
@@ -109,7 +116,7 @@ function buildForm()
             'expand' => true,
             'message' => 'format is missing!',
         ])
-        ->add('type', ElementType::CHOICE_TYPE, [
+        ->add('type', ChoiceType::class, [
             'label' => 'Book Category',
             'choices' => [
                 'TEXT_BOOK' => 'Book',
@@ -143,17 +150,17 @@ function buildPublisher(FormBuilder $builder)
 {
     $publisher = $builder->formModel('publisher');
     $publisher
-        ->add('name', ElementType::TEXT, [
+        ->add('name', TextType::class, [
             'label' => 'publisher name',
         ])
-        ->add('url', ElementType::URL, [
+        ->add('url', UrlType::class, [
             'label' => 'Corporate URL',
             'required' => false,
         ])
-        ->add('email', ElementType::EMAIL, [
+        ->add('email', EmailType::class, [
         'label' => 'Contact Email',
         ])
-        ->add('tel', ElementType::TEL, [
+        ->add('tel', TelType::class, [
             'label' => 'Telephone',
         ]);
 
@@ -170,11 +177,11 @@ function buildAuthor(FormBuilder $builder)
         'label' => 'author info',
     ]);
     $author
-        ->add('name', ElementType::TEXT, [
+        ->add('name', TextType::class, [
             'label' => 'author name',
             'message' => 'who is it?',
         ])
-        ->add('type', ElementType::CHOICE_TYPE, [
+        ->add('type', ChoiceType::class, [
             'label' => 'type',
             'placeholder' => 'select a type...',
             'choices' => [
