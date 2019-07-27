@@ -1,14 +1,19 @@
 <?php
+declare(strict_types=1);
 
-use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\FormModel;
+use WScore\FormModel\Type\CheckboxType;
 use WScore\FormModel\Type\ChoiceType;
+use WScore\FormModel\Type\DateTimeType;
 use WScore\FormModel\Type\DateType;
 use WScore\FormModel\Type\EmailType;
 use WScore\FormModel\Type\HiddenType;
 use WScore\FormModel\Type\MonthType;
+use WScore\FormModel\Type\PasswordType;
+use WScore\FormModel\Type\RadioType;
 use WScore\FormModel\Type\TelType;
+use WScore\FormModel\Type\TextAreaType;
 use WScore\FormModel\Type\TextType;
 use WScore\FormModel\Type\UrlType;
 use WScore\Validation\Filters\FilterEmptyValues;
@@ -36,12 +41,12 @@ function buildForm()
                 'value' => 'hidden-val',
             ],
         ])
-        ->add('million', ElementType::CHECKBOX, [
+        ->add('million', CheckboxType::class, [
             'label' => 'Million Seller',
             'value' => 'MILLION',
             'message' => 'always aim for a million!',
         ])
-        ->add('checked', ElementType::RADIO, [
+        ->add('checked', RadioType::class, [
             'label' => 'Check Me',
             'value' => 'RADIO',
             'message' => 'always check me!',
@@ -56,7 +61,7 @@ function buildForm()
             ],
             'message' => 'check the free located radio buttons!',
         ])
-        ->add('abstract', ElementType::TEXTAREA, [
+        ->add('abstract', TextAreaType::class, [
             'label' => 'Abstracts',
             'attributes' => [
                 'style' => 'height: 5em;',
@@ -77,7 +82,7 @@ function buildForm()
                 'style' => 'width: 12em;'
             ],
         ])
-        ->add('updated_at', ElementType::DATETIME, [
+        ->add('updated_at', DateTimeType::class, [
             'label' => 'Updated date/time',
             'required' => false,
             'attributes' => [
@@ -90,7 +95,7 @@ function buildForm()
                 'style' => 'width: 16em;'
             ]
         ])
-        ->add('secret_code', ElementType::PASSWORD, [
+        ->add('secret_code', PasswordType::class, [
             'label' => 'Secret Code',
             'attributes' => [
                 'style' => 'width: 12em;'

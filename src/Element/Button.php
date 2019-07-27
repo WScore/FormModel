@@ -8,7 +8,7 @@ use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ValidationInterface;
 
-final class ButtonType extends AbstractElement
+class Button extends AbstractElement
 {
     /**
      * @var bool|string
@@ -22,9 +22,9 @@ final class ButtonType extends AbstractElement
 
     /**
      * @param bool|string $value
-     * @return ButtonType
+     * @return Button
      */
-    public function setValue($value): ButtonType
+    public function setValue($value): Button
     {
         $this->value = $value;
         return $this;
@@ -40,9 +40,9 @@ final class ButtonType extends AbstractElement
 
     /**
      * @param string|null $default
-     * @return ButtonType
+     * @return Button
      */
-    public function setDefault(?string $default): ButtonType
+    public function setDefault(?string $default): Button
     {
         $this->default = $default;
         return $this;

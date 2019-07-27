@@ -158,7 +158,7 @@ class Choice extends AbstractElement
 
     /**
      * @param string $name
-     * @return ButtonType|null
+     * @return Button|null
      */
     public function get(string $name): ?ElementInterface
     {
@@ -184,7 +184,7 @@ class Choice extends AbstractElement
     }
 
     /**
-     * @return array|ButtonType[];
+     * @return array|Button[];
      */
     public function getChildren(): array
     {

@@ -3,14 +3,14 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Html;
 
-use WScore\FormModel\Element\ButtonType;
+use WScore\FormModel\Element\Button;
 use WScore\Html\Form;
 use WScore\Html\Tags\Tag;
 
 final class HtmlButtons extends AbstractHtml
 {
     /**
-     * @var ButtonType
+     * @var Button
      */
     protected $element;
 

@@ -8,6 +8,7 @@ use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\FormModel;
 use WScore\FormModel\ToString\ViewModel;
+use WScore\FormModel\Type\TextType;
 
 class FormModelTest extends TestCase
 {
@@ -15,7 +16,7 @@ class FormModelTest extends TestCase
     {
         $builder = FormBuilder::create();
         $form = new FormModel($builder, 'test-form');
-        $form->add('name', ElementType::TEXT, [
+        $form->add('name', TextType::class, [
             'label' => 'User Name',
         ]);
         $text = $form->get('name');

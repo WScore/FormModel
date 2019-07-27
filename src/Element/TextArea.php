@@ -8,7 +8,7 @@ use WScore\FormModel\Html\HtmlTextArea;
 use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ValidationInterface;
 
-final class TextAreaType extends AbstractElement
+class TextArea extends AbstractElement
 {
     /**
      * @param null|array|string $inputs

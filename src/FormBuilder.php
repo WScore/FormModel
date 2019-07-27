@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace WScore\FormModel;
 
 use InvalidArgumentException;
-use WScore\FormModel\Element\ButtonType;
+use WScore\FormModel\Element\Button;
 use WScore\FormModel\Element\Choice;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\Element\Input;
-use WScore\FormModel\Element\TextAreaType;
+use WScore\FormModel\Element\TextArea;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\Bootstrap4;
 use WScore\FormModel\ToString\ToStringFactoryInterface;
@@ -105,7 +105,7 @@ class FormBuilder
 
     public function textArea(string $name, string $label = ''): ElementInterface
     {
-        $form = new TextAreaType($this->builder, ElementType::TEXTAREA, $name, $label);
+        $form = new TextArea($this->builder, ElementType::TEXTAREA, $name, $label);
         if ($this->toString) {
             $form->setToString($this->toString);
         }
@@ -136,18 +136,18 @@ class FormBuilder
         return $element;
     }
 
-    public function checkBox(string $type, string $name): ButtonType
+    public function checkBox(string $type, string $name): Button
     {
-        $form = new ButtonType($this->builder, $type, $name);
+        $form = new Button($this->builder, $type, $name);
         if ($this->toString) {
             $form->setToString($this->toString);
         }
         return $form;
     }
 
-    public function radio(string $type, string $name): ButtonType
+    public function radio(string $type, string $name): Button
     {
-        $form = new ButtonType($this->builder, $type, $name);
+        $form = new Button($this->builder, $type, $name);
         if ($this->toString) {
             $form->setToString($this->toString);
         }

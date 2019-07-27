@@ -6,6 +6,15 @@ namespace tests\FormModel;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\FormModel;
+use WScore\FormModel\Type\CheckboxType;
+use WScore\FormModel\Type\ChoiceType;
+use WScore\FormModel\Type\DateType;
+use WScore\FormModel\Type\EmailType;
+use WScore\FormModel\Type\HiddenType;
+use WScore\FormModel\Type\MonthType;
+use WScore\FormModel\Type\TelType;
+use WScore\FormModel\Type\TextType;
+use WScore\FormModel\Type\UrlType;
 use WScore\Validation\Filters\FilterEmptyValues;
 use WScore\Validation\Filters\Required;
 
@@ -35,7 +44,7 @@ class RealCases
                 FilterEmptyValues::class
             ]
         ])
-            ->add('title', ElementType::TEXT, [
+        ->add('title', TextType::class, [
                 'label' => 'Book Title',
                 'message' => 'enter title here',
             ])
@@ -47,7 +56,7 @@ class RealCases
                 'label' => 'Check Me',
                 'value' => 'RADIO',
             ])
-            ->add('cases', ElementType::CHOICE_TYPE, [
+            ->add('cases', ChoiceType::class, [
                 'label' => 'Various Cases',
                 'message' => 'check some',
                 'expand' => true,
@@ -64,20 +73,20 @@ class RealCases
                     'style' => 'height: 5em;',
                 ]
             ])
-            ->add('published_at', ElementType::DATE, [
+            ->add('published_at', DateType::class, [
                 'label' => 'Published At',
                 'required' => false,
                 'attributes' => [
                     'style' => 'width: 12em;'
                 ]
             ])
-            ->add('isbn_code', ElementType::TEXT, [
+            ->add('isbn_code', TextType::class, [
                 'label' => 'ISBN Code',
                 'attributes' => [
                     'style' => 'width: 16em;'
                 ]
             ])
-            ->add('language', ElementType::CHOICE_TYPE, [
+            ->add('language', ChoiceType::class, [
                 'label' => 'Language',
                 'placeholder' => 'select a language...',
                 'choices' => [
@@ -86,7 +95,7 @@ class RealCases
                     'ja' => 'Japanese',
                 ],
             ])
-            ->add('format', ElementType::CHOICE_TYPE, [
+            ->add('format', ChoiceType::class, [
                 'label' => 'Format Type',
                 'placeholder' => 'select a type...',
                 'choices' => [
@@ -95,7 +104,7 @@ class RealCases
                 ],
                 'expand' => true,
             ])
-            ->add('type', ElementType::CHOICE_TYPE, [
+            ->add('type', ChoiceType::class, [
                 'label' => 'Book Category',
                 'choices' => [
                     'T' => 'Book',
@@ -126,10 +135,10 @@ class RealCases
         $builder = $this->builder;
         $publisher = $builder->formModel('publisher');
         $publisher
-            ->add('name', ElementType::TEXT, [
+            ->add('name', TextType::class, [
                 'label' => 'publisher name',
             ])
-            ->add('url', "URL", [
+            ->add('url', UrlType::class, [
                 'label' => 'Corporate URL',
                 'required' => false,
             ]);
@@ -144,11 +153,11 @@ class RealCases
             'label' => 'author info',
         ]);
         $author
-            ->add('name', ElementType::TEXT, [
+            ->add('name', TextType::class, [
                 'label' => 'author name',
                 'message' => 'names here',
             ])
-            ->add('type', ElementType::CHOICE_TYPE, [
+            ->add('type', ChoiceType::class, [
                 'label' => 'type',
                 'placeholder' => 'select a type...',
                 'choices' => [
