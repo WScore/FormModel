@@ -3,16 +3,13 @@ declare(strict_types=1);
 
 namespace tests\FormModel;
 
-use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\FormModel;
 use WScore\FormModel\Type\CheckboxType;
 use WScore\FormModel\Type\ChoiceType;
 use WScore\FormModel\Type\DateType;
-use WScore\FormModel\Type\EmailType;
-use WScore\FormModel\Type\HiddenType;
-use WScore\FormModel\Type\MonthType;
-use WScore\FormModel\Type\TelType;
+use WScore\FormModel\Type\RadioType;
+use WScore\FormModel\Type\TextAreaType;
 use WScore\FormModel\Type\TextType;
 use WScore\FormModel\Type\UrlType;
 use WScore\Validation\Filters\FilterEmptyValues;
@@ -48,11 +45,11 @@ class RealCases
                 'label' => 'Book Title',
                 'message' => 'enter title here',
             ])
-            ->add('million', ElementType::CHECKBOX, [
+            ->add('million', CheckboxType::class, [
                 'label' => 'Million Seller',
                 'value' => 'MILLION',
             ])
-            ->add('checked', ElementType::RADIO, [
+            ->add('checked', RadioType::class, [
                 'label' => 'Check Me',
                 'value' => 'RADIO',
             ])
@@ -66,7 +63,7 @@ class RealCases
                     'case3' => 'Case #3',
                 ]
             ])
-            ->add('abstract', ElementType::TEXTAREA, [
+            ->add('abstract', TextAreaType::class, [
                 'label' => 'Abstracts',
                 'message' => 'summary',
                 'attributes' => [

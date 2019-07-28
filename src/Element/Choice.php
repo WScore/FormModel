@@ -6,6 +6,7 @@ namespace WScore\FormModel\Element;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Html\HtmlChoices;
 use WScore\FormModel\Html\HtmlFormInterface;
+use WScore\FormModel\Type\CheckboxType;
 use WScore\Validation\Filters\InArray;
 use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ValidationInterface;
@@ -173,9 +174,9 @@ class Choice extends AbstractElement
             'label' => $this->choices[$name],
         ];
         if ($this->isMultiple()) {
-            $element = $this->builder->checkBox(ElementType::CHECKBOX, $name);
+            $element = $this->builder->checkBox($name);
         } else {
-            $element = $this->builder->radio(ElementType::RADIO, '');
+            $element = $this->builder->radio('');
             $options['required'] = $this->isRequired();
         }
         $this->builder->apply($element, $options);

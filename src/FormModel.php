@@ -9,7 +9,6 @@ use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\ToString\ViewModel;
-use WScore\FormModel\Type\TypeInterface;
 use WScore\FormModel\Validation\ValidationModel;
 use WScore\Validation\Interfaces\ResultInterface;
 
@@ -40,6 +39,9 @@ class FormModel
      */
     public function add(string $name, string $type, $options = []): FormModel
     {
+        if (!isset($options['label'])) {
+            $options['label'] = $name;
+        }
         if (class_exists($type) && method_exists($type, 'forge')) {
             $element = $type::forge($this->builder, $name, $options);
             $this->form->add($element);
@@ -47,18 +49,6 @@ class FormModel
         }
         if (in_array($type, [ElementType::FORM_TYPE, ElementType::REPEATED_FORM], true) ) {
             throw new InvalidArgumentException('Cannot instantiate forms. ');
-        }
-        if (!isset($options['label'])) {
-            $options['label'] = $name;
-        }
-        if ($type === ElementType::CHOICE_TYPE) {
-            return $this->addChoices($name, $options);
-        }
-        if ($type === ElementType::CHECKBOX) {
-            return $this->addButtons($type, $name, $options);
-        }
-        if ($type === ElementType::RADIO) {
-            return $this->addButtons($type, $name, $options);
         }
         $element = $this->builder->$type($name);
         $this->builder->apply($element, $options);
@@ -82,27 +72,6 @@ class FormModel
             $this->builder->apply($element, $options);
             $this->form->add($element);
         }
-        return $this;
-    }
-
-    /**
-     * @param string $name
-     * @param array $options
-     * @return $this
-     */
-    private function addChoices(string $name, array $options): FormModel
-    {
-        $form = $this->builder->choices($name);
-        $this->builder->apply($form, $options);
-        $this->form->add($form);
-        return $this;
-    }
-
-    private function addButtons(string $type, string $name, array $options)
-    {
-        $form = $this->builder->checkBox($type, $name);
-        $this->builder->apply($form, $options);
-        $this->form->add($form);
         return $this;
     }
 

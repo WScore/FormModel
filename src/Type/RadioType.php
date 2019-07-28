@@ -14,6 +14,12 @@ class RadioType extends Button implements TypeInterface
         parent::__construct($builder, 'radio', $name, $label);
     }
 
+    /**
+     * @param FormBuilder $builder
+     * @param string $name
+     * @param array $options
+     * @return TypeInterface|RadioType
+     */
     public static function forge(FormBuilder $builder, string $name, array $options): TypeInterface
     {
         $type = new self($builder->getValidationBuilder(), $name);

@@ -4,17 +4,18 @@ declare(strict_types=1);
 namespace WScore\FormModel;
 
 use InvalidArgumentException;
+use RuntimeException;
 use WScore\FormModel\Element\Button;
 use WScore\FormModel\Element\Choice;
 use WScore\FormModel\Element\ElementInterface;
-use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormType;
-use WScore\FormModel\Element\Input;
-use WScore\FormModel\Element\TextArea;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\Bootstrap4;
 use WScore\FormModel\ToString\ToStringFactoryInterface;
 use WScore\FormModel\ToString\ViewModel;
+use WScore\FormModel\Type\CheckboxType;
+use WScore\FormModel\Type\ChoiceType;
+use WScore\FormModel\Type\RadioType;
 use WScore\Validation\Interfaces\ResultInterface;
 use WScore\Validation\ValidatorBuilder;
 
@@ -72,7 +73,10 @@ class FormBuilder
         $type = $name;
         $name = $arguments[0] ?? '';
         $label = $arguments[1] ?? '';
-        return $this->element($type, $name, $label);
+        if (!class_exists($type)) {
+            $type = '\WScore\FormModel\Type\\' . ucwords($type) . 'Type';
+        }
+        return $this->element($type, $name, ['label' => $label]);
     }
 
     public function formModel(string $name, array $options = []): FormModel
@@ -94,27 +98,21 @@ class FormBuilder
         return $form;
     }
 
-    public function element(string $type, string $name, string $label = ''): ElementInterface
+    public function element(string $type, string $name, array $options = [])
     {
-        $form = new Input($this->builder, $type, $name, $label);
-        if ($this->toString) {
-            $form->setToString($this->toString);
+        if (!isset($options['label'])) {
+            $options['label'] = $name;
         }
-        return $form;
-    }
-
-    public function textArea(string $name, string $label = ''): ElementInterface
-    {
-        $form = new TextArea($this->builder, ElementType::TEXTAREA, $name, $label);
-        if ($this->toString) {
-            $form->setToString($this->toString);
+        if (class_exists($type) && method_exists($type, 'forge')) {
+            $element = $type::forge($this, $name, $options);
+            return $element;
         }
-        return $form;
+        throw new RuntimeException('class not found for: ' . $type);
     }
 
     public function choices(string $name, string $label = ''): Choice
     {
-        $form = new Choice($this, $name, $label);
+        $form = ChoiceType::forge($this, $name, ['label' => $label]);
         if ($this->toString) {
             $form->setToString($this->toString);
         }
@@ -136,18 +134,18 @@ class FormBuilder
         return $element;
     }
 
-    public function checkBox(string $type, string $name): Button
+    public function checkBox(string $name): Button
     {
-        $form = new Button($this->builder, $type, $name);
+        $form = CheckboxType::forge($this, $name, []);
         if ($this->toString) {
             $form->setToString($this->toString);
         }
         return $form;
     }
 
-    public function radio(string $type, string $name): Button
+    public function radio(string $name): Button
     {
-        $form = new Button($this->builder, $type, $name);
+        $form = RadioType::forge($this, $name, []);
         if ($this->toString) {
             $form->setToString($this->toString);
         }

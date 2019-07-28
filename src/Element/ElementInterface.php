@@ -6,6 +6,7 @@ namespace WScore\FormModel\Element;
 use IteratorAggregate;
 use Traversable;
 use WScore\FormModel\Html\HtmlFormInterface;
+use WScore\FormModel\ToString\ToStringFactoryInterface;
 use WScore\Validation\Interfaces\ValidationInterface;
 
 interface ElementInterface extends IteratorAggregate
@@ -145,4 +146,9 @@ interface ElementInterface extends IteratorAggregate
      * @return string|null
      */
     public function getMessage(): ?string;
+
+    /**
+     * @param ToStringFactoryInterface $toString
+     */
+    public function setToString(ToStringFactoryInterface $toString): void;
 }
