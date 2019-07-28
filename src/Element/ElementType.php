@@ -20,13 +20,4 @@ class ElementType
     const HIDDEN = 'hidden';
     const TEL = 'tel';
     const PASSWORD = 'password';
-
-    static private $type2html = [
-        self::DATETIME => 'datetime-local',
-    ];
-
-    public static function toHtmlType($type): string
-    {
-        return self::$type2html[$type] ?? $type;
-    }
 }

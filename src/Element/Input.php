@@ -5,7 +5,6 @@ namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlInput;
-use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ValidationInterface;
 
 class Input extends AbstractElement
