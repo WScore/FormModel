@@ -5,6 +5,7 @@ namespace WScore\FormModel\Type;
 
 use WScore\FormModel\Element\Input;
 use WScore\FormModel\FormBuilder;
+use WScore\Validation\Interfaces\ValidationInterface;
 use WScore\Validation\ValidatorBuilder;
 
 class PasswordType extends Input implements TypeInterface
@@ -21,5 +22,13 @@ class PasswordType extends Input implements TypeInterface
         $type->setToString($builder->getToString());
 
         return $type;
+    }
+
+    /**
+     * @return ValidationInterface
+     */
+    public function createValidation(): ValidationInterface
+    {
+        return $this->createValidationByType('text');
     }
 }

@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Type;
 
+use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\Input;
 use WScore\FormModel\FormBuilder;
+use WScore\Validation\Interfaces\ValidationInterface;
 use WScore\Validation\ValidatorBuilder;
 
 class UrlType extends Input implements TypeInterface
@@ -21,5 +23,13 @@ class UrlType extends Input implements TypeInterface
         $type->setToString($builder->getToString());
 
         return $type;
+    }
+
+    /**
+     * @return ValidationInterface
+     */
+    public function createValidation(): ValidationInterface
+    {
+        return $this->createValidationByType('URL');
     }
 }

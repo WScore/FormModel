@@ -26,12 +26,6 @@ class Input extends AbstractElement
      */
     public function createValidation(): ValidationInterface
     {
-        $type = ElementType::toValidationType($this->getType());
-        $filters = $this->prepareFilters($type);
-        if ($this->isRequired()) {
-            $filters[Required::class] = [];
-        }
-        $validation = $this->validationBuilder->chain($filters);
-        return $validation;
+        return $this->createValidationByType($this->getType());
     }
 }

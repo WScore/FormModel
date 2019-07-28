@@ -8,7 +8,11 @@ use InvalidArgumentException;
 use Traversable;
 use WScore\FormModel\ToString\ToStringFactoryInterface;
 use WScore\FormModel\ToString\ToStringInterface;
+use WScore\Validation\Filters\Required;
+use WScore\Validation\Interfaces\ValidationInterface;
 use WScore\Validation\ValidatorBuilder;
+use WScore\Validation\Validators\ValidationChain;
+use WScore\Validation\Validators\ValidationRepeat;
 
 abstract class AbstractElement implements ElementInterface
 {
@@ -316,5 +320,19 @@ abstract class AbstractElement implements ElementInterface
             $filters['message'] = $message;
         }
         return $filters;
+    }
+
+    /**
+     * @param string $type
+     * @return ValidationInterface|ValidationChain|ValidationRepeat
+     */
+    protected function createValidationByType(string $type)
+    {
+        $filters = $this->prepareFilters($type);
+        if ($this->isRequired()) {
+            $filters[Required::class] = [];
+        }
+        $validation = $this->validationBuilder->chain($filters);
+        return $validation;
     }
 }

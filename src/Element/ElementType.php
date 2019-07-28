@@ -21,21 +21,9 @@ class ElementType
     const TEL = 'tel';
     const PASSWORD = 'password';
 
-    static private $type2validation = [
-        self::URL => 'URL',
-        self::HIDDEN => 'text',
-        self::TEL => 'digits',
-        self::PASSWORD => 'text',
-    ];
-
     static private $type2html = [
         self::DATETIME => 'datetime-local',
     ];
-
-    public static function toValidationType($type): string
-    {
-        return self::$type2validation[$type] ?? $type;
-    }
 
     public static function toHtmlType($type): string
     {
