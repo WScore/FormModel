@@ -6,9 +6,9 @@ namespace WScore\FormModel\Element;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Html\HtmlChoices;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\Validation\Filters\InArray;
-use WScore\Validation\Filters\Required;
-use WScore\Validation\Interfaces\ValidationInterface;
+use WScore\Validator\Filters\InArray;
+use WScore\Validator\Filters\Required;
+use WScore\Validator\Interfaces\ValidationInterface;
 
 class Choice extends AbstractElement
 {

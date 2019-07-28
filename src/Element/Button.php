@@ -5,8 +5,8 @@ namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\HtmlButtons;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\Validation\Filters\Required;
-use WScore\Validation\Interfaces\ValidationInterface;
+use WScore\Validator\Filters\Required;
+use WScore\Validator\Interfaces\ValidationInterface;
 
 class Button extends AbstractElement
 {

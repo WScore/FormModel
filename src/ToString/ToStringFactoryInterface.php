@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace WScore\FormModel\ToString;
 
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\Validation\Interfaces\ResultInterface;
+use WScore\Validator\Interfaces\ResultInterface;
 
 interface ToStringFactoryInterface
 {

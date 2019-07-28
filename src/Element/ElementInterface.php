@@ -7,7 +7,7 @@ use IteratorAggregate;
 use Traversable;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\ToStringFactoryInterface;
-use WScore\Validation\Interfaces\ValidationInterface;
+use WScore\Validator\Interfaces\ValidationInterface;
 
 interface ElementInterface extends IteratorAggregate
 {

@@ -7,7 +7,7 @@ use WScore\FormModel\Element\Input;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlInput;
-use WScore\Validation\ValidatorBuilder;
+use WScore\Validator\ValidatorBuilder;
 
 class DateTimeType extends Input implements TypeInterface
 {

@@ -16,8 +16,8 @@ use WScore\FormModel\Type\TelType;
 use WScore\FormModel\Type\TextAreaType;
 use WScore\FormModel\Type\TextType;
 use WScore\FormModel\Type\UrlType;
-use WScore\Validation\Filters\FilterEmptyValues;
-use WScore\Validation\Filters\Required;
+use WScore\Validator\Filters\FilterEmptyValues;
+use WScore\Validator\Filters\Required;
 
 /**
  * @return FormModel

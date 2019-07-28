@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormBuilder;
-use WScore\Validation\Filters\Required;
+use WScore\Validator\Filters\Required;
 
 class ElementChoicesTest extends TestCase
 {

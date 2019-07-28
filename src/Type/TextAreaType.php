@@ -5,7 +5,7 @@ namespace WScore\FormModel\Type;
 
 use WScore\FormModel\Element\TextArea;
 use WScore\FormModel\FormBuilder;
-use WScore\Validation\ValidatorBuilder;
+use WScore\Validator\ValidatorBuilder;
 
 class TextAreaType extends TextArea implements TypeInterface
 {

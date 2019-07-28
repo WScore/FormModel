@@ -8,7 +8,7 @@ use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\FormModel\Validation\ValidationModel;
-use WScore\Validation\Interfaces\ResultInterface;
+use WScore\Validator\Interfaces\ResultInterface;
 
 class FormModel
 {

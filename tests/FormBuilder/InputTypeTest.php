@@ -4,9 +4,9 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Type\TextType;
-use WScore\Validation\Filters\StringCases;
-use WScore\Validation\Validators\Result;
-use WScore\Validation\Validators\ValidationChain;
+use WScore\Validator\Filters\StringCases;
+use WScore\Validator\Validators\Result;
+use WScore\Validator\Validators\ValidationChain;
 
 class InputTypeTest extends TestCase
 {

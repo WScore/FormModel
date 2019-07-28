@@ -16,8 +16,8 @@ use WScore\FormModel\ToString\ViewModel;
 use WScore\FormModel\Type\CheckboxType;
 use WScore\FormModel\Type\ChoiceType;
 use WScore\FormModel\Type\RadioType;
-use WScore\Validation\Interfaces\ResultInterface;
-use WScore\Validation\ValidatorBuilder;
+use WScore\Validator\Interfaces\ResultInterface;
+use WScore\Validator\ValidatorBuilder;
 
 /**
  * builds various elements for form models.

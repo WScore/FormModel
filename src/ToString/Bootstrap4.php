@@ -11,7 +11,7 @@ use WScore\FormModel\ToString\Bootstrap4\ToInput;
 use WScore\FormModel\Type\CheckboxType;
 use WScore\FormModel\Type\ChoiceType;
 use WScore\FormModel\Type\RadioType;
-use WScore\Validation\Interfaces\ResultInterface;
+use WScore\Validator\Interfaces\ResultInterface;
 
 final class Bootstrap4 implements ToStringFactoryInterface
 {

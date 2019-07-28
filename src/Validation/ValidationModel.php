@@ -9,9 +9,9 @@ use WScore\FormModel\Element\FormType;
 use WScore\FormModel\FormModel;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\ViewModel;
-use WScore\Validation\Interfaces\ResultInterface;
-use WScore\Validation\Interfaces\ValidationInterface;
-use WScore\Validation\Validators\ResultList;
+use WScore\Validator\Interfaces\ResultInterface;
+use WScore\Validator\Interfaces\ValidationInterface;
+use WScore\Validator\Validators\ResultList;
 
 class ValidationModel
 {
