@@ -38,7 +38,7 @@ then, browse the above url.
 How To
 ------
 
-### Set Up FormModel 
+### Create a FormModel 
 
 create a form model using `FormBuilder`. 
 
@@ -56,18 +56,38 @@ $book = $builder->formModel('book', [
 add elements for the form model, `$book`. 
 
 ```php
-use WScore\FormModel\Element\ElementType;
+use WScore\FormModel\Type\TextAreaType;
+use WScore\FormModel\Type\TextType;
 
 $book
-    ->add('title', ElementType::TEXT, [
+    ->add('title', TextType::class, [
         'label' => 'Book Title',
     ])
-    ->add('abstract', ElementType::TEXTAREA, [
+    ->add('abstract', TextAreaType::class, [
         'label' => 'Abstracts',
         'attributes' => [
             'style' => 'height: 5em;',
         ]
     ]);
+```
+
+usage: `add($name, $typeName, $options);`,
+
+- `$name`: name of the element, 
+- `$typeName`: class name of the element type,
+- `$options`: an array of options. 
+
+### Validate Input
+
+to validate input values, such as form,
+
+```php
+$validation = $book->createValidation($_POST);
+if ($validation->isValid()) {
+    $data = $validation->getData();
+} else {
+    $data = []; // just in case...
+}
 ```
 
 ### Show HTML Form
@@ -84,8 +104,6 @@ or, validate inputs then create a view.
 $validation = $book->createValidation($_POST);
 $view = $validation->createView();
 ```
-
-### HTML Form
 
 once a view is created, show html forms as such. 
 
