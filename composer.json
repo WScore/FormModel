@@ -1,5 +1,5 @@
 {
-    "name": "wscore/form-model",
+    "name": "wscore/formmodel",
     "description": "component for HTML form and validation model.",
     "type": "library",
     "license": "MIT",
