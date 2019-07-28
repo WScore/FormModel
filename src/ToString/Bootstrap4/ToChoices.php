@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\ToString\Bootstrap4;
 
-use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\Choice;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\ToString\ToStringInterface;
@@ -20,7 +20,7 @@ final class ToChoices implements ToStringInterface
     private $html;
 
     /**
-     * @var ElementInterface|ChoiceType
+     * @var ElementInterface|Choice
      */
     private $element;
 

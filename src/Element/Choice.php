@@ -10,7 +10,7 @@ use WScore\Validation\Filters\InArray;
 use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ValidationInterface;
 
-final class ChoiceType extends AbstractElement
+class Choice extends AbstractElement
 {
     /**
      * @var bool
@@ -50,16 +50,16 @@ final class ChoiceType extends AbstractElement
      */
     public function __construct(FormBuilder $builder, string $name, $label = '')
     {
-        $type = ElementType::CHOICE_TYPE;
+        $type = 'type-choice';
         parent::__construct($builder->getValidationBuilder(), $type, $name, $label);
         $this->builder = $builder;
     }
 
     /**
      * @param bool $expand
-     * @return ChoiceType
+     * @return Choice
      */
-    public function setExpand(bool $expand): ChoiceType
+    public function setExpand(bool $expand): Choice
     {
         $this->expand = $expand;
         return $this;
@@ -75,9 +75,9 @@ final class ChoiceType extends AbstractElement
 
     /**
      * @param array $choices
-     * @return ChoiceType
+     * @return Choice
      */
-    public function setChoices(array $choices): ChoiceType
+    public function setChoices(array $choices): Choice
     {
         $this->choices = $choices;
         return $this;
@@ -93,9 +93,9 @@ final class ChoiceType extends AbstractElement
 
     /**
      * @param bool $replace
-     * @return ChoiceType
+     * @return Choice
      */
-    public function setReplace(bool $replace): ChoiceType
+    public function setReplace(bool $replace): Choice
     {
         $this->replace = $replace;
         return $this;
@@ -121,7 +121,7 @@ final class ChoiceType extends AbstractElement
      * @param bool|array $multiple
      * @return $this
      */
-    public function setMultiple($multiple = true): ChoiceType
+    public function setMultiple($multiple = true): Choice
     {
         $this->isMultiple = $multiple;
         return $this;
@@ -129,9 +129,9 @@ final class ChoiceType extends AbstractElement
 
     /**
      * @param string $holder
-     * @return ChoiceType
+     * @return Choice
      */
-    public function setPlaceholder($holder): ChoiceType
+    public function setPlaceholder($holder): Choice
     {
         $this->placeholder = $holder;
         return $this;
@@ -158,7 +158,7 @@ final class ChoiceType extends AbstractElement
 
     /**
      * @param string $name
-     * @return ButtonType|null
+     * @return Button|null
      */
     public function get(string $name): ?ElementInterface
     {
@@ -173,9 +173,9 @@ final class ChoiceType extends AbstractElement
             'label' => $this->choices[$name],
         ];
         if ($this->isMultiple()) {
-            $element = $this->builder->checkBox(ElementType::CHECKBOX, $name);
+            $element = $this->builder->checkBox($name);
         } else {
-            $element = $this->builder->radio(ElementType::RADIO, '');
+            $element = $this->builder->radio('');
             $options['required'] = $this->isRequired();
         }
         $this->builder->apply($element, $options);
@@ -184,7 +184,7 @@ final class ChoiceType extends AbstractElement
     }
 
     /**
-     * @return array|ButtonType[];
+     * @return array|Button[];
      */
     public function getChildren(): array
     {

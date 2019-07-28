@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormBuilder;
+use WScore\FormModel\Type\TextType;
 use WScore\Validation\Filters\StringCases;
 use WScore\Validation\Validators\Result;
 use WScore\Validation\Validators\ValidationChain;

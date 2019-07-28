@@ -4,10 +4,11 @@ declare(strict_types=1);
 namespace tests\FormModel;
 
 use PHPUnit\Framework\TestCase;
-use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\FormModel;
 use WScore\FormModel\ToString\ViewModel;
+use WScore\FormModel\Type\ChoiceType;
+use WScore\FormModel\Type\TextType;
 
 class FormModelTest extends TestCase
 {
@@ -15,7 +16,7 @@ class FormModelTest extends TestCase
     {
         $builder = FormBuilder::create();
         $form = new FormModel($builder, 'test-form');
-        $form->add('name', ElementType::TEXT, [
+        $form->add('name', TextType::class, [
             'label' => 'User Name',
         ]);
         $text = $form->get('name');
@@ -27,7 +28,7 @@ class FormModelTest extends TestCase
     {
         $builder = FormBuilder::create();
         $form = new FormModel($builder, 'book');
-        $form->add('type', ElementType::CHOICE_TYPE, [
+        $form->add('type', ChoiceType::class, [
             'label' => 'Book Type',
             'choices' => [
                 'fiction' => 'Fiction',

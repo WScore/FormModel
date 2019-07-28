@@ -7,7 +7,7 @@ use ArrayAccess;
 use ArrayIterator;
 use InvalidArgumentException;
 use Traversable;
-use WScore\FormModel\Element\ChoiceType;
+use WScore\FormModel\Element\Choice;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Element\FormType;
 use WScore\Html\Tags\Input;
@@ -15,7 +15,7 @@ use WScore\Html\Tags\Input;
 abstract class AbstractHtml implements HtmlFormInterface
 {
     /**
-     * @var ChoiceType|FormType|ElementInterface
+     * @var Choice|FormType|ElementInterface
      */
     protected $element;
 

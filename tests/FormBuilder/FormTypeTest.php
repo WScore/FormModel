@@ -4,6 +4,7 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Html\HtmlFormInterface;
+use WScore\FormModel\Type\DateType;
 use WScore\Validation\Filters\StringCases;
 
 class FormTypeTest extends TestCase
@@ -13,7 +14,7 @@ class FormTypeTest extends TestCase
         $fm = FormBuilder::create();
         $book = $fm->form('book', 'Book List');
         $book->add($fm->text('title')->setFilters([StringCases::class=>[StringCases::UC_WORDS]]));
-        $book->add($fm->element('date', 'published_at'));
+        $book->add($fm->date('published_at'));
 
         $title = $book->get('title');
         $this->assertEquals('title', $title->getName());

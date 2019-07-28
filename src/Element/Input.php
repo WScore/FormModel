@@ -5,10 +5,9 @@ namespace WScore\FormModel\Element;
 
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlInput;
-use WScore\Validation\Filters\Required;
 use WScore\Validation\Interfaces\ValidationInterface;
 
-final class InputType extends AbstractElement
+class Input extends AbstractElement
 {
     /**
      * @param null|array|string $inputs
@@ -26,12 +25,6 @@ final class InputType extends AbstractElement
      */
     public function createValidation(): ValidationInterface
     {
-        $type = ElementType::toValidationType($this->getType());
-        $filters = $this->prepareFilters($type);
-        if ($this->isRequired()) {
-            $filters[Required::class] = [];
-        }
-        $validation = $this->validationBuilder->chain($filters);
-        return $validation;
+        return $this->createValidationByType($this->getType());
     }
 }
