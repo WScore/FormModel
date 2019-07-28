@@ -23,6 +23,15 @@ use WScore\Validation\ValidatorBuilder;
  * builds various elements for form models.
  *
  * @method ElementInterface text(string $name, string $label = '')
+ * @method ElementInterface date(string $name, string $label = '')
+ * @method ElementInterface datetime(string $name, string $label = '')
+ * @method ElementInterface email(string $name, string $label = '')
+ * @method ElementInterface hidden(string $name, string $label = '')
+ * @method ElementInterface month(string $name, string $label = '')
+ * @method ElementInterface password(string $name, string $label = '')
+ * @method ElementInterface tel(string $name, string $label = '')
+ * @method ElementInterface textarea(string $name, string $label = '')
+ * @method ElementInterface url(string $name, string $label = '')
  */
 class FormBuilder
 {
