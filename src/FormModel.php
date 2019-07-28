@@ -4,9 +4,7 @@ declare(strict_types=1);
 namespace WScore\FormModel;
 
 use ArrayAccess;
-use InvalidArgumentException;
 use WScore\FormModel\Element\ElementInterface;
-use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\FormType;
 use WScore\FormModel\ToString\ViewModel;
 use WScore\FormModel\Validation\ValidationModel;
@@ -46,9 +44,6 @@ class FormModel
             $element = $type::forge($this->builder, $name, $options);
             $this->form->add($element);
             return $this;
-        }
-        if (in_array($type, [ElementType::FORM_TYPE, ElementType::REPEATED_FORM], true) ) {
-            throw new InvalidArgumentException('Cannot instantiate forms. ');
         }
         $element = $this->builder->$type($name);
         $this->builder->apply($element, $options);

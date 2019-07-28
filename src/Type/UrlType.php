@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace WScore\FormModel\Type;
 
-use WScore\FormModel\Element\ElementType;
 use WScore\FormModel\Element\Input;
 use WScore\FormModel\FormBuilder;
 use WScore\Validation\Interfaces\ValidationInterface;

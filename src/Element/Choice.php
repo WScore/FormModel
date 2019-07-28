@@ -51,7 +51,7 @@ class Choice extends AbstractElement
      */
     public function __construct(FormBuilder $builder, string $name, $label = '')
     {
-        $type = ElementType::CHOICE_TYPE;
+        $type = 'type-choice';
         parent::__construct($builder->getValidationBuilder(), $type, $name, $label);
         $this->builder = $builder;
     }

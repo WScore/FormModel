@@ -103,7 +103,7 @@ abstract class AbstractElement implements ElementInterface
      */
     public function isFormType(): bool
     {
-        return $this->getType() === ElementType::FORM_TYPE;
+        return false;
     }
 
     /**

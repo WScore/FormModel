@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace WScore\FormModel\Html;
 
 use WScore\FormModel\Element\ElementInterface;
-use WScore\FormModel\Element\ElementType;
 use WScore\Html\Form;
 use WScore\Html\Tags\Input;
 
