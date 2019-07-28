@@ -5,8 +5,8 @@ namespace WScore\FormModel\Type;
 
 use WScore\FormModel\Element\Input;
 use WScore\FormModel\FormBuilder;
-use WScore\Validation\Interfaces\ValidationInterface;
-use WScore\Validation\ValidatorBuilder;
+use WScore\Validator\Interfaces\ValidationInterface;
+use WScore\Validator\ValidatorBuilder;
 
 class UrlType extends Input implements TypeInterface
 {

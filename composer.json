@@ -16,7 +16,7 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "wscore/validation": "dev-master",
+        "wscore/validator": "dev-master",
         "wscore/html": "dev-master"
     },
     "require-dev": {

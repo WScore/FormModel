@@ -4,7 +4,7 @@ declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\FormBuilder;
-use WScore\Validation\Filters\StringCases;
+use WScore\Validator\Filters\StringCases;
 
 class RepeatedFormTest extends TestCase
 {

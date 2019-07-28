@@ -10,7 +10,7 @@ use IteratorAggregate;
 use Traversable;
 use WScore\FormModel\Element\ElementInterface;
 use WScore\FormModel\Html\HtmlFormInterface;
-use WScore\Validation\Interfaces\ResultInterface;
+use WScore\Validator\Interfaces\ResultInterface;
 
 class ViewModel implements ArrayAccess, IteratorAggregate
 {

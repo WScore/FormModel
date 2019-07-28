@@ -5,7 +5,7 @@ namespace WScore\FormModel\Type;
 
 use WScore\FormModel\Element\Input;
 use WScore\FormModel\FormBuilder;
-use WScore\Validation\ValidatorBuilder;
+use WScore\Validator\ValidatorBuilder;
 
 class EmailType extends Input implements TypeInterface
 {

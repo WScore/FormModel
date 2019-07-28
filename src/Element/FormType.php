@@ -7,9 +7,9 @@ use BadMethodCallException;
 use WScore\FormModel\Html\HtmlForm;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Html\HtmlRepeatedForm;
-use WScore\Validation\Interfaces\ValidationInterface;
-use WScore\Validation\ValidatorBuilder;
-use WScore\Validation\Validators\ValidationList;
+use WScore\Validator\Interfaces\ValidationInterface;
+use WScore\Validator\ValidatorBuilder;
+use WScore\Validator\Validators\ValidationList;
 
 final class FormType extends AbstractElement
 {

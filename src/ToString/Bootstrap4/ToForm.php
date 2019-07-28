@@ -9,7 +9,7 @@ use WScore\FormModel\ToString\ToStringInterface;
 use WScore\Html\Tags\Choices;
 use WScore\Html\Tags\Input;
 use WScore\Html\Tags\Tag;
-use WScore\Validation\Interfaces\ResultInterface;
+use WScore\Validator\Interfaces\ResultInterface;
 
 final class ToForm implements ToStringInterface
 {

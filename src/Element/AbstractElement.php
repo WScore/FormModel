@@ -8,11 +8,11 @@ use InvalidArgumentException;
 use Traversable;
 use WScore\FormModel\ToString\ToStringFactoryInterface;
 use WScore\FormModel\ToString\ToStringInterface;
-use WScore\Validation\Filters\Required;
-use WScore\Validation\Interfaces\ValidationInterface;
-use WScore\Validation\ValidatorBuilder;
-use WScore\Validation\Validators\ValidationChain;
-use WScore\Validation\Validators\ValidationRepeat;
+use WScore\Validator\Filters\Required;
+use WScore\Validator\Interfaces\ValidationInterface;
+use WScore\Validator\ValidatorBuilder;
+use WScore\Validator\Validators\ValidationChain;
+use WScore\Validator\Validators\ValidationRepeat;
 
 abstract class AbstractElement implements ElementInterface
 {

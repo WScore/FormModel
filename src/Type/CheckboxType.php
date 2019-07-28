@@ -5,7 +5,7 @@ namespace WScore\FormModel\Type;
 
 use WScore\FormModel\Element\Button;
 use WScore\FormModel\FormBuilder;
-use WScore\Validation\ValidatorBuilder;
+use WScore\Validator\ValidatorBuilder;
 
 class CheckboxType extends Button implements TypeInterface
 {

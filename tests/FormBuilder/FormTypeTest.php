@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 use WScore\FormModel\FormBuilder;
 use WScore\FormModel\Html\HtmlFormInterface;
 use WScore\FormModel\Type\DateType;
-use WScore\Validation\Filters\StringCases;
+use WScore\Validator\Filters\StringCases;
 
 class FormTypeTest extends TestCase
 {
