@@ -37,16 +37,7 @@ class FormModel
      */
     public function add(string $name, string $type, $options = []): FormModel
     {
-        if (!isset($options['label'])) {
-            $options['label'] = $name;
-        }
-        if (class_exists($type) && method_exists($type, 'forge')) {
-            $element = $type::forge($this->builder, $name, $options);
-            $this->form->add($element);
-            return $this;
-        }
-        $element = $this->builder->$type($name);
-        $this->builder->apply($element, $options);
+        $element = $this->builder->element($type, $name, $options);
         $this->form->add($element);
         return $this;
     }

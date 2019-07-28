@@ -82,9 +82,6 @@ class FormBuilder
         $type = $name;
         $name = $arguments[0] ?? '';
         $label = $arguments[1] ?? '';
-        if (!class_exists($type)) {
-            $type = '\WScore\FormModel\Type\\' . ucwords($type) . 'Type';
-        }
         return $this->element($type, $name, ['label' => $label]);
     }
 
@@ -111,6 +108,9 @@ class FormBuilder
     {
         if (!isset($options['label'])) {
             $options['label'] = $name;
+        }
+        if (!class_exists($type)) {
+            $type = '\WScore\FormModel\Type\\' . ucwords($type) . 'Type';
         }
         if (class_exists($type) && method_exists($type, 'forge')) {
             $element = $type::forge($this, $name, $options);
